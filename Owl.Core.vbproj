@@ -72,14 +72,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clustering\KMeansEngine.vb" />
-    <Compile Include="Image modifiers\Convolution.vb" />
-    <Compile Include="Image modifiers\ImageModifier.vb" />
-    <Compile Include="Image modifiers\ImageModifierLayer.vb" />
-    <Compile Include="Image modifiers\ImageNetwork.vb" />
-    <Compile Include="Image modifiers\Normalizer.vb" />
-    <Compile Include="Image modifiers\Pooling.vb" />
-    <Compile Include="Image modifiers\Rectification.vb" />
-    <Compile Include="Image modifiers\Subsampling.vb" />
+    <Compile Include="Images\Image modifiers\Convolution.vb" />
+    <Compile Include="Images\Image modifiers\ImageModifier.vb" />
+    <Compile Include="Images\Image modifiers\ImageModifierLayer.vb" />
+    <Compile Include="Images\Image modifiers\ImageNetwork.vb" />
+    <Compile Include="Images\Image modifiers\Normalizer.vb" />
+    <Compile Include="Images\Image modifiers\Pooling.vb" />
+    <Compile Include="Images\Image modifiers\Rectification.vb" />
+    <Compile Include="Images\Image modifiers\Subsampling.vb" />
     <Compile Include="Images\Image operators\ImageOperators.vb" />
     <Compile Include="IO\TensorSerialization.vb" />
     <Compile Include="Markov\MarkovChain.vb" />
