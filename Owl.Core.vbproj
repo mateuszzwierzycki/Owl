@@ -83,7 +83,7 @@
     <Compile Include="Images\Image operators\ImageOperators.vb" />
     <Compile Include="IO\TensorSerialization.vb" />
     <Compile Include="Markov\MarkovChain.vb" />
-    <Compile Include="Settings\Settings.vb" />
+    <Compile Include="Settings\LibrarySettings.vb" />
     <Compile Include="Tensors\Tensor.vb" />
     <Compile Include="Tensors\TensorFactory.vb" />
     <Compile Include="Tensors\TensorBase.vb" />
