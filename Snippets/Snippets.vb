@@ -6,6 +6,7 @@ Imports Owl.Core.IO
 ''' <summary>
 ''' Various examples for the fellow developers.
 ''' </summary>
+<HideModuleName>
 Module Snippets
 
     ''' <summary>
