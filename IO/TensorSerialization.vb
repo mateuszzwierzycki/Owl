@@ -7,6 +7,61 @@ Namespace IO
 
     Public Module TensorSerialization
 
+#Region "Streams"
+
+        Public Function ReadTensors(S As Stream) As TensorSet
+            Dim ts As New TensorSet
+
+            Using reader As BinaryReader = New BinaryReader(S)
+                Do
+                    Dim buffer(3) As Byte
+                    If reader.Read(buffer, 0, 4) < 4 Then Exit Do 'this reads the tensor bytelength, here it is skipped
+                    reader.Read(buffer, 0, 4) 'this reads the first int32, the shapecount
+
+                    Dim shapecount As Integer = BitConverter.ToInt32(buffer, 0)
+                    Dim shape As New List(Of Integer)
+
+                    For i As Integer = 0 To shapecount - 1 Step 1
+                        reader.Read(buffer, 0, 4)
+                        shape.Add(BitConverter.ToInt32(buffer, 0))
+                    Next
+
+                    Dim thistens As New Tensor(shape)
+                    ReDim buffer(7)
+
+                    For i As Integer = 0 To thistens.Length - 1 Step 1
+                        reader.Read(buffer, 0, 8)
+                        thistens(i) = BitConverter.ToDouble(buffer, 0)
+                    Next
+
+                    ts.Add(thistens)
+                Loop
+            End Using
+
+            Return ts
+        End Function
+
+        Public Function WriteTensors(S As Stream, Tensors As TensorSet) As Boolean
+
+            For Each tens As Tensor In Tensors
+                Dim cnt As Integer = 4 + tens.ShapeCount * 4 + tens.Length * 8
+                S.Write(BitConverter.GetBytes(cnt), 0, 4)
+
+                S.Write(BitConverter.GetBytes(tens.ShapeCount), 0, 4)
+                For i As Integer = 0 To tens.ShapeCount - 1 Step 1
+                    S.Write(BitConverter.GetBytes(tens.ShapeAt(i)), 0, 4)
+                Next
+
+                For i As Integer = 0 To tens.Length - 1 Step 1
+                    S.Write(BitConverter.GetBytes(tens(i)), 0, 8)
+                Next
+            Next
+
+            Return True
+        End Function
+
+#End Region
+
         ''' <summary>
         ''' Assuming path "C:\tmp\tensorfile.tbin 30 40" this function returns 30 and 40 as the tuple.. index from inclusive and count.
         ''' </summary>
@@ -375,7 +430,6 @@ Namespace IO
             Return True
         End Function
 
-
 #End Region
 
 #Region "TTXT"
@@ -502,7 +556,6 @@ Namespace IO
             My.Application.ChangeCulture(thisculture.Name)
             Return ts
         End Function
-
 
 #End Region
 

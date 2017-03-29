@@ -13,9 +13,6 @@ Namespace Tensors
         Implements IComparable(Of Tensor)
 
         Private _dims As New List(Of Integer)
-        Private Shared _printlength As Integer = 10
-        Private Shared _stringformat As String = "0.00"
-
         Private _mpliers As New List(Of Integer)
 
 #Region "Constructors"
@@ -254,19 +251,7 @@ Namespace Tensors
             End Set
         End Property
 
-        ''' <summary>
-        ''' This value is the string formatting used internally by the Tensor.ToString() function to print the Doubles.
-        ''' Change it only if you know what you're doing. You have to say "I know what I'm doing" out loud first.
-        ''' </summary>
-        ''' <returns></returns>
-        Public Shared Property ToStringFormat As String  'OTHER============================================================
-            Get
-                Return _stringformat
-            End Get
-            Set(value As String)
-                _stringformat = value
-            End Set
-        End Property
+
 
 #End Region
 
@@ -357,12 +342,12 @@ Namespace Tensors
             Return strout
         End Function
 
-        Public Function ToStringSimple() As String
+        Private Function ToStringSimple() As String
             Dim strout As String = "Tensor ("
 
-            If Me.Count <= _printlength Then
+            If Me.Count <= LibrarySettings.TensorPrintLength Then
                 For i As Integer = 0 To Me.Count - 1 Step 1
-                    strout &= Me(i).ToString(_stringformat) & If(i < Me.Count - 1, ", ", "")
+                    strout &= Me(i).ToString(LibrarySettings.TensorFormat) & If(i < Me.Count - 1, ", ", "")
                 Next
             Else
                 strout &= Me.Count & If(Me.Count = 1, " Dimension", " Dimensions")

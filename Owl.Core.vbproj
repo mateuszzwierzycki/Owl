@@ -84,6 +84,7 @@
     <Compile Include="IO\TensorSerialization.vb" />
     <Compile Include="Markov\MarkovChain.vb" />
     <Compile Include="Settings\LibrarySettings.vb" />
+    <Compile Include="Snippets\Snippets.vb" />
     <Compile Include="Tensors\Tensor.vb" />
     <Compile Include="Tensors\TensorFactory.vb" />
     <Compile Include="Tensors\TensorBase.vb" />

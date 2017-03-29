@@ -280,6 +280,31 @@ Owl.Core
  <param name="Count">Read that many tensors (or less if not enough)</param>
  <returns></returns>
 </member>
+<member name="P:Owl.Core.LibrarySettings.TensorPrintLength">
+ <summary>
+ This value sets how many doubles are printed when calling the Tensor.ToString() function.
+ Change it only if you know what you're doing. You have to say "I know what I'm doing" out loud first.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.Core.LibrarySettings.TensorFormat">
+ <summary>
+ This value is the string formatting used internally by the Tensor.ToString() function to print the Doubles.
+ Change it only if you know what you're doing. You have to say "I know what I'm doing" out loud first.
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:Owl.Core.Snippets">
+ <summary>
+ Various examples for the fellow developers.
+ </summary>
+</member>
+<member name="M:Owl.Core.Snippets.StreamingTest">
+ <summary>
+ Example showing how to use streams with tensors.
+ </summary>
+ <returns></returns>
+</member>
 <member name="T:Owl.Core.Tensors.Tensor">
  <summary>
  Shapeable Tensor.
@@ -321,13 +346,6 @@ Owl.Core
  </summary>
  <param name="Column"></param>
  <param name="Row"></param>
- <returns></returns>
-</member>
-<member name="P:Owl.Core.Tensors.Tensor.ToStringFormat">
- <summary>
- This value is the string formatting used internally by the Tensor.ToString() function to print the Doubles.
- Change it only if you know what you're doing. You have to say "I know what I'm doing" out loud first.
- </summary>
  <returns></returns>
 </member>
 <member name="M:Owl.Core.Tensors.Tensor.SplitIntoSet">
