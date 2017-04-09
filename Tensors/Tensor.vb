@@ -235,6 +235,7 @@ Namespace Tensors
         ''' <returns></returns>
         Public Property ValueAt(Column As Integer, Row As Integer) As Double
             Get
+                If Column > Shape(0) - 1 Then Throw New IndexOutOfRangeException("Outside of the image bounds")
                 Return TensorData(Column + (Row * Multipliers(0)))
             End Get
             Set(value As Double)
@@ -307,6 +308,7 @@ Namespace Tensors
             Dim ind As Long = 0
 
             For i As Integer = 0 To Coordinates.Count - 1 Step 1
+                If Coordinates(i) > Shape(i) - 1 Then Throw New IndexOutOfRangeException("Coordinate outside of the Tensor bounds") : Exit Function
                 ind += Coordinates(i) * Multipliers(i)
             Next
 

@@ -192,9 +192,11 @@ Namespace IO
                     reader.BaseStream.Position += From * tensorlength * CInt(databytecount)
 
                     reader.Read(dataraw, 0, dataraw.Length)
+                    Array.Reverse(dataraw)
 
                     Dim data As Array = Array.CreateInstance(datatype, tensorlength * tensorcount)
                     System.Buffer.BlockCopy(dataraw, 0, data, 0, dataraw.Length)
+                    Array.Reverse(data)
 
                     Dim pos As Integer = 0
                     For i As Integer = 0 To tensorcount - 1 Step 1
@@ -276,8 +278,11 @@ Namespace IO
                     Dim dataraw(tensorcount * tensorlength * CInt(databytecount) - 1) As Byte
                     reader.Read(dataraw, 0, dataraw.Length)
 
+                    Array.Reverse(dataraw)
+
                     Dim data As Array = Array.CreateInstance(datatype, tensorlength * tensorcount)
                     System.Buffer.BlockCopy(dataraw, 0, data, 0, dataraw.Length)
+                    Array.Reverse(data)
 
                     Dim pos As Integer = 0
                     For i As Integer = 0 To tensorcount - 1 Step 1
@@ -354,9 +359,11 @@ Namespace IO
 
                     Dim dataraw(datalength * CInt(databytecount) - 1) As Byte
                     reader.Read(dataraw, 0, dataraw.Length)
+                    Array.Reverse(dataraw)
 
                     Dim data As Array = Array.CreateInstance(datatype, datalength)
                     System.Buffer.BlockCopy(dataraw, 0, data, 0, dataraw.Length)
+                    Array.Reverse(data)
 
                     Dim dbl As New List(Of Double)
                     For i As Long = 0 To data.Length - 1 Step 1
@@ -413,15 +420,23 @@ Namespace IO
                     str.Write(BitConverter.GetBytes(Convert.ToInt32(Tensors(0).ShapeAt(i))).Reverse.ToArray, 0, 4)
                 Next
 
-                Dim asb As Array = Array.CreateInstance(DataType, Tensors(0).Length)
-                Dim bytes(asb.Length * databytecount - 1) As Byte
+                Dim bytes(Tensors(0).Length * databytecount - 1) As Byte
+                Dim bpos As Integer = 0
+                Dim typed As Array = Array.CreateInstance(DataType, Tensors(0).Length)
 
                 For Each tens As Tensor In Tensors
+
                     For i As Integer = 0 To tens.Length - 1 Step 1
-                        asb(i) = tens(i)
+                        typed(i) = tens(i)
                     Next
 
-                    Buffer.BlockCopy(asb, 0, bytes, 0, bytes.Length)
+                    For i As Integer = 0 To tens.Length - 1 Step 1
+                        Dim b() As Byte = BitConverter.GetBytes(typed(i))
+                        Array.Reverse(b)
+                        Array.Copy(b, 0, bytes, bpos, b.Length)
+                        bpos += databytecount
+                    Next
+
                     str.Write(bytes, 0, bytes.Length)
                 Next
 

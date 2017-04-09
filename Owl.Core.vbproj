@@ -80,7 +80,8 @@
     <Compile Include="Images\Image modifiers\Pooling.vb" />
     <Compile Include="Images\Image modifiers\Rectification.vb" />
     <Compile Include="Images\Image modifiers\Subsampling.vb" />
-    <Compile Include="Images\Image operators\ImageOperators.vb" />
+    <Compile Include="Images\Image operations\ImageFunctions.vb" />
+    <Compile Include="Images\Image operations\ImageOperators.vb" />
     <Compile Include="IO\TensorSerialization.vb" />
     <Compile Include="Markov\MarkovChain.vb" />
     <Compile Include="Settings\LibrarySettings.vb" />

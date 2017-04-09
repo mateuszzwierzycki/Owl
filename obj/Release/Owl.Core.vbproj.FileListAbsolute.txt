@@ -1,0 +1,8 @@
+D:\OneDrive\Builds\Owl.Core.dll
+D:\OneDrive\Builds\Owl.Core.pdb
+D:\OneDrive\Builds\Owl.Core.xml
+C:\Users\Mateusz\Source\Repos\Owl.Core\obj\Release\Owl.Core.Resources.resources
+C:\Users\Mateusz\Source\Repos\Owl.Core\obj\Release\Owl.Core.vbproj.GenerateResource.Cache
+C:\Users\Mateusz\Source\Repos\Owl.Core\obj\Release\Owl.Core.dll
+C:\Users\Mateusz\Source\Repos\Owl.Core\obj\Release\Owl.Core.xml
+C:\Users\Mateusz\Source\Repos\Owl.Core\obj\Release\Owl.Core.pdb

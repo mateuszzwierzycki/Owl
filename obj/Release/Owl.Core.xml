@@ -1,0 +1,507 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Owl.Core
+</name>
+</assembly>
+<members>
+<member name="T:Owl.Core.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:Owl.Core.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:Owl.Core.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="M:Owl.Core.Clustering.KMeansEngine.GetSeeds">
+ <summary>
+ Returns a DUPLICATE of the Seeds as a TensorSet.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Clustering.KMeansEngine.SplitIntoSets">
+ <summary>
+ Splits Tensors into TensorSet clusters.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Clustering.KMeansEngine.SplitAsIndices">
+ <summary>
+ Returns an array of lists with Tensor indices assigned to each of the seeds.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Clustering.KMeansEngine.RunOnce">
+ <summary>
+ Returns total distance by which the seeds were moved. 
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.GaussianBlur">
+ <summary>
+ Convolution({{1, 2, 1}, {2, 4, 2}, {1, 2, 1}}, 16, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.BoxBlur">
+ <summary>
+ Convolution({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}}, 9, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.EdgeDetection1">
+ <summary>
+ Convolution({{-1, -1, -1}, {-1, 8, -1}, {-1, -1, -1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.EdgeDetection2">
+ <summary>
+ Convolution({{1, 0, -1}, {0, 0, 0}, {-1, 0, 1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.EdgeDetection3">
+ <summary>
+ Convolution({{0, 1, 0}, {1, -4, 1}, {0, 1, 0}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.Sharpen">
+ <summary>
+ Convolution({{0, -1, 0}, {-1, 5, -1}, {0, -1, 0}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.Emboss">
+ <summary>
+ Convolution({{-2, -1, 0}, {-1, 1, 1}, {0, 1, 2}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.EdgeEnhance1">
+ <summary>
+ Convolution({{0, 0, 0}, {-1, 1, 0}, {0, 0, 0}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.EdgeEnhance2">
+ <summary>
+ Convolution({{0, -1, 0}, {0, 1, 0}, {0, 0, 0}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.EdgeEnhance3">
+ <summary>
+ Convolution({{-1, 0, 0}, {0, 1, 0}, {0, 0, 0}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.Diagonal1">
+ <summary>
+ Convolution({{1, -1,-1}, {-1, 1, -1}, {-1,-1,1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.Diagonal2">
+ <summary>
+ Convolution({{-1, -1, 1}, {-1, 1, -1}, {1,-1,-1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.Horizontal">
+ <summary>
+ Convolution({{-1, -1, -1}, {1, 1, 1}, {-1, -1, -1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.Vertical">
+ <summary>
+ Convolution({{-1, 1, -1}, {-1, 1, -1}, {-1, 1, -1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.Ring">
+ <summary>
+ Convolution({{1, 1, 1}, {1, -1, 1}, {1, 1, 1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.Dot">
+ <summary>
+ Convolution({{-1, -1, -1}, {-1, 1, -1}, {-1, -1, -1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.Convolution.XFilter">
+ <summary>
+ Convolution({{1, -1, 1}, {-1, 1, -1}, {1,-1,1}}, 1, 0)
+ </summary>S
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Convolutions.ImageModifierLayer.Apply(Owl.Core.Tensors.Tensor,System.Boolean)">
+ <summary>
+ Applies all modifiers on copies of the Image
+ </summary>
+ <param name="Image">Image to modify</param>
+ <returns>TensorImageSet storing mutiple different modification of the initial Image</returns>
+</member>
+<member name="M:Owl.Core.Convolutions.ImageModifierLayer.Apply(Owl.Core.Tensors.TensorSet@,System.Boolean)">
+ <summary>
+ Applies each modificator to each Image in the ImageSet.
+ Number of Images = number of modificators
+ OR 
+ Number of Images = 1 AND Number of modificators = ANY
+ OR
+ Number of Images = ANY and Number of modificators = 1
+ </summary>
+ <param name="ImageSet"></param>
+</member>
+<member name="T:Owl.Core.Convolutions.Normalizer">
+ <summary>
+ Scales values to conform to 0-255 range.
+ </summary>
+</member>
+<member name="T:Owl.Core.Convolutions.MaxPooling">
+ <summary>
+ TODO max pooling check
+ </summary>
+</member>
+<member name="T:Owl.Core.Convolutions.Rectification">
+ <summary>
+ Any byte smaller than threshold becomes 0.
+ </summary>
+</member>
+<member name="M:Owl.Core.Images.ImageOperators.ImageMultiply(Owl.Core.Tensors.Tensor,Owl.Core.Tensors.Tensor)">
+ <summary>
+ A(i) * B(i)
+ </summary>
+ <param name="A">2D Tensor</param>
+ <param name="B">2D Tensor</param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Images.ImageOperators.ImageAverage(Owl.Core.Tensors.Tensor)">
+ <summary>
+ Computes average value of all the Tensor values.
+ </summary>
+ <param name="A">2D Tensor</param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Images.ImageOperators.FromBitmap(System.Drawing.Bitmap)">
+ <summary>
+ 
+ </summary>
+ <param name="Bmp"></param>
+ <returns>Normalized Tensor</returns>
+</member>
+<member name="M:Owl.Core.Images.ImageOperators.ToBitmap(Owl.Core.Tensors.Tensor,Owl.Core.Structures.Range)">
+ <summary>
+ Tensor will be trimmed to stay in R range, then remapped to 0 to 255.
+ </summary>
+ <param name="A">Tensor 2D</param>
+ <param name="R"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.TryToFindIndices(System.String,System.String@)">
+ <summary>
+ Assuming path "C:\tmp\tensorfile.tbin 30 40" this function returns 30 and 40 as the tuple.. index from inclusive and count.
+ </summary>
+ <param name="Text"></param>
+ <returns></returns>
+</member>
+<member name="T:Owl.Core.IO.TensorSerialization.OwlFileFormat">
+
+</member>
+<member name="F:Owl.Core.IO.TensorSerialization.OwlFileFormat.TensorBinary">
+ <summary>
+ Binary data.
+ </summary>
+</member>
+<member name="F:Owl.Core.IO.TensorSerialization.OwlFileFormat.TensorText">
+ <summary>
+ Nicely formatted CSV file.
+ </summary>
+</member>
+<member name="F:Owl.Core.IO.TensorSerialization.OwlFileFormat.IDX">
+ <summary>
+ Format used by the MNIST database.
+ </summary>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.LoadTensorsText(System.String,System.Char)">
+ <summary>
+ Use "*" to interpret a first non-digit char as the separator.
+ </summary>
+ <param name="Filepath"></param>
+ <param name="Separator"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.LoadTensorsText(System.String,System.Int32,System.Int32,System.Char)">
+ <summary>
+ Use "*" to interpret a first non-digit char as the separator.
+ </summary>
+ <param name="Filepath"></param>
+ <param name="Separator"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.SaveTensorsBinary(Owl.Core.Tensors.TensorSet,System.String,System.String)">
+ <summary>
+ For each tensor:
+     4 bytes int32 length of the tensor in bytes (4 bytes for shapecount + shapecount * 4 bytes + length * 8)
+     4 bytes int32 shapecount
+     4*shapecount int32 shape
+     8*length 
+ </summary>
+ <param name="Tensors"></param>
+ <param name="DirectoryName"></param>
+ <param name="FileName"></param>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.CountTensorsBinary(System.String)">
+ <summary>
+ Counts the number of tensors stored in a file
+ </summary>
+ <param name="Filepath"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.LoadTensorsBinary(System.String,System.Int32,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="Filepath"></param>
+ <param name="FromIndex">Start reading from this tensor</param>
+ <param name="Count">Read that many tensors (or less if not enough)</param>
+ <returns></returns>
+</member>
+<member name="P:Owl.Core.LibrarySettings.TensorPrintLength">
+ <summary>
+ This value sets how many doubles are printed when calling the Tensor.ToString() function.
+ Change it only if you know what you're doing. You have to say "I know what I'm doing" out loud first.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.Core.LibrarySettings.TensorFormat">
+ <summary>
+ This value is the string formatting used internally by the Tensor.ToString() function to print the Doubles.
+ Change it only if you know what you're doing. You have to say "I know what I'm doing" out loud first.
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:Owl.Core.Snippets">
+ <summary>
+ Various examples for the fellow developers.
+ </summary>
+</member>
+<member name="M:Owl.Core.Snippets.StreamingTest">
+ <summary>
+ Example showing how to use streams with tensors.
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:Owl.Core.Tensors.Tensor">
+ <summary>
+ Shapeable Tensor.
+ </summary>
+</member>
+<member name="M:Owl.Core.Tensors.Tensor.TryParse(System.String,Owl.Core.Tensors.Tensor@,System.Char)">
+ <summary>
+ 3 10 12 32 0.0123 0.234 0.5532 ...
+ Shape Count, Shape, Shape, Shape, Value, Value ... 
+ </summary>
+ <param name="Text"></param>
+ <param name="Value"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Tensors.Tensor.ShapeVolume(System.Collections.Generic.IEnumerable{System.Int32})">
+ <summary>
+ Returns the number of elements in a Tensor with the given shape.
+ </summary>
+ <param name="Shape"></param>
+ <returns></returns>
+</member>
+<member name="P:Owl.Core.Tensors.Tensor.Width">
+ <summary>
+ It's just the name for the second array dimension, useful for bitmaps.
+ AKA Column count
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.Core.Tensors.Tensor.Height">
+ <summary>
+ It' s just a name for the first array dimension, useful for bitmaps.
+ AKA Row count
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.Core.Tensors.Tensor.ValueAt(System.Int32,System.Int32)">
+ <summary>
+ This is only valid when the Tensor has 2D Shape
+ </summary>
+ <param name="Column"></param>
+ <param name="Row"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Tensors.Tensor.SplitIntoSet">
+ <summary>
+ Splits the Tensor into a TensorSet by the leftmost shape dimension. 
+ Tensor(2,3) will be splitted into 2 Tensors(3)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Tensors.Tensor.DistanceTo2(Owl.Core.Tensors.Tensor)">
+ <summary>
+ Returns squared distance value (no sqrt).
+ </summary>
+ <param name="Other"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Tensors.Tensor.Evaluate1DExpression(Owl.Core.Tensors.Tensor@,Owl.Core.Tensors.Tensor.EvaluateExpression1D)">
+ <summary>
+ Apply more complex functions (convolutions ?) to the Tensor
+ </summary>
+ <param name="A">2D Tensor</param>
+ <param name="Expression"></param>
+</member>
+<member name="M:Owl.Core.Tensors.Tensor.Evaluate2DExpression(Owl.Core.Tensors.Tensor@,Owl.Core.Tensors.Tensor.EvaluateExpression2D)">
+ <summary>
+ Apply more complex functions (convolutions ?) to the Tensor
+ </summary>
+ <param name="A">2D Tensor</param>
+ <param name="Expression"></param>
+</member>
+<member name="M:Owl.Core.Tensors.TensorFactory.RandomClassificationTensor(System.Int32,System.Double,System.Double)">
+ <summary>
+ Produces a Tensor with one randomly picked value set to ActiveValue. 
+ RandomClassificationTensor(4, 1, 0) = {0, 1, 0, 0}
+ </summary>
+ <param name="ClassesCount"></param>
+ <param name="ActiveValue"></param>
+ <param name="InactiveValue"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Tensors.TensorFactory.PlainTensor(System.Int32,System.Double)">
+ <summary>
+ Produces a Tensor with all values set to InitialValue.
+ PlainTensor(4, 10) = {10, 10, 10, 10}
+ </summary>
+ <param name="Length"></param>
+ <param name="InitialValue"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Tensors.TensorFactory.RandomTensor(System.Int32,Owl.Core.Structures.Range)">
+ <summary>
+ Creates a random Tensor with coordinates values within the Range.
+ RandomTensor(4, 10) = {0.123, 0.234, 0.345, 0.456}
+ </summary>
+ <param name="Length"></param>
+ <param name="Range"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Tensors.TensorFactory.JitterTensor(Owl.Core.Tensors.Tensor)">
+ <summary>
+ Randomly misplaces the tensor values.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Tensors.TensorFactory.Interpolate1D(Owl.Core.Tensors.Tensor,System.Int32,Owl.Core.Tensors.TensorFactory.TensorInterpolation)">
+ <summary>
+ Creates a new Tensor by interpolating values from the SourceTensor.
+ Output dependent on the TensorInterpolation.
+ </summary>
+ <param name="SourceTensor"></param>
+ <param name="Samples"></param>
+ <param name="Interpolation"></param>
+ <returns></returns>
+</member>
+<member name="T:Owl.Core.Tensors.TensorFactory.TensorInterpolation">
+ <summary>
+ Interpolation types for Tensor Interpolation.
+ </summary>
+</member>
+<member name="M:Owl.Core.Tensors.TensorFactory.SeriesTensor(System.Double,System.Double,System.Double)">
+ <summary>
+ Creates a Tensor based on the series of numbers.
+ SeriesTensor(0, 1, 0.25) = {0, 0.25, 0.5, 0.75, 1}
+ </summary>
+ <param name="From"></param>
+ <param name="[To]"></param>
+ <param name="[Step]"></param>
+ <returns></returns>
+</member>
+<member name="T:Owl.Core.Tensors.TensorBase">
+ <summary>
+ This abstract class stores Tensor data as a 1D array of double, providing some simple methods.
+ </summary>
+</member>
+<member name="P:Owl.Core.Tensors.TensorBase.TensorData">
+ <summary>
+ Returns a direct pointer to the internal array. Won't copy the data.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Tensors.TensorBase.Remap(Owl.Core.Structures.Range)">
+ <summary>
+ Finds the current range first.
+ </summary>
+ <param name="[To]"></param>
+</member>
+<member name="M:Owl.Core.Tensors.TensorSet.#ctor(System.Collections.Generic.IEnumerable{Owl.Core.Tensors.Tensor})">
+ <summary>
+ Creates a deep copy of the IEnumerable data.
+ </summary>
+ <param name="Other"></param>
+</member>
+<member name="M:Owl.Core.Tensors.TensorSet.Average(System.Collections.Generic.IEnumerable{Owl.Core.Tensors.Tensor})">
+ <summary>
+ Dumb implementation, can cause overflows.
+ </summary>
+ <param name="Values"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Tensors.TensorSet.AsArrayArray">
+ <summary>
+ Interpret the TensorSet as Double()(). Creates an Array(), but stores pointers to the Tensors.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Tensors.TensorSet.Split(System.Collections.Generic.IEnumerable{System.Double})">
+ <summary>
+ Creates a collection of new TensorSets with a shallow copy of the Tensors.
+ </summary>
+ <param name="Proportions">The TensorSet count gets rounded down.</param>
+ <returns>List of TensorSets</returns>
+</member>
+<member name="T:Owl.Core.Visualization.ColorConversion">
+ <summary>
+ Source: https://www.programmingalgorithms.com/algorithm/hsl-to-rgb?lang=VB.Net
+ </summary>
+</member>
+<member name="T:Owl.Core.Visualization.ColorHSL">
+ <summary>
+ Source: https://www.programmingalgorithms.com/algorithm/hsl-to-rgb?lang=VB.Net
+ </summary>
+</member>
+<member name="M:Owl.Core.Visualization.ColorHSL.#ctor(System.Single,System.Int32,System.Single,System.Single)">
+ <summary>
+ </summary>
+ <param name="a">1.0</param>
+ <param name="h">360</param>
+ <param name="s">1.0</param>
+ <param name="l">1.0</param>
+</member>
+<member name="M:Owl.Core.Visualization.PlotFactory.Tensor2DColorImage(Owl.Core.Tensors.Tensor)">
+ <summary>
+ Shape = {Rows, Columns, Channel}
+ </summary>
+ <param name="Tensor3D"></param>
+ <returns></returns>
+</member>
+</members>
+</doc>

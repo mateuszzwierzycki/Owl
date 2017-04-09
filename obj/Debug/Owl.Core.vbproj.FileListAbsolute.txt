@@ -11,3 +11,4 @@ C:\Users\Mateusz\Source\Repos\Owl.Core\obj\Debug\Owl.Core.vbproj.GenerateResourc
 C:\Users\Mateusz\Source\Repos\Owl.Core\obj\Debug\Owl.Core.dll
 C:\Users\Mateusz\Source\Repos\Owl.Core\obj\Debug\Owl.Core.xml
 C:\Users\Mateusz\Source\Repos\Owl.Core\obj\Debug\Owl.Core.pdb
+C:\Users\Mateusz\Source\Repos\Owl.Core\obj\Debug\Owl.Core.vbprojResolveAssemblyReference.cache
