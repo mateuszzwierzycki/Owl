@@ -2,6 +2,9 @@
 
 Namespace Clustering
 
+    ''' <summary>
+    ''' This is a very simplified and a very limited version of the KMeansEngine.
+    ''' </summary>
     Public Module SimplifiedKMeans
 
         Public Function Run(TS As TensorSet, ClusterCount As Integer, Iterations As Integer, Optional Energy As Double = 0, Optional RndSeed As Integer = 123) As KMeansEngine
@@ -28,6 +31,10 @@ Namespace Clustering
 
     End Module
 
+    ''' <summary>
+    ''' KMeans implementation. Supports multiple weights for the cluster seeds (kernels), weights for dimensions etc.
+    ''' Might be 
+    ''' </summary>
     Public Class KMeansEngine
 
         Private _vset As New TensorSet
@@ -39,6 +46,11 @@ Namespace Clustering
         Private _furthestIndex As Integer = -1
         Private _furthestDistance As Double = 0
 
+
+        ''' <summary>
+        ''' Specifying a fixed number of tensors to work with is important. A dynamic collection would cause inconsistencies. 
+        ''' </summary>
+        ''' <param name="Tensors"></param>
         Public Sub New(Tensors As IEnumerable(Of Tensor))
             InternalSet.AddRange(Tensors)
 
@@ -53,6 +65,10 @@ Namespace Clustering
             Next
         End Sub
 
+        ''' <summary>
+        ''' Map is a list of integers indicating which cluster Tensor got assigned to.
+        ''' </summary>
+        ''' <returns></returns>
         Public Function GetMap() As Integer()
             Return Map.ToArray
         End Function
@@ -66,6 +82,10 @@ Namespace Clustering
             End Set
         End Property
 
+        ''' <summary>
+        ''' There has to be the same amount of weights as there are dimensions in the Tensors.
+        ''' </summary>
+        ''' <returns></returns>
         Public Property DimensionWeights As Double()
             Get
                 Return _dimMultiply
@@ -75,6 +95,10 @@ Namespace Clustering
             End Set
         End Property
 
+        ''' <summary>
+        ''' This list has to have either no weights, or the same number of weights as there are seeds.
+        ''' </summary>
+        ''' <returns></returns>
         Public Property SeedWeights As List(Of Double)
             Get
                 Return _seedMultiply

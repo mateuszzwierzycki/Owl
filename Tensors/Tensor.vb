@@ -369,9 +369,9 @@ Namespace Tensors
         ''' <summary>
         ''' Apply more complex functions (convolutions ?) to the Tensor
         ''' </summary>
-        ''' <param name="A">2D Tensor</param>
+        ''' <param name="A">Tensor</param>
         ''' <param name="Expression"></param>
-        Public Sub Evaluate1DExpression(ByRef A As Tensor, Expression As EvaluateExpression1D)
+        Public Shared Sub Evaluate(ByRef A As Tensor, Expression As EvaluateExpression1D)
             For i As Integer = 0 To A.Length - 1 Step 1
                 Dim val As Double = A.ValueAt(i)
                 val = Expression(i, val)
@@ -384,7 +384,7 @@ Namespace Tensors
         ''' </summary>
         ''' <param name="A">2D Tensor</param>
         ''' <param name="Expression"></param>
-        Public Sub Evaluate2DExpression(ByRef A As Tensor, Expression As EvaluateExpression2D)
+        Public Shared Sub Evaluate(ByRef A As Tensor, Expression As EvaluateExpression2D)
             For i As Integer = 0 To A.Height - 1 Step 1
                 For j As Integer = 0 To A.Width - 1 Step 1
                     Dim val As Double = A.ValueAt(j, i)

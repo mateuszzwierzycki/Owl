@@ -22,6 +22,41 @@ Owl.Core
   resource lookups using this strongly typed resource class.
 </summary>
 </member>
+<member name="T:Owl.Core.Clustering.SimplifiedKMeans">
+ <summary>
+ This is a very simplified and a very limited version of the KMeansEngine.
+ </summary>
+</member>
+<member name="T:Owl.Core.Clustering.KMeansEngine">
+ <summary>
+ KMeans implementation. Supports multiple weights for the cluster seeds (kernels), weights for dimensions etc.
+ Might be 
+ </summary>
+</member>
+<member name="M:Owl.Core.Clustering.KMeansEngine.#ctor(System.Collections.Generic.IEnumerable{Owl.Core.Tensors.Tensor})">
+ <summary>
+ Specifying a fixed number of tensors to work with is important. A dynamic collection would cause inconsistencies. 
+ </summary>
+ <param name="Tensors"></param>
+</member>
+<member name="M:Owl.Core.Clustering.KMeansEngine.GetMap">
+ <summary>
+ Map is a list of integers indicating which cluster Tensor got assigned to.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.Core.Clustering.KMeansEngine.DimensionWeights">
+ <summary>
+ There has to be the same amount of weights as there are dimensions in the Tensors.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.Core.Clustering.KMeansEngine.SeedWeights">
+ <summary>
+ This list has to have either no weights, or the same number of weights as there are seeds.
+ </summary>
+ <returns></returns>
+</member>
 <member name="M:Owl.Core.Clustering.KMeansEngine.GetSeeds">
  <summary>
  Returns a DUPLICATE of the Seeds as a TensorSet.
@@ -348,9 +383,21 @@ Owl.Core
  Various examples for the fellow developers.
  </summary>
 </member>
+<member name="M:Owl.Core.Snippets.CreateTensors">
+ <summary>
+ Example showing the really basic way to create Tensors and add them to a TensorSet.
+ </summary>
+ <returns></returns>
+</member>
 <member name="M:Owl.Core.Snippets.StreamingTest">
  <summary>
  Example showing how to use streams with tensors.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.Snippets.RandomExpressionExample">
+ <summary>
+ This function will introduce a delegate Expression function.
  </summary>
  <returns></returns>
 </member>
@@ -411,14 +458,14 @@ Owl.Core
  <param name="Other"></param>
  <returns></returns>
 </member>
-<member name="M:Owl.Core.Tensors.Tensor.Evaluate1DExpression(Owl.Core.Tensors.Tensor@,Owl.Core.Tensors.Tensor.EvaluateExpression1D)">
+<member name="M:Owl.Core.Tensors.Tensor.Evaluate(Owl.Core.Tensors.Tensor@,Owl.Core.Tensors.Tensor.EvaluateExpression1D)">
  <summary>
  Apply more complex functions (convolutions ?) to the Tensor
  </summary>
- <param name="A">2D Tensor</param>
+ <param name="A">Tensor</param>
  <param name="Expression"></param>
 </member>
-<member name="M:Owl.Core.Tensors.Tensor.Evaluate2DExpression(Owl.Core.Tensors.Tensor@,Owl.Core.Tensors.Tensor.EvaluateExpression2D)">
+<member name="M:Owl.Core.Tensors.Tensor.Evaluate(Owl.Core.Tensors.Tensor@,Owl.Core.Tensors.Tensor.EvaluateExpression2D)">
  <summary>
  Apply more complex functions (convolutions ?) to the Tensor
  </summary>
