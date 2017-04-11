@@ -211,6 +211,21 @@ Owl.Core
  <param name="R"></param>
  <returns></returns>
 </member>
+<member name="M:Owl.Core.IO.TensorSerialization.ReadTensors(System.IO.Stream)">
+ <summary>
+ Read binary Tensors (using the TBIN format) from any stream.
+ </summary>
+ <param name="S"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.WriteTensors(System.IO.Stream,Owl.Core.Tensors.TensorSet)">
+ <summary>
+ Write binary Tensors to any stream usign the TBIN file format.
+ </summary>
+ <param name="S"></param>
+ <param name="Tensors"></param>
+ <returns></returns>
+</member>
 <member name="M:Owl.Core.IO.TensorSerialization.TryToFindIndices(System.String,System.String@)">
  <summary>
  Assuming path "C:\tmp\tensorfile.tbin 30 40" this function returns 30 and 40 as the tuple.. index from inclusive and count.
@@ -236,9 +251,33 @@ Owl.Core
  Format used by the MNIST database.
  </summary>
 </member>
+<member name="M:Owl.Core.IO.TensorSerialization.LoadTensorsIDX(System.String,System.Int32,System.Int32)">
+ <summary>
+ Load a subset of a TensorSet from a file.
+ </summary>
+ <param name="Filepath"></param>
+ <param name="From"></param>
+ <param name="Count"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.LoadTensorsIDX(System.String)">
+ <summary>
+ Load the TensorSet from a file.
+ </summary>
+ <param name="Filepath"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.LoadTensorIDX(System.String)">
+ <summary>
+ Read the whole file as one big Tensor. The first dimension of the Tensor indicates the "sample"
+ Tensor with Shape = (100,10,10) is 100 samples of 2D 10x10 Tensors.
+ </summary>
+ <param name="Filepath"></param>
+ <returns></returns>
+</member>
 <member name="M:Owl.Core.IO.TensorSerialization.SaveTensorsIDX(Owl.Core.Tensors.TensorSet,System.String,System.String,System.Type)">
  <summary>
- Will throw an error if the Tensor value is not within the DataType range. Remap the Tensor before if you're not sure about the range of your data.
+ Will throw an error if the Tensor value is not within the DataType range. Remap the Tensor beforehand if you're not sure about the range of your data.
  </summary>
  <param name="Tensors"></param>
  <param name="DirectoryName"></param>

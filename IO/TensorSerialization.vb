@@ -457,7 +457,6 @@ Namespace IO
                     str.Write(BitConverter.GetBytes(Convert.ToInt32(Tensors(0).ShapeAt(i))).Reverse.ToArray, 0, 4)
                 Next
 
-
                 Dim nc As Object = Nothing
 
                 Select Case DataType
@@ -486,25 +485,27 @@ Namespace IO
                 End Select
 
                 If DataType = GetType(Double) Then
-                    Dim bytes(databytecount * Tensors(0).Length) As Byte
+                    Dim bytes(databytecount * Tensors(0).Length - 1) As Byte
 
                     For Each tens As Tensor In Tensors
                         Dim typed(tens.Length - 1) As Double
                         tens.TensorData.CopyTo(typed, 0)
                         Array.Reverse(typed)
                         Buffer.BlockCopy(typed, 0, bytes, 0, databytecount * tens.Length)
+                        Array.Reverse(bytes)
                         str.Write(bytes, 0, bytes.Length)
                     Next
 
                 Else
 
                     Dim typed As Array = Array.CreateInstance(DataType, Tensors(0).Length)
-                    Dim bytes(databytecount * Tensors(0).Length) As Byte
+                    Dim bytes(databytecount * Tensors(0).Length - 1) As Byte
 
                     For Each tens As Tensor In Tensors
                         typed = Array.ConvertAll(tens.TensorData, nc)
                         Array.Reverse(typed)
                         Buffer.BlockCopy(typed, 0, bytes, 0, databytecount * tens.Length)
+                        Array.Reverse(bytes)
                         str.Write(bytes, 0, bytes.Length)
                     Next
 
