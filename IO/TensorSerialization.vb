@@ -377,6 +377,14 @@ Namespace IO
             Return ts
         End Function
 
+        ''' <summary>
+        ''' Will throw an error if the Tensor value is not within the DataType range. Remap the Tensor beforehand if you're not sure about the range of your data.
+        ''' </summary>
+        ''' <param name="Tensors"></param>
+        ''' <param name="DirectoryName"></param>
+        ''' <param name="FileName"></param>
+        ''' <param name="DataType"></param>
+        ''' <returns></returns>
         Public Function SaveTensorsIDX(Tensors As TensorSet, DirectoryName As String, FileName As String, DataType As Type) As Boolean
             If Not Tensors.IsHomogeneous Then Return False
             If Not Directory.Exists(DirectoryName) Then Directory.CreateDirectory(DirectoryName)
@@ -420,25 +428,58 @@ Namespace IO
                     str.Write(BitConverter.GetBytes(Convert.ToInt32(Tensors(0).ShapeAt(i))).Reverse.ToArray, 0, 4)
                 Next
 
-                Dim bytes(Tensors(0).Length * databytecount - 1) As Byte
-                Dim bpos As Integer = 0
-                Dim typed As Array = Array.CreateInstance(DataType, Tensors(0).Length)
 
-                For Each tens As Tensor In Tensors
+                Dim nc As Object = Nothing
 
-                    For i As Integer = 0 To tens.Length - 1 Step 1
-                        typed(i) = tens(i)
+                Select Case DataType
+                    Case GetType(Byte)
+                        nc = New Converter(Of Double, Byte)(Function(input As Double) As Byte
+                                                                Return CByte(input)
+                                                            End Function)
+                    Case GetType(SByte)
+                        nc = New Converter(Of Double, SByte)(Function(input As Double) As SByte
+                                                                 Return CSByte(input)
+                                                             End Function)
+                    Case GetType(Short)
+                        nc = New Converter(Of Double, Short)(Function(input As Double) As Short
+                                                                 Return CShort(input)
+                                                             End Function)
+                    Case GetType(Int32)
+                        nc = New Converter(Of Double, Int32)(Function(input As Double) As Int32
+                                                                 Return CInt(input)
+                                                             End Function)
+                    Case GetType(Single)
+                        nc = New Converter(Of Double, Single)(Function(input As Double) As Single
+                                                                  Return CSng(input)
+                                                              End Function)
+                    Case GetType(Double)
+                        'no conversion 
+                End Select
+
+                If DataType = GetType(Double) Then
+                    Dim bytes(databytecount * Tensors(0).Length) As Byte
+
+                    For Each tens As Tensor In Tensors
+                        Dim typed(tens.Length - 1) As Double
+                        tens.TensorData.CopyTo(typed, 0)
+                        Array.Reverse(typed)
+                        Buffer.BlockCopy(typed, 0, bytes, 0, databytecount * tens.Length)
+                        str.Write(bytes, 0, bytes.Length)
                     Next
 
-                    For i As Integer = 0 To tens.Length - 1 Step 1
-                        Dim b() As Byte = BitConverter.GetBytes(typed(i))
-                        Array.Reverse(b)
-                        Array.Copy(b, 0, bytes, bpos, b.Length)
-                        bpos += databytecount
+                Else
+
+                    Dim typed As Array = Array.CreateInstance(DataType, Tensors(0).Length)
+                    Dim bytes(databytecount * Tensors(0).Length) As Byte
+
+                    For Each tens As Tensor In Tensors
+                        typed = Array.ConvertAll(tens.TensorData, nc)
+                        Array.Reverse(typed)
+                        Buffer.BlockCopy(typed, 0, bytes, 0, databytecount * tens.Length)
+                        str.Write(bytes, 0, bytes.Length)
                     Next
 
-                    str.Write(bytes, 0, bytes.Length)
-                Next
+                End If
 
             End Using
 

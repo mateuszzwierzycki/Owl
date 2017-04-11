@@ -236,6 +236,16 @@ Owl.Core
  Format used by the MNIST database.
  </summary>
 </member>
+<member name="M:Owl.Core.IO.TensorSerialization.SaveTensorsIDX(Owl.Core.Tensors.TensorSet,System.String,System.String,System.Type)">
+ <summary>
+ Will throw an error if the Tensor value is not within the DataType range. Remap the Tensor before if you're not sure about the range of your data.
+ </summary>
+ <param name="Tensors"></param>
+ <param name="DirectoryName"></param>
+ <param name="FileName"></param>
+ <param name="DataType"></param>
+ <returns></returns>
+</member>
 <member name="M:Owl.Core.IO.TensorSerialization.LoadTensorsText(System.String,System.Char)">
  <summary>
  Use "*" to interpret a first non-digit char as the separator.

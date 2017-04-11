@@ -1,11 +1,11 @@
-D:\OneDrive\Builds\Owl.Core.dll
-D:\OneDrive\Builds\Owl.Core.pdb
-D:\OneDrive\Builds\Owl.Core.xml
 C:\Users\Mateusz\Source\Workspaces\MachineLearning\Owl\Owl.Core\obj\Debug\Owl.Core.Resources.resources
 C:\Users\Mateusz\Source\Workspaces\MachineLearning\Owl\Owl.Core\obj\Debug\Owl.Core.vbproj.GenerateResource.Cache
 C:\Users\Mateusz\Source\Workspaces\MachineLearning\Owl\Owl.Core\obj\Debug\Owl.Core.dll
 C:\Users\Mateusz\Source\Workspaces\MachineLearning\Owl\Owl.Core\obj\Debug\Owl.Core.xml
 C:\Users\Mateusz\Source\Workspaces\MachineLearning\Owl\Owl.Core\obj\Debug\Owl.Core.pdb
+D:\OneDrive\Builds\Owl.Core.dll
+D:\OneDrive\Builds\Owl.Core.pdb
+D:\OneDrive\Builds\Owl.Core.xml
 C:\Users\Mateusz\Source\Repos\Owl.Core\obj\Debug\Owl.Core.Resources.resources
 C:\Users\Mateusz\Source\Repos\Owl.Core\obj\Debug\Owl.Core.vbproj.GenerateResource.Cache
 C:\Users\Mateusz\Source\Repos\Owl.Core\obj\Debug\Owl.Core.dll
