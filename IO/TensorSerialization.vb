@@ -9,6 +9,11 @@ Namespace IO
 
 #Region "Streams"
 
+        ''' <summary>
+        ''' Read binary Tensors (using the TBIN format) from any stream.
+        ''' </summary>
+        ''' <param name="S"></param>
+        ''' <returns></returns>
         Public Function ReadTensors(S As Stream) As TensorSet
             Dim ts As New TensorSet
 
@@ -41,6 +46,12 @@ Namespace IO
             Return ts
         End Function
 
+        ''' <summary>
+        ''' Write binary Tensors to any stream usign the TBIN file format.
+        ''' </summary>
+        ''' <param name="S"></param>
+        ''' <param name="Tensors"></param>
+        ''' <returns></returns>
         Public Function WriteTensors(S As Stream, Tensors As TensorSet) As Boolean
 
             For Each tens As Tensor In Tensors
@@ -125,6 +136,13 @@ Namespace IO
 
 #Region "IDX"
 
+        ''' <summary>
+        ''' Load a subset of a TensorSet from a file.
+        ''' </summary>
+        ''' <param name="Filepath"></param>
+        ''' <param name="From"></param>
+        ''' <param name="Count"></param>
+        ''' <returns></returns>
         Public Function LoadTensorsIDX(Filepath As String, From As Integer, Count As Integer) As TensorSet
             Dim tset As New TensorSet
 
@@ -214,6 +232,11 @@ Namespace IO
             Return tset
         End Function
 
+        ''' <summary>
+        ''' Load the TensorSet from a file.
+        ''' </summary>
+        ''' <param name="Filepath"></param>
+        ''' <returns></returns>
         Public Function LoadTensorsIDX(Filepath As String) As TensorSet
             Dim tset As New TensorSet
 
@@ -300,6 +323,12 @@ Namespace IO
             Return tset
         End Function
 
+        ''' <summary>
+        ''' Read the whole file as one big Tensor. The first dimension of the Tensor indicates the "sample"
+        ''' Tensor with Shape = (100,10,10) is 100 samples of 2D 10x10 Tensors.
+        ''' </summary>
+        ''' <param name="Filepath"></param>
+        ''' <returns></returns>
         Public Function LoadTensorIDX(Filepath As String) As Tensor
 
             Dim ts As Tensor = Nothing
