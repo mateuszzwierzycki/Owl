@@ -1,4 +1,4 @@
-﻿Imports System.IO
+Imports System.IO
 Imports Owl.Core.Tensors
 Imports Owl.Core.IO
 
@@ -19,7 +19,7 @@ Module Snippets
         Dim result As New TensorSet()
         Dim rnd As New Random(123)
 
-        'We will create a 2D Tensor, those will be the dimensions. It will be square array.
+        'We will create a 2D Tensor, those will be the dimensions. It will be a square array.
         Dim tensorWidth As Integer = 10
         Dim tensorLength As Integer = tensorWidth ^ 2
 
