@@ -87,8 +87,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Components\ImageComponentBase - Copy.vb" />
-    <Compile Include="Components\ImageComponent_Attributes .vb" />
+    <Compile Include="Components\ImageComponentBase.vb" />
+    <Compile Include="Components\ImageComponent_Attributes.vb" />
     <Compile Include="Components\OwlComponentBase.vb" />
     <Compile Include="Components\OwlMultithreadedBase.vb" />
     <Compile Include="Goos\GH_OwlFilePath.vb" />

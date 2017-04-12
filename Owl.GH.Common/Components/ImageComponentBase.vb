@@ -1,9 +1,6 @@
 ﻿Imports System.Drawing
 Imports System.Windows.Forms
-Imports GH_IO.Serialization
 Imports Grasshopper.GUI
-Imports Grasshopper.Kernel
-Imports Owl.GH.Common
 
 Public MustInherit Class ImageComponentBase
     Inherits OwlComponentBase
