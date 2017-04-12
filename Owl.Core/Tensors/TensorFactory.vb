@@ -19,6 +19,20 @@
             _rnd = New Random(Seed)
         End Sub
 
+        Public Function OneHotSet(Length As Integer, Hot As IEnumerable(Of Integer), Optional ColdValue As Double = 0, Optional HotValue As Double = 1) As TensorSet
+            Dim ts As New TensorSet
+            For Each value In Hot
+                ts.Add(OneHot(Length, value, ColdValue, HotValue))
+            Next
+            Return ts
+        End Function
+
+        Public Function OneHot(Length As Integer, Hot As Integer, Optional ColdValue As Double = 0, Optional HotValue As Double = 0) As Tensor
+            Dim tens As Tensor = TensorFactory.PlainTensor(Length, ColdValue)
+            tens(Hot) = HotValue
+            Return tens
+        End Function
+
         ''' <summary>
         ''' Produces a Tensor with one randomly picked value set to ActiveValue. 
         ''' RandomClassificationTensor(4, 1, 0) = {0, 1, 0, 0}
@@ -43,7 +57,6 @@
         Public Function PlainTensor(Length As Integer, InitialValue As Double) As Tensor
             Return New Tensor(Length, InitialValue)
         End Function
-
 
         ''' <summary>
         ''' Creates a random Tensor with coordinates values within the Range.
