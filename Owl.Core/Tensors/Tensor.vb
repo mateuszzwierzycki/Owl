@@ -55,6 +55,14 @@ Namespace Tensors
             OnShapeChange({Height, Width})
         End Sub
 
+        Sub New(Length As Integer, Value As Double)
+            MyBase.New(Length)
+            OnShapeChange({Length})
+            For i As Integer = 0 To Me.Count - 1 Step 1
+                Me(i) = Value
+            Next
+        End Sub
+
         Sub New(Width As Integer, Height As Integer, Values As IEnumerable(Of Byte))
             MyBase.New(Width * Height)
             OnShapeChange({Height, Width})

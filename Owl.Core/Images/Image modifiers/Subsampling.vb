@@ -30,7 +30,7 @@ Namespace Convolutions
 
             If wsize = 0 Or hsize = 0 Then Return
 
-            Dim nimg As New Tensor(wsize, hsize)
+            Dim nimg As New Tensor(CInt(wsize), CInt(hsize))
 
             Dim cntx As Integer = 0
             Dim cnty As Integer = 0
