@@ -1,5 +1,5 @@
 # Owl
-Core libraries of the Owl framework
+Core libraries of the Owl framework.
 
 ## Intro
 These libraries are a basic interface for machine-learning-oriented data pre- and post-processing.
