@@ -1,0 +1,14 @@
+D:\OneDrive\Builds\Owl.GH.Common.dll
+D:\OneDrive\Builds\Owl.GH.Common.pdb
+D:\OneDrive\Builds\Owl.GH.Common.xml
+C:\Users\Mateusz\Source\Workspaces\MachineLearning\Owl\Owl.GH.Common\obj\Debug\Owl.GH.Common.Resources.resources
+C:\Users\Mateusz\Source\Workspaces\MachineLearning\Owl\Owl.GH.Common\obj\Debug\Owl.GH.Common.vbproj.GenerateResource.Cache
+C:\Users\Mateusz\Source\Workspaces\MachineLearning\Owl\Owl.GH.Common\obj\Debug\Owl.GH.Common.dll
+C:\Users\Mateusz\Source\Workspaces\MachineLearning\Owl\Owl.GH.Common\obj\Debug\Owl.GH.Common.xml
+C:\Users\Mateusz\Source\Workspaces\MachineLearning\Owl\Owl.GH.Common\obj\Debug\Owl.GH.Common.pdb
+C:\Users\Mateusz\Source\Repos\Owl\Owl.GH.Common\obj\Debug\Owl.GH.Common.vbprojResolveAssemblyReference.cache
+C:\Users\Mateusz\Source\Repos\Owl\Owl.GH.Common\obj\Debug\Owl.GH.Common.Resources.resources
+C:\Users\Mateusz\Source\Repos\Owl\Owl.GH.Common\obj\Debug\Owl.GH.Common.vbproj.GenerateResource.Cache
+C:\Users\Mateusz\Source\Repos\Owl\Owl.GH.Common\obj\Debug\Owl.GH.Common.dll
+C:\Users\Mateusz\Source\Repos\Owl\Owl.GH.Common\obj\Debug\Owl.GH.Common.xml
+C:\Users\Mateusz\Source\Repos\Owl\Owl.GH.Common\obj\Debug\Owl.GH.Common.pdb

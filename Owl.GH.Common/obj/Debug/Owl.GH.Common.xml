@@ -1,0 +1,91 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Owl.GH.Common
+</name>
+</assembly>
+<members>
+<member name="T:Owl.GH.Common.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:Owl.GH.Common.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:Owl.GH.Common.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:Owl.GH.Common.My.Resources.Resources.icon_01">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Owl.GH.Common.My.Resources.Resources.icon_02">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Owl.GH.Common.My.Resources.Resources.icon_52">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="M:Owl.GH.Common.ImageComponentBase.OnAttributesCreation(Owl.GH.Common.ImageComponent_Attributes@)">
+ <summary>
+ A place to setup the component attributes regarding the image and its properties.
+ </summary>
+ <param name="atts"></param>
+</member>
+<member name="M:Owl.GH.Common.ImageComponentBase.ChangeSize(System.Int32,System.Int32,System.Boolean)">
+ <summary>
+ Changes the size and updates the images.
+ </summary>
+ <param name="NewFrameWidth"></param>
+ <param name="NewFrameHeight"></param>
+ <param name="Immediate"></param>
+</member>
+<member name="P:Owl.GH.Common.ImageComponent_Attributes.FrameWidth">
+ <summary>
+ Frame width in the canvas units
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.GH.Common.ImageComponent_Attributes.FrameHeight">
+ <summary>
+ Frame height in the canvas units
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.GH.Common.ImageComponent_Attributes.MinHeight">
+ <summary>
+ Typically 20 * Parameters.Count
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.GH.Common.ImageComponent_Attributes.Resizeable">
+ <summary>
+ Generally resizeable.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.GH.Common.ImageComponent_Attributes.LockedSize">
+ <summary>
+ Locked by the user.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.GH.Common.OwlMultiThreadedBase.ThreadIsAlive">
+ <summary>
+ True if its on, false if not
+ </summary>
+ <returns></returns>
+</member>
+</members>
+</doc>
