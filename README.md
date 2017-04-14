@@ -1,4 +1,4 @@
-![Logo](ftp://zwierzak@mateuszzwierzycki.jupe24.pl/domains/mateuszzwierzycki.jupe24.pl/public_ftp/OwlLogo.png)
+![Logo](https://github.com/mateuszzwierzycki/Owl/blob/master/OwlLogo.png)
 
 # Owl
 The core libraries of the Owl framework.
