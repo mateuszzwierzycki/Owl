@@ -1,4 +1,4 @@
-![Logo](https://github.com/mateuszzwierzycki/Owl/blob/master/OwlLogo.png)
+![Logo](https://github.com/mateuszzwierzycki/Owl/blob/master/OwlLogoLarge.png)
 
 # Owl
 The core libraries of the Owl framework.
