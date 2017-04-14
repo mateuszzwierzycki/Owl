@@ -212,35 +212,35 @@ Namespace Clustering
                 SeedW(i) = 1 / SeedWeights(i)
             Next
 
-            Parallel.For(0, InternalSet.Count, Sub(Index As Integer)
-                                                   Dim Idx As Integer = -1
-                                                   Dim Dist As Double = Double.MaxValue
+            For index As Integer = 0 To InternalSet.Count - 1 Step 1
+                Dim Idx As Integer = -1
+                Dim Dist As Double = Double.MaxValue
 
-                                                   For i As Integer = 0 To _seeds.Count - 1 Step 1
-                                                       Dim ThisDist As Double = 0
+                For i As Integer = 0 To _seeds.Count - 1 Step 1
+                    Dim ThisDist As Double = 0
 
-                                                       For j As Integer = 0 To DimensionWeights.Length - 1 Step 1
-                                                           ThisDist += ((_seeds(i)(j) - InternalSet(Index)(j)) ^ 2) * DimensionWeights(j)
-                                                       Next
+                    For j As Integer = 0 To DimensionWeights.Length - 1 Step 1
+                        ThisDist += ((_seeds(i)(j) - InternalSet(Index)(j)) ^ 2) * DimensionWeights(j)
+                    Next
 
-                                                       ThisDist *= SeedW(i)
+                    ThisDist *= SeedW(i)
 
-                                                       If ThisDist < Dist Then
-                                                           Dist = ThisDist
-                                                           Idx = i
-                                                       End If
-                                                   Next
+                    If ThisDist < Dist Then
+                        Dist = ThisDist
+                        Idx = i
+                    End If
+                Next
 
-                                                   Dim mydist As Double = InternalSet(Index).DistanceTo(_seeds(Idx))
+                Dim mydist As Double = InternalSet(Index).DistanceTo(_seeds(Idx))
 
-                                                   If mydist > FurtherDistance Then
-                                                       _furthestDistance = mydist
-                                                       _furthestIndex = Index
-                                                   End If
+                If mydist > FurtherDistance Then
+                    _furthestDistance = mydist
+                    _furthestIndex = Index
+                End If
 
-                                                   ClosestSeed(Index) = Idx
-                                                   SeedScore(Idx) += 1
-                                               End Sub)
+                ClosestSeed(Index) = Idx
+                SeedScore(Idx) += 1
+            Next
 
             For i As Integer = 0 To ClosestSeed.Length - 1 Step 1
                 NextSeeds(ClosestSeed(i)) += InternalSet(i)

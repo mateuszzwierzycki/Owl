@@ -20,3 +20,4 @@ C:\Users\Mateusz\Source\Repos\Owl\Owl.Core\obj\Debug\Owl.Core.pdb
 D:\OneDrive\Builds\Owl\Owl.Core.dll
 D:\OneDrive\Builds\Owl\Owl.Core.pdb
 D:\OneDrive\Builds\Owl\Owl.Core.xml
+C:\Users\Mateusz\Source\Repos\Owl\Owl.Core\obj\Debug\Owl.Core.vbprojResolveAssemblyReference.cache
