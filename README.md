@@ -1,3 +1,5 @@
+![Logo](https://github.com/mateuszzwierzycki/Owl/blob/master/OwlLogo.png)
+
 # Owl
 The core libraries of the Owl framework.
 
