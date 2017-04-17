@@ -183,6 +183,13 @@ Owl.Core
  </summary>S
  <returns></returns>
 </member>
+<member name="M:Owl.Core.Convolutions.ImageModifier.Apply(Owl.Core.Tensors.TensorSet@,System.Boolean)">
+ <summary>
+ You can try the multithreaded method, but it was not debugged yet.
+ </summary>
+ <param name="ImageSet"></param>
+ <param name="Multithread"></param>
+</member>
 <member name="M:Owl.Core.Convolutions.ImageModifierLayer.Apply(Owl.Core.Tensors.Tensor,System.Boolean)">
  <summary>
  Applies all modifiers on copies of the Image
@@ -201,9 +208,14 @@ Owl.Core
  </summary>
  <param name="ImageSet"></param>
 </member>
+<member name="T:Owl.Core.Convolutions.ImageNetwork">
+ <summary>
+ TODO this part is under construction.
+ </summary>
+</member>
 <member name="T:Owl.Core.Convolutions.Normalizer">
  <summary>
- Scales values to conform to 0-255 range.
+ Scales values to conform to 0-1 range.
  </summary>
 </member>
 <member name="T:Owl.Core.Convolutions.MaxPooling">

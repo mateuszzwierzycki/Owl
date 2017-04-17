@@ -4,7 +4,7 @@ Imports Owl.Core.Tensors
 Namespace Convolutions
 
     ''' <summary>
-    ''' Scales values to conform to 0-255 range.
+    ''' Scales values to conform to 0-1 range.
     ''' </summary>
     Public Class Normalizer
         Inherits ImageModifier

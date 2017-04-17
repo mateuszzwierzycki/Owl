@@ -2,6 +2,9 @@
 
 Namespace Convolutions
 
+    ''' <summary>
+    ''' TODO this part is under construction.
+    ''' </summary>
     Public Class ImageNetwork
         Inherits System.Collections.CollectionBase
         Implements IDisposable

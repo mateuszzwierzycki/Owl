@@ -5,11 +5,11 @@ Namespace Convolutions
     Public Class Convolution
         Inherits ImageModifier
 
-        Private m_k(,) As Integer = Nothing
+        Private m_k(,) As Double = Nothing
         Private m_d As Double = 1
         Private m_o As Double = 0
 
-        Sub New(Kernel(,) As Integer, Optional Divisor As Double = 1, Optional Offset As Double = 0)
+        Sub New(Kernel(,) As Double, Optional Divisor As Double = 1, Optional Offset As Double = 0)
             ReDim m_k(Kernel.GetUpperBound(0), Kernel.GetUpperBound(1))
 
             m_d = Divisor
@@ -30,7 +30,7 @@ Namespace Convolutions
             ReDim m_k(Width - 1, Height - 1)
         End Sub
 
-        Sub SetKernel(Kernel(,) As Integer)
+        Sub SetKernel(Kernel(,) As Double)
             For i As Integer = 0 To Kernel.GetUpperBound(1)
                 For j As Integer = 0 To Kernel.GetUpperBound(0)
                     m_k(j, i) = Kernel(j, i)
@@ -68,11 +68,11 @@ Namespace Convolutions
             End Get
         End Property
 
-        Default Public Property Value(Row As Integer, Column As Integer) As Integer
+        Default Public Property Value(Row As Integer, Column As Integer) As Double
             Get
                 Return m_k(Row, Column)
             End Get
-            Set(value As Integer)
+            Set(value As Double)
                 m_k(Row, Column) = value
             End Set
         End Property
@@ -99,7 +99,8 @@ Namespace Convolutions
 
                     sum *= denom
                     sum += Offset
-                    ' sum = Math.Min(Math.Max(0, sum), 255)
+                    'sum = Math.Min(Math.Max(0, sum), 255) 
+                    'this is not used anymore as the images are just regular tensors currently.
                     nim.ValueAt(j - woff, i - hoff) = sum
                 Next
             Next

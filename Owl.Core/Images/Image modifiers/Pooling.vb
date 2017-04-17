@@ -62,7 +62,7 @@ Namespace Convolutions
 
                 For j As Integer = 0 To Image.Width - 1 Step Me.Width
 
-                    Dim thismax As Byte = 0
+                    Dim thismax As Double = 0
 
                     For p As Integer = 0 To Me.Height - 1 Step 1
                         For q As Integer = 0 To Me.Width - 1 Step 1
@@ -89,7 +89,6 @@ Namespace Convolutions
         Public Shared Function Create(Width As Integer, Height As Integer) As MaxPooling
             Return New MaxPooling(Width, Height)
         End Function
-
 
     End Class
 
