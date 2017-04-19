@@ -1,10 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Owl.Core",
-    "\\Owl.GH.Common",
-    "\\Owl.ParamSetup"
+    "\\Owl.GH.Common"
   ],
-  "SelectedNode": "\\Owl.Core\\Owl.Core.sln",
+  "SelectedNode": "\\Owl.GH.Common\\Owl.GH.Common.sln",
   "PreviewInSolutionExplorer": false
 }
