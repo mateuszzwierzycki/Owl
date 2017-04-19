@@ -16,3 +16,7 @@ C:\Users\Mateusz\Source\Repos\Owl\Owl.GH.Common\obj\Release\Owl.GH.Common.pdb
 D:\OneDrive\Builds\Owl\Owl.GH.Common.dll
 D:\OneDrive\Builds\Owl\Owl.GH.Common.pdb
 D:\OneDrive\Builds\Owl\Owl.GH.Common.xml
+C:\Users\Mateusz\Source\Repos\Owl\Owl.GH.Common\bin\Owl.GH.Common.dll.config
+C:\Users\Mateusz\Source\Repos\Owl\Owl.GH.Common\bin\Owl.GH.Common.dll
+C:\Users\Mateusz\Source\Repos\Owl\Owl.GH.Common\bin\Owl.GH.Common.pdb
+C:\Users\Mateusz\Source\Repos\Owl\Owl.GH.Common\bin\Owl.GH.Common.xml

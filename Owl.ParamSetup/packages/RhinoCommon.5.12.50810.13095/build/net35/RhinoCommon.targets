@@ -1,0 +1,56 @@
+<!--
+Adds a target which runs before the build to ensure that package references
+don't get copied to the output directory. Overrides "Copy Local" (which is
+unavoidably set to "true" by nuget).
+
+Will Pearson <will@mcneel.com>
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="BeforeBuildRhinoCommon" AfterTargets="BeforeBuild">
+    <ItemGroup>
+      <!--
+      NOTE: Property functions aren't supported in xbuild, hence the need
+      for platform-specific methods for string-matching
+
+      On windows, the string representation of references is long:
+          RhinoCommon, Version=6.0.0.1, Culture=neutral, PublicKeyToken=xxx
+      whereas, thankfully, on mac they're simple:
+          RhinoCommon
+      -->
+
+      <!-- find RhinoCommon reference -->
+      <ReferenceRhinoWin Include="@(Reference)"
+        Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('%(Identity)', 'RhinoCommon'))" />
+      <ReferenceRhinoMac Include="@(Reference)"
+        Condition="'%(Identity)' == 'RhinoCommon'" />
+
+      <!-- store rhinocommon sdk references -->
+      <ReferenceRhino Include="@(ReferenceRhinoWin)"
+        Condition=" '$(OS)' != 'Unix' " /> <!-- windows -->
+      <ReferenceRhino Include="@(ReferenceRhinoMac)"
+        Condition=" '$(OS)' == 'Unix' " /> <!-- mac -->
+
+      <!-- remove rhinocommon sdk from references -->
+      <Reference Remove="@(ReferenceRhino)" />
+
+      <!-- set copy local (a.k.a. private) to false -->
+      <ReferenceRhinoModified Include="@(ReferenceRhino)">
+        <Private>False</Private>
+      </ReferenceRhinoModified>
+
+      <!-- re-add modified rhinocommon sdk references -->
+      <Reference Include="@(ReferenceRhinoModified)" />
+    </ItemGroup>
+
+    <!-- print a warning because this could all seem rather sneaky otherwise -->
+    <Message Text="Preventing assemblies from being copied to the output directory, regardless of Copy Local property: @(ReferenceRhino)" />
+
+    <!-- clear items -->
+    <ItemGroup>
+      <ReferenceRhino Remove="@(ReferenceRhino)" />
+      <ReferenceRhinoModified Remove="@(ReferenceRhinoModified)" />
+      <ReferenceRhinoWin Remove="@(ReferenceRhinoWin)" />
+      <ReferenceRhinoMac Remove="@(ReferenceRhinoMac)" />
+    </ItemGroup>
+  </Target>
+</Project>

@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
-    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <id>Owl.Core</id>
+    <version>1.1.0.0</version>
+    <title>The core code of the Owl framework</title>
+    <authors>Mateusz Zwierzycki</authors>
+    <owners>Mateusz Zwierzycki</owners>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/mateuszzwierzycki/Owl</projectUrl>
+    <iconUrl>https://github.com/mateuszzwierzycki/Owl/raw/master/OwlLogo64.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <description>The core code of the Owl framework</description>
+    <releaseNotes>First release of the package.</releaseNotes>
     <copyright>Copyright 2017</copyright>
-    <tags>Tag1 Tag2</tags>
+    <tags>machine learning owl tensor tensorflow</tags>
   </metadata>
 </package>

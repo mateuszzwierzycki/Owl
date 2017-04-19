@@ -14,4 +14,6 @@ C:\Users\Mateusz\Source\Repos\Owl\Owl.Core\obj\Release\Owl.Core.pdb
 D:\OneDrive\Builds\Owl\Owl.Core.dll
 D:\OneDrive\Builds\Owl\Owl.Core.pdb
 D:\OneDrive\Builds\Owl\Owl.Core.xml
-C:\Users\Mateusz\Source\Repos\Owl\Owl.Core\obj\Release\Owl.Core.vbprojResolveAssemblyReference.cache
+C:\Users\Mateusz\Source\Repos\Owl\Owl.Core\bin\Owl.Core.dll
+C:\Users\Mateusz\Source\Repos\Owl\Owl.Core\bin\Owl.Core.pdb
+C:\Users\Mateusz\Source\Repos\Owl\Owl.Core\bin\Owl.Core.xml

@@ -1,0 +1,9 @@
+C:\Users\Mateusz\Source\Repos\Owl\Owl.ParamSetup\Owl.ParamSetup\bin\OwlParamTester.dll.config
+C:\Users\Mateusz\Source\Repos\Owl\Owl.ParamSetup\Owl.ParamSetup\bin\OwlParamTester.dll
+C:\Users\Mateusz\Source\Repos\Owl\Owl.ParamSetup\Owl.ParamSetup\bin\OwlParamTester.pdb
+C:\Users\Mateusz\Source\Repos\Owl\Owl.ParamSetup\Owl.ParamSetup\bin\OwlParamTester.xml
+C:\Users\Mateusz\Source\Repos\Owl\Owl.ParamSetup\Owl.ParamSetup\obj\Release\OwlParamTester.Resources.resources
+C:\Users\Mateusz\Source\Repos\Owl\Owl.ParamSetup\Owl.ParamSetup\obj\Release\Owl.ParamSetup.vbproj.GenerateResource.Cache
+C:\Users\Mateusz\Source\Repos\Owl\Owl.ParamSetup\Owl.ParamSetup\obj\Release\OwlParamTester.dll
+C:\Users\Mateusz\Source\Repos\Owl\Owl.ParamSetup\Owl.ParamSetup\obj\Release\OwlParamTester.xml
+C:\Users\Mateusz\Source\Repos\Owl\Owl.ParamSetup\Owl.ParamSetup\obj\Release\OwlParamTester.pdb

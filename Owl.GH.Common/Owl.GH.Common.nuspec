@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Owl.GH.Common</id>
+    <version>1.0.0.0</version>
+    <title>GH objects for Owl.Core data</title>
+    <authors>Mateusz Zwierzycki</authors>
+    <owners>Mateusz Zwierzycki</owners>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/mateuszzwierzycki/Owl</projectUrl>
+    <iconUrl>https://github.com/mateuszzwierzycki/Owl/raw/master/OwlLogo64.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The GH types wrappers fro the Owl framework</description>
+    <releaseNotes>First release of the package.</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>machine learning owl tensor tensorflow</tags>
+  </metadata>
+</package>
