@@ -62,8 +62,7 @@ Module Snippets
     ''' </summary>
     ''' <returns></returns>
     Private Function StreamingTest() As Boolean
-        Dim ts As New TensorSet()
-        ts.Add(New Tensor(10))
+        Dim ts As New TensorSet() From {New Tensor(10)}
         ts(0)(2) = 3
 
         Dim tsread As TensorSet = Nothing

@@ -46,8 +46,7 @@ Namespace Convolutions
         End Property
 
         Public Function Apply(Image As Tensor) As TensorSet
-            Dim thisset As New TensorSet()
-            thisset.Add(Image.Duplicate)
+            Dim thisset As New TensorSet() From {Image.Duplicate}
 
             For i As Integer = 0 To Me.Count - 1 Step 1
                 Me(i).Apply(thisset)

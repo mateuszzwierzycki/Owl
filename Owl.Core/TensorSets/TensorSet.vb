@@ -25,6 +25,10 @@ Namespace Tensors
             Next
         End Sub
 
+        Sub New(Other() As Tensor)
+            Me.AddRange(Other)
+        End Sub
+
         Sub New(Other As TensorSet)
             For i As Integer = 0 To Other.Count - 1 Step 1
                 Me.Add(Other(i).Duplicate)

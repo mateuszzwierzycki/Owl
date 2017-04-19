@@ -68,9 +68,7 @@
         End Function
 
         Public Function GetSeries(Start As T, Count As Integer, Optional PreventDeadEnds As Boolean = True) As List(Of T)
-            Dim ser As New List(Of T)
-
-            ser.Add(Start)
+            Dim ser As New List(Of T)({Start})
 
             For i As Integer = 1 To Count - 1 Step 1
                 Dim thisnext As T
