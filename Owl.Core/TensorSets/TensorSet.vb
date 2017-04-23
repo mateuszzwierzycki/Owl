@@ -5,6 +5,9 @@ Imports Owl.Core.IO
 
 Namespace Tensors
 
+    ''' <summary>
+    ''' A dynamic Tensor collection.
+    ''' </summary>
     <Serializable>
     Public Class TensorSet
         Inherits CollectionBase

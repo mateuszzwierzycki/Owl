@@ -1,9 +1,0 @@
-C:\Users\Mateusz\Documents\Visual Studio 2015\Projects\OwlParamTester\OwlParamTester\obj\Release\OwlParamTester.vbprojResolveAssemblyReference.cache
-C:\Users\Mateusz\Documents\Visual Studio 2015\Projects\OwlParamTester\OwlParamTester\obj\Release\OwlParamTester.Resources.resources
-C:\Users\Mateusz\Documents\Visual Studio 2015\Projects\OwlParamTester\OwlParamTester\obj\Release\OwlParamTester.vbproj.GenerateResource.Cache
-C:\Users\Mateusz\Documents\Visual Studio 2015\Projects\OwlParamTester\OwlParamTester\obj\Release\OwlParamTester.xml
-D:\OneDrive\Builds\OwlParamTester.dll
-D:\OneDrive\Builds\OwlParamTester.pdb
-D:\OneDrive\Builds\OwlParamTester.xml
-C:\Users\Mateusz\Documents\Visual Studio 2015\Projects\OwlParamTester\OwlParamTester\obj\Release\OwlParamTester.dll
-C:\Users\Mateusz\Documents\Visual Studio 2015\Projects\OwlParamTester\OwlParamTester\obj\Release\OwlParamTester.pdb
