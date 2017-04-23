@@ -1,7 +1,6 @@
 C:\Users\Mateusz\Source\Repos\Owl\Owl.Core\bin\Owl.Core.dll
 C:\Users\Mateusz\Source\Repos\Owl\Owl.Core\bin\Owl.Core.pdb
 C:\Users\Mateusz\Source\Repos\Owl\Owl.Core\bin\Owl.Core.xml
-C:\Users\Mateusz\Source\Repos\Owl\Owl.Core\obj\Debug\Owl.Core.vbprojResolveAssemblyReference.cache
 C:\Users\Mateusz\Source\Repos\Owl\Owl.Core\obj\Debug\Owl.Core.Resources.resources
 C:\Users\Mateusz\Source\Repos\Owl\Owl.Core\obj\Debug\Owl.Core.vbproj.GenerateResource.Cache
 C:\Users\Mateusz\Source\Repos\Owl\Owl.Core\obj\Debug\Owl.Core.dll
