@@ -258,33 +258,18 @@ Owl.Core
  <param name="R"></param>
  <returns></returns>
 </member>
-<member name="M:Owl.Core.IO.TensorSerialization.ToTBIN(Owl.Core.Tensors.Tensor)">
+<member name="M:Owl.Core.IO.TensorSerialization.ToBinary(Owl.Core.Tensors.Tensor)">
  <summary>
  Write a single Tensor.
  </summary>
  <param name="Tens"></param>
  <returns></returns>
 </member>
-<member name="M:Owl.Core.IO.TensorSerialization.FromTBIN(System.Byte[])">
+<member name="M:Owl.Core.IO.TensorSerialization.FromBinary(System.Byte[])">
  <summary>
  Read a single TBIN Tensor.
  </summary>
  <param name="Bytes"></param>
- <returns></returns>
-</member>
-<member name="M:Owl.Core.IO.TensorSerialization.ReadTensors(System.IO.Stream)">
- <summary>
- Read binary Tensors (using the TBIN format) from any stream.
- </summary>
- <param name="S"></param>
- <returns></returns>
-</member>
-<member name="M:Owl.Core.IO.TensorSerialization.WriteTensors(System.IO.Stream,Owl.Core.Tensors.TensorSet)">
- <summary>
- Write binary Tensors to any stream using the TBIN file format.
- </summary>
- <param name="S"></param>
- <param name="Tensors"></param>
  <returns></returns>
 </member>
 <member name="M:Owl.Core.IO.TensorSerialization.TryToFindIndices(System.String,System.String@)">
@@ -311,6 +296,49 @@ Owl.Core
  <summary>
  Format used by the MNIST database.
  </summary>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.ReadTensors(System.IO.Stream)">
+ <summary>
+ Read binary Tensors (using the TBIN format) from any stream.
+ </summary>
+ <param name="S"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.WriteTensors(System.IO.Stream,Owl.Core.Tensors.TensorSet)">
+ <summary>
+ Write binary Tensors to any stream using the TBIN file format.
+ </summary>
+ <param name="S"></param>
+ <param name="Tensors"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.SaveTensorsBinary(Owl.Core.Tensors.TensorSet,System.String,System.String)">
+ <summary>
+ For each tensor:
+     4 bytes int32 length of the tensor in bytes (4 bytes for shapecount + shapecount * 4 bytes + length * 8)
+     4 bytes int32 shapecount
+     4*shapecount int32 shape
+     8*length 
+ </summary>
+ <param name="Tensors"></param>
+ <param name="DirectoryName"></param>
+ <param name="FileName"></param>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.CountTensorsBinary(System.String)">
+ <summary>
+ Counts the number of tensors stored in a file
+ </summary>
+ <param name="Filepath"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.LoadTensorsBinary(System.String,System.Int32,System.Int32)">
+ <summary>
+ 
+ </summary>
+ <param name="Filepath"></param>
+ <param name="FromIndex">Start reading from this tensor</param>
+ <param name="Count">Read that many tensors (or less if not enough)</param>
+ <returns></returns>
 </member>
 <member name="M:Owl.Core.IO.TensorSerialization.LoadTensorsIDX(System.String,System.Int32,System.Int32)">
  <summary>
@@ -360,34 +388,6 @@ Owl.Core
  </summary>
  <param name="Filepath"></param>
  <param name="Separator"></param>
- <returns></returns>
-</member>
-<member name="M:Owl.Core.IO.TensorSerialization.SaveTensorsBinary(Owl.Core.Tensors.TensorSet,System.String,System.String)">
- <summary>
- For each tensor:
-     4 bytes int32 length of the tensor in bytes (4 bytes for shapecount + shapecount * 4 bytes + length * 8)
-     4 bytes int32 shapecount
-     4*shapecount int32 shape
-     8*length 
- </summary>
- <param name="Tensors"></param>
- <param name="DirectoryName"></param>
- <param name="FileName"></param>
-</member>
-<member name="M:Owl.Core.IO.TensorSerialization.CountTensorsBinary(System.String)">
- <summary>
- Counts the number of tensors stored in a file
- </summary>
- <param name="Filepath"></param>
- <returns></returns>
-</member>
-<member name="M:Owl.Core.IO.TensorSerialization.LoadTensorsBinary(System.String,System.Int32,System.Int32)">
- <summary>
- 
- </summary>
- <param name="Filepath"></param>
- <param name="FromIndex">Start reading from this tensor</param>
- <param name="Count">Read that many tensors (or less if not enough)</param>
  <returns></returns>
 </member>
 <member name="P:Owl.Core.LibrarySettings.TensorPrintLength">
