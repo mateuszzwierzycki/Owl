@@ -258,6 +258,20 @@ Owl.Core
  <param name="R"></param>
  <returns></returns>
 </member>
+<member name="M:Owl.Core.IO.TensorSerialization.ToTBIN(Owl.Core.Tensors.Tensor)">
+ <summary>
+ Write a single Tensor.
+ </summary>
+ <param name="Tens"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.FromTBIN(System.Byte[])">
+ <summary>
+ Read a single TBIN Tensor.
+ </summary>
+ <param name="Bytes"></param>
+ <returns></returns>
+</member>
 <member name="M:Owl.Core.IO.TensorSerialization.ReadTensors(System.IO.Stream)">
  <summary>
  Read binary Tensors (using the TBIN format) from any stream.
@@ -267,7 +281,7 @@ Owl.Core
 </member>
 <member name="M:Owl.Core.IO.TensorSerialization.WriteTensors(System.IO.Stream,Owl.Core.Tensors.TensorSet)">
  <summary>
- Write binary Tensors to any stream usign the TBIN file format.
+ Write binary Tensors to any stream using the TBIN file format.
  </summary>
  <param name="S"></param>
  <param name="Tensors"></param>

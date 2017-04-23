@@ -7,71 +7,78 @@ Namespace IO
 
     Public Module TensorSerialization
 
-#Region "Streams"
-
         ''' <summary>
-        ''' Read binary Tensors (using the TBIN format) from any stream.
+        ''' Write a single Tensor.
         ''' </summary>
-        ''' <param name="S"></param>
+        ''' <param name="Tens"></param>
         ''' <returns></returns>
-        Public Function ReadTensors(S As Stream) As TensorSet
-            Dim ts As New TensorSet
+        Public Function ToBinary(Tens As Tensor) As Byte()
+            Dim bytes() As Byte
 
-            Using reader As BinaryReader = New BinaryReader(S)
-                Do
-                    Dim buffer(3) As Byte
-                    If reader.Read(buffer, 0, 4) < 4 Then Exit Do 'this reads the tensor bytelength, here it is skipped
-                    reader.Read(buffer, 0, 4) 'this reads the first int32, the shapecount
+            Using s = New MemoryStream
+                Dim cnt As Integer = 4 + Tens.ShapeCount * 4 + Tens.Length * 8
 
-                    Dim shapecount As Integer = BitConverter.ToInt32(buffer, 0)
-                    Dim shape As New List(Of Integer)
+                'writing the total bytelength of this tensor
+                s.Write(BitConverter.GetBytes(cnt), 0, 4)
 
-                    For i As Integer = 0 To shapecount - 1 Step 1
-                        reader.Read(buffer, 0, 4)
-                        shape.Add(BitConverter.ToInt32(buffer, 0))
-                    Next
+                'writing the shape length
+                s.Write(BitConverter.GetBytes(Tens.ShapeCount), 0, 4)
 
-                    Dim thistens As New Tensor(shape)
-                    ReDim buffer(7)
+                'writing the shape
+                For i As Integer = 0 To Tens.ShapeCount - 1 Step 1
+                    s.Write(BitConverter.GetBytes(Tens.ShapeAt(i)), 0, 4)
+                Next
 
-                    For i As Integer = 0 To thistens.Length - 1 Step 1
-                        reader.Read(buffer, 0, 8)
-                        thistens(i) = BitConverter.ToDouble(buffer, 0)
-                    Next
+                'convert the double() data into byte() 
+                Dim buff(Tens.Length * 8 - 1) As Byte
+                Buffer.BlockCopy(Tens.TensorData, 0, buff, 0, buff.Length)
 
-                    ts.Add(thistens)
-                Loop
+                'write the byte data
+
+                s.Write(buff, 0, buff.Length)
+                bytes = s.ToArray()
             End Using
 
-            Return ts
+            Return bytes
         End Function
 
         ''' <summary>
-        ''' Write binary Tensors to any stream usign the TBIN file format.
+        ''' Read a single TBIN Tensor.
         ''' </summary>
-        ''' <param name="S"></param>
-        ''' <param name="Tensors"></param>
+        ''' <param name="Bytes"></param>
         ''' <returns></returns>
-        Public Function WriteTensors(S As Stream, Tensors As TensorSet) As Boolean
+        Public Function FromBinary(Bytes() As Byte) As Tensor
+            Dim tens As Tensor = Nothing
 
-            For Each tens As Tensor In Tensors
-                Dim cnt As Integer = 4 + tens.ShapeCount * 4 + tens.Length * 8
-                S.Write(BitConverter.GetBytes(cnt), 0, 4)
+            Using reader As MemoryStream = New MemoryStream(Bytes)
+                Dim buff(3) As Byte
+                If reader.Read(buff, 0, 4) < 4 Then Return Nothing 'this reads the tensor bytelength, here it is skipped
+                reader.Read(buff, 0, 4) 'this reads the first int32, the shapecount
 
-                S.Write(BitConverter.GetBytes(tens.ShapeCount), 0, 4)
-                For i As Integer = 0 To tens.ShapeCount - 1 Step 1
-                    S.Write(BitConverter.GetBytes(tens.ShapeAt(i)), 0, 4)
+                Dim shapecount As Integer = BitConverter.ToInt32(buff, 0)
+                Dim shape As New List(Of Integer)
+
+                'now its time to read the shape values
+                For i As Integer = 0 To shapecount - 1 Step 1
+                    reader.Read(buff, 0, 4)
+                    shape.Add(BitConverter.ToInt32(buff, 0))
                 Next
 
-                For i As Integer = 0 To tens.Length - 1 Step 1
-                    S.Write(BitConverter.GetBytes(tens(i)), 0, 8)
-                Next
-            Next
+                'we can create the tensor now
+                Dim thistens As New Tensor(shape)
+                ReDim buff(thistens.Length * 8 - 1)
 
-            Return True
+                'read all the values in one go 
+                reader.Read(buff, 0, buff.Length)
+
+                'interpret them as double() 
+                Buffer.BlockCopy(buff, 0, thistens.TensorData, 0, thistens.Length * 8)
+
+                tens = thistens
+            End Using
+
+            Return tens
         End Function
-
-#End Region
 
         ''' <summary>
         ''' Assuming path "C:\tmp\tensorfile.tbin 30 40" this function returns 30 and 40 as the tuple.. index from inclusive and count.
@@ -133,6 +140,168 @@ Namespace IO
 
             All = Integer.MaxValue
         End Enum
+
+#Region "Streams"
+
+        ''' <summary>
+        ''' Read binary Tensors (using the TBIN format) from any stream.
+        ''' </summary>
+        ''' <param name="S"></param>
+        ''' <returns></returns>
+        Public Function ReadTensors(S As Stream) As TensorSet
+            Dim ts As New TensorSet
+
+            Using reader As BinaryReader = New BinaryReader(S)
+                Do
+                    'total length of the upcoming tensor 
+                    Dim lenbytes(3) As Byte
+
+                    Dim howmany As Integer = reader.Read(lenbytes, 0, 4)
+                    If howmany < 4 Then Exit Do
+
+                    Dim len = BitConverter.ToInt32(lenbytes, 0)
+
+                    Dim allbytes(len + 4 - 1) As Byte
+                    reader.BaseStream.Position -= 4
+                    reader.Read(allbytes, 0, allbytes.Length)
+
+                    Dim thistens As Tensor = FromBinary(allbytes)
+                    If thistens Is Nothing Then Exit Do
+                    ts.Add(thistens)
+                Loop
+            End Using
+
+            Return ts
+        End Function
+
+        ''' <summary>
+        ''' Write binary Tensors to any stream using the TBIN file format.
+        ''' </summary>
+        ''' <param name="S"></param>
+        ''' <param name="Tensors"></param>
+        ''' <returns></returns>
+        Public Function WriteTensors(S As Stream, Tensors As TensorSet) As Boolean
+
+            For Each tens As Tensor In Tensors
+                Dim bytes() As Byte = ToBinary(tens)
+                S.Write(bytes, 0, bytes.Length)
+            Next
+
+            Return True
+        End Function
+
+#End Region
+
+#Region "TBIN"
+
+        ''' <summary>
+        ''' For each tensor:
+        '''     4 bytes int32 length of the tensor in bytes (4 bytes for shapecount + shapecount * 4 bytes + length * 8)
+        '''     4 bytes int32 shapecount
+        '''     4*shapecount int32 shape
+        '''     8*length 
+        ''' </summary>
+        ''' <param name="Tensors"></param>
+        ''' <param name="DirectoryName"></param>
+        ''' <param name="FileName"></param>
+        Public Sub SaveTensorsBinary(Tensors As TensorSet, DirectoryName As String, FileName As String)
+            If Not Directory.Exists(DirectoryName) Then Directory.CreateDirectory(DirectoryName)
+
+            Using str As FileStream = New FileStream(DirectoryName & "\" & FileName & GetExtension(OwlFileFormat.TensorBinary), FileMode.Create, FileAccess.Write)
+                For Each tens As Tensor In Tensors
+                    Dim bytes() As Byte = ToBinary(tens)
+                    str.Write(bytes, 0, bytes.Length)
+                Next
+            End Using
+        End Sub
+
+        ''' <summary>
+        ''' Counts the number of tensors stored in a file
+        ''' </summary>
+        ''' <param name="Filepath"></param>
+        ''' <returns></returns>
+        Function CountTensorsBinary(Filepath As String) As Long
+            Dim lng As Long = 0
+            Using str As FileStream = New FileStream(Filepath, FileMode.Open)
+                Using reader As BinaryReader = New BinaryReader(str)
+                    Do
+                        Dim buffer(3) As Byte
+                        If reader.Read(buffer, 0, 4) < 4 Then Exit Do 'this reads the tensor bytelength, here it is skipped
+                        reader.BaseStream.Position += BitConverter.ToInt32(buffer, 0)
+                        lng += 1
+                    Loop
+                End Using
+            End Using
+            Return lng
+        End Function
+
+        ''' <summary>
+        ''' 
+        ''' </summary>
+        ''' <param name="Filepath"></param>
+        ''' <param name="FromIndex">Start reading from this tensor</param>
+        ''' <param name="Count">Read that many tensors (or less if not enough)</param>
+        ''' <returns></returns>
+        Function LoadTensorsBinary(Filepath As String, FromIndex As Integer, Count As Integer) As TensorSet
+            'TODO cleanup 
+
+            Dim ts As New TensorSet
+
+            Dim readcount As Integer = 0
+            Dim position As Integer = 0
+
+            Using str As FileStream = New FileStream(Filepath, FileMode.Open)
+                Using reader As BinaryReader = New BinaryReader(str)
+                    Do
+                        Dim buffer(3) As Byte
+                        If reader.Read(buffer, 0, 4) < 4 Then Exit Do
+                        Dim lng As Integer = BitConverter.ToInt32(buffer, 0)
+
+                        If position >= FromIndex Then
+                            reader.Read(buffer, 0, 4) 'this reads the first int32, the shapecount
+
+                            Dim shapecount As Integer = BitConverter.ToInt32(buffer, 0)
+                            Dim shape As New List(Of Integer)
+
+                            For i As Integer = 0 To shapecount - 1 Step 1
+                                reader.Read(buffer, 0, 4)
+                                shape.Add(BitConverter.ToInt32(buffer, 0))
+                            Next
+
+                            Dim thistens As New Tensor(shape)
+                            ReDim buffer(7)
+
+                            For i As Integer = 0 To thistens.Length - 1 Step 1
+                                reader.Read(buffer, 0, 8)
+                                thistens(i) = BitConverter.ToDouble(buffer, 0)
+                            Next
+
+                            ts.Add(thistens)
+                            readcount += 1
+                        Else
+                            str.Position += lng
+                        End If
+
+                        position += 1
+                        If readcount >= Count Then Exit Do
+                    Loop
+                End Using
+            End Using
+
+            Return ts
+        End Function
+
+        Function LoadTensorsBinary(Filepath As String) As TensorSet
+            Dim ts As New TensorSet
+
+            Using str As FileStream = New FileStream(Filepath, FileMode.Open)
+                ts = ReadTensors(str)
+            End Using
+
+            Return ts
+        End Function
+
+#End Region
 
 #Region "IDX"
 
@@ -644,149 +813,6 @@ Namespace IO
         End Function
 
 #End Region
-
-#Region "TBIN"
-
-        ''' <summary>
-        ''' For each tensor:
-        '''     4 bytes int32 length of the tensor in bytes (4 bytes for shapecount + shapecount * 4 bytes + length * 8)
-        '''     4 bytes int32 shapecount
-        '''     4*shapecount int32 shape
-        '''     8*length 
-        ''' </summary>
-        ''' <param name="Tensors"></param>
-        ''' <param name="DirectoryName"></param>
-        ''' <param name="FileName"></param>
-        Public Sub SaveTensorsBinary(Tensors As TensorSet, DirectoryName As String, FileName As String)
-            If Not Directory.Exists(DirectoryName) Then Directory.CreateDirectory(DirectoryName)
-
-            Using str As FileStream = New FileStream(DirectoryName & "\" & FileName & GetExtension(OwlFileFormat.TensorBinary), FileMode.Create, FileAccess.Write)
-                For Each tens As Tensor In Tensors
-                    Dim cnt As Integer = 4 + tens.ShapeCount * 4 + tens.Length * 8
-                    str.Write(BitConverter.GetBytes(cnt), 0, 4)
-
-                    str.Write(BitConverter.GetBytes(tens.ShapeCount), 0, 4)
-                    For i As Integer = 0 To tens.ShapeCount - 1 Step 1
-                        str.Write(BitConverter.GetBytes(tens.ShapeAt(i)), 0, 4)
-                    Next
-
-                    For i As Integer = 0 To tens.Length - 1 Step 1
-                        str.Write(BitConverter.GetBytes(tens(i)), 0, 8)
-                    Next
-                Next
-            End Using
-        End Sub
-
-        ''' <summary>
-        ''' Counts the number of tensors stored in a file
-        ''' </summary>
-        ''' <param name="Filepath"></param>
-        ''' <returns></returns>
-        Function CountTensorsBinary(Filepath As String) As Long
-            Dim lng As Long = 0
-            Using str As FileStream = New FileStream(Filepath, FileMode.Open)
-                Using reader As BinaryReader = New BinaryReader(str)
-                    Do
-                        Dim buffer(3) As Byte
-                        If reader.Read(buffer, 0, 4) < 4 Then Exit Do 'this reads the tensor bytelength, here it is skipped
-                        reader.BaseStream.Position += BitConverter.ToInt32(buffer, 0)
-                        lng += 1
-                    Loop
-                End Using
-            End Using
-            Return lng
-        End Function
-
-        ''' <summary>
-        ''' 
-        ''' </summary>
-        ''' <param name="Filepath"></param>
-        ''' <param name="FromIndex">Start reading from this tensor</param>
-        ''' <param name="Count">Read that many tensors (or less if not enough)</param>
-        ''' <returns></returns>
-        Function LoadTensorsBinary(Filepath As String, FromIndex As Integer, Count As Integer) As TensorSet
-            Dim ts As New TensorSet
-
-            Dim readcount As Integer = 0
-            Dim position As Integer = 0
-
-            Using str As FileStream = New FileStream(Filepath, FileMode.Open)
-                Using reader As BinaryReader = New BinaryReader(str)
-                    Do
-                        Dim buffer(3) As Byte
-                        If reader.Read(buffer, 0, 4) < 4 Then Exit Do
-                        Dim lng As Integer = BitConverter.ToInt32(buffer, 0)
-
-                        If position >= FromIndex Then
-                            reader.Read(buffer, 0, 4) 'this reads the first int32, the shapecount
-
-                            Dim shapecount As Integer = BitConverter.ToInt32(buffer, 0)
-                            Dim shape As New List(Of Integer)
-
-                            For i As Integer = 0 To shapecount - 1 Step 1
-                                reader.Read(buffer, 0, 4)
-                                shape.Add(BitConverter.ToInt32(buffer, 0))
-                            Next
-
-                            Dim thistens As New Tensor(shape)
-                            ReDim buffer(7)
-
-                            For i As Integer = 0 To thistens.Length - 1 Step 1
-                                reader.Read(buffer, 0, 8)
-                                thistens(i) = BitConverter.ToDouble(buffer, 0)
-                            Next
-
-                            ts.Add(thistens)
-                            readcount += 1
-                        Else
-                            str.Position += lng
-                        End If
-
-                        position += 1
-                        If readcount >= Count Then Exit Do
-                    Loop
-                End Using
-            End Using
-
-            Return ts
-        End Function
-
-        Function LoadTensorsBinary(Filepath As String) As TensorSet
-            Dim ts As New TensorSet
-
-            Using str As FileStream = New FileStream(Filepath, FileMode.Open)
-                Using reader As BinaryReader = New BinaryReader(str)
-                    Do
-                        Dim buffer(3) As Byte
-                        If reader.Read(buffer, 0, 4) < 4 Then Exit Do 'this reads the tensor bytelength, here it is skipped
-                        reader.Read(buffer, 0, 4) 'this reads the first int32, the shapecount
-
-                        Dim shapecount As Integer = BitConverter.ToInt32(buffer, 0)
-                        Dim shape As New List(Of Integer)
-
-                        For i As Integer = 0 To shapecount - 1 Step 1
-                            reader.Read(buffer, 0, 4)
-                            shape.Add(BitConverter.ToInt32(buffer, 0))
-                        Next
-
-                        Dim thistens As New Tensor(shape)
-                        ReDim buffer(7)
-
-                        For i As Integer = 0 To thistens.Length - 1 Step 1
-                            reader.Read(buffer, 0, 8)
-                            thistens(i) = BitConverter.ToDouble(buffer, 0)
-                        Next
-
-                        ts.Add(thistens)
-                    Loop
-                End Using
-            End Using
-
-            Return ts
-        End Function
-
-#End Region
-
 
     End Module
 

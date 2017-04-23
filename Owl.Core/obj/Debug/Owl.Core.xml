@@ -183,6 +183,13 @@ Owl.Core
  </summary>S
  <returns></returns>
 </member>
+<member name="M:Owl.Core.Convolutions.ImageModifier.Apply(Owl.Core.Tensors.TensorSet@,System.Boolean)">
+ <summary>
+ You can try the multithreaded method, but it was not debugged yet.
+ </summary>
+ <param name="ImageSet"></param>
+ <param name="Multithread"></param>
+</member>
 <member name="M:Owl.Core.Convolutions.ImageModifierLayer.Apply(Owl.Core.Tensors.Tensor,System.Boolean)">
  <summary>
  Applies all modifiers on copies of the Image
@@ -201,9 +208,14 @@ Owl.Core
  </summary>
  <param name="ImageSet"></param>
 </member>
+<member name="T:Owl.Core.Convolutions.ImageNetwork">
+ <summary>
+ TODO this part is under construction.
+ </summary>
+</member>
 <member name="T:Owl.Core.Convolutions.Normalizer">
  <summary>
- Scales values to conform to 0-255 range.
+ Scales values to conform to 0-1 range.
  </summary>
 </member>
 <member name="T:Owl.Core.Convolutions.MaxPooling">
@@ -246,6 +258,20 @@ Owl.Core
  <param name="R"></param>
  <returns></returns>
 </member>
+<member name="M:Owl.Core.IO.TensorSerialization.ToTBIN(Owl.Core.Tensors.Tensor)">
+ <summary>
+ Write a single Tensor.
+ </summary>
+ <param name="Tens"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Core.IO.TensorSerialization.FromTBIN(System.Byte[])">
+ <summary>
+ Read a single TBIN Tensor.
+ </summary>
+ <param name="Bytes"></param>
+ <returns></returns>
+</member>
 <member name="M:Owl.Core.IO.TensorSerialization.ReadTensors(System.IO.Stream)">
  <summary>
  Read binary Tensors (using the TBIN format) from any stream.
@@ -255,7 +281,7 @@ Owl.Core
 </member>
 <member name="M:Owl.Core.IO.TensorSerialization.WriteTensors(System.IO.Stream,Owl.Core.Tensors.TensorSet)">
  <summary>
- Write binary Tensors to any stream usign the TBIN file format.
+ Write binary Tensors to any stream using the TBIN file format.
  </summary>
  <param name="S"></param>
  <param name="Tensors"></param>

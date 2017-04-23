@@ -95,6 +95,7 @@ Namespace Tensors
             Multipliers.AddRange(Other.Multipliers)
         End Sub
 
+
         ''' <summary>
         ''' 3 10 12 32 0.0123 0.234 0.5532 ...
         ''' Shape Count, Shape, Shape, Shape, Value, Value ... 
@@ -102,7 +103,7 @@ Namespace Tensors
         ''' <param name="Text"></param>
         ''' <param name="Value"></param>
         ''' <returns></returns>
-        Shared Function TryParse(Text As String, ByRef Value As Tensor, Optional Separator As Char = " ") As Boolean
+        Public Shared Function TryParse(Text As String, ByRef Value As Tensor, Optional Separator As Char = " ") As Boolean
             Dim alltext() As String = Text.Split(Separator)
             Dim shapecount As Integer
             Dim position As Integer = 0
