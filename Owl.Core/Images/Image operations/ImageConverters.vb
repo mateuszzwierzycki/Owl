@@ -106,10 +106,17 @@ Namespace Images
         ''' <summary>
         ''' Direct Tensor to grayscale Bitmap conversion... 0-255 range implied.
         ''' </summary>
-        ''' <param name="A"></param>
+        ''' <param name="Tens"></param>
         ''' <returns></returns>
-        Public Function ToGrayscale(A As Tensor) As Bitmap
-            Dim bmp As New Bitmap(A.Width, A.Height, Imaging.PixelFormat.Format8bppIndexed)
+        Public Function ToGrayscale(Tens As Tensor) As Bitmap
+            Dim bmp As Bitmap = Nothing
+
+            If Tens.ShapeCount = 1 Then
+                bmp = New Bitmap(Tens.Width, 1, Imaging.PixelFormat.Format8bppIndexed)
+            Else
+                bmp = New Bitmap(Tens.Width, Tens.Height, Imaging.PixelFormat.Format8bppIndexed)
+            End If
+
             Dim pal As Imaging.ColorPalette = bmp.Palette
 
             For i As Integer = 0 To 255 Step 1
@@ -118,7 +125,7 @@ Namespace Images
 
             bmp.Palette = pal
 
-            Dim rect As Rectangle = New Rectangle(0, 0, A.Width, A.Height)
+            Dim rect As Rectangle = New Rectangle(0, 0, bmp.Width, bmp.Height)
             Dim bdata As Imaging.BitmapData = bmp.LockBits(rect, Imaging.ImageLockMode.ReadWrite, Imaging.PixelFormat.Format8bppIndexed)
 
             Dim ptr As IntPtr = bdata.Scan0
@@ -130,7 +137,7 @@ Namespace Images
 
             For i As Integer = 0 To bdata.Height - 1 Step 1
                 For j As Integer = 0 To bdata.Width - 1 Step 1
-                    rgb((i * stride) + j) = CByte(A(count))
+                    rgb((i * stride) + j) = CByte(Tens(count))
                     count += 1
                 Next
             Next
@@ -145,17 +152,23 @@ Namespace Images
         ''' <summary>
         ''' Tensor will be trimmed to stay in R range, then remapped to 0 to 255.
         ''' </summary>
-        ''' <param name="A">Tensor 2D</param>
+        ''' <param name="Tens">Tensor 2D</param>
         ''' <param name="R"></param>
         ''' <returns></returns>
-        Public Function ToGrayscale(A As Tensor, R As Range) As Bitmap
-            A = A.Duplicate
+        Public Function ToGrayscale(Tens As Tensor, R As Range) As Bitmap
+            Dim bmp As Bitmap = Nothing
 
-            A.TrimFloor(R.Minimum)
-            A.TrimCeiling(R.Maximum)
-            A.Remap(R, New Range(0, 255))
+            If Tens.ShapeCount = 1 Then
+                bmp = New Bitmap(Tens.Width, 1, Imaging.PixelFormat.Format8bppIndexed)
+            Else
+                bmp = New Bitmap(Tens.Width, Tens.Height, Imaging.PixelFormat.Format8bppIndexed)
+            End If
 
-            Dim bmp As New Bitmap(A.Width, A.Height, Imaging.PixelFormat.Format8bppIndexed)
+            Tens = Tens.Duplicate
+
+            Tens.TrimFloor(R.Minimum)
+            Tens.TrimCeiling(R.Maximum)
+            Tens.Remap(R, New Range(0, 255))
             Dim pal As Imaging.ColorPalette = bmp.Palette
 
             For i As Integer = 0 To 255 Step 1
@@ -164,7 +177,7 @@ Namespace Images
 
             bmp.Palette = pal
 
-            Dim rect As Rectangle = New Rectangle(0, 0, A.Width, A.Height)
+            Dim rect As Rectangle = New Rectangle(0, 0, bmp.Width, bmp.Height)
             Dim bdata As Imaging.BitmapData = bmp.LockBits(rect, Imaging.ImageLockMode.ReadWrite, Imaging.PixelFormat.Format8bppIndexed)
 
             Dim ptr As IntPtr = bdata.Scan0
@@ -176,7 +189,7 @@ Namespace Images
 
             For i As Integer = 0 To bdata.Height - 1 Step 1
                 For j As Integer = 0 To bdata.Width - 1 Step 1
-                    rgb((i * stride) + j) = CByte(A(count))
+                    rgb((i * stride) + j) = CByte(Tens(count))
                     count += 1
                 Next
             Next

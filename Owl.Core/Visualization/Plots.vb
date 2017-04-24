@@ -7,56 +7,62 @@ Namespace Visualization
 
     Public Module PlotFactory
 
+        '''' <summary>
+        '''' Shape = {Rows, Columns, Channel}
+        '''' </summary>
+        '''' <param name="Tensor3D"></param>
+        '''' <returns></returns>
+        'Public Function Tensor2DColorImage(Tensor3D As Tensor) As Bitmap
+        '    Dim bmp As New Bitmap(Tensor3D.Width, Tensor3D.Height)
+
+        '    Dim cnt As Integer = 0
+
+        '    For i As Integer = 0 To Tensor3D.Width - 1 Step 1
+        '        For j As Integer = 0 To Tensor3D.Height - 1 Step 1
+        '            Dim colVal As New List(Of Double)
+
+        '            For k As Integer = 0 To Tensor3D.ShapeAt(2) - 1 Step 1
+        '                Dim val As Double = Math.Max(0, Math.Min(255, Tensor3D.ValueAt({i, j, k}) * 255))
+        '                colVal.Add(val)
+        '                cnt += 1
+        '            Next
+
+        '            Dim col As Color = Color.FromArgb(colVal(0), colVal(1), colVal(2))
+        '            bmp.SetPixel(i, j, col)
+        '        Next
+        '    Next
+
+        '    Return bmp
+        'End Function
+
+
         ''' <summary>
-        ''' Shape = {Rows, Columns, Channel}
+        ''' If normalized, the image is trimmed and remapped to 0-255. Otherwise its a direct double to byte conversion.
         ''' </summary>
-        ''' <param name="Tensor3D"></param>
+        ''' <param name="Tensor2D"></param>
+        ''' <param name="Normalize"></param>
         ''' <returns></returns>
-        Public Function Tensor2DColorImage(Tensor3D As Tensor) As Bitmap
-            Dim bmp As New Bitmap(Tensor3D.Width, Tensor3D.Height)
+        Public Function Tensor2DImage(Tensor2D As Tensor, Optional Normalize As Boolean = True) As Bitmap
 
-            Dim cnt As Integer = 0
-
-            For i As Integer = 0 To Tensor3D.Width - 1 Step 1
-                For j As Integer = 0 To Tensor3D.Height - 1 Step 1
-                    Dim colVal As New List(Of Double)
-
-                    For k As Integer = 0 To Tensor3D.ShapeAt(2) - 1 Step 1
-                        Dim val As Double = Math.Max(0, Math.Min(255, Tensor3D.ValueAt({i, j, k}) * 255))
-                        colVal.Add(val)
-                        cnt += 1
-                    Next
-
-                    Dim col As Color = Color.FromArgb(colVal(0), colVal(1), colVal(2))
-                    bmp.SetPixel(i, j, col)
-                Next
-            Next
-
-            Return bmp
-        End Function
-
-        Public Function Tensor2DImage(Tensor2D As Tensor) As Bitmap
-
-            Dim bmp As Bitmap = Nothing
-
-            If Tensor2D.ShapeCount = 1 Then
-                bmp = New Bitmap(Tensor2D.Height, 1)
+            If Normalize Then
+                Return Owl.Core.Images.ImageConverters.ToGrayscale(Tensor2D, Tensor2D.GetRange)
             Else
-                bmp = New Bitmap(Tensor2D.Width, Tensor2D.Height)
+                Return Owl.Core.Images.ImageConverters.ToGrayscale(Tensor2D)
             End If
 
-            Dim cnt As Integer = 0
+            'OLD CODE 
+            'Dim cnt As Integer = 0
 
-            For i As Integer = 0 To If(Tensor2D.ShapeCount = 1, 0, Tensor2D.Height - 1) Step 1
-                For j As Integer = 0 To If(Tensor2D.ShapeCount = 1, Tensor2D.Height - 1, Tensor2D.Width - 1) Step 1
-                    Dim val As Double = Math.Max(0, Math.Min(255, Tensor2D(cnt) * 255))
-                    Dim col As Color = Color.FromArgb(val, val, val)
-                    bmp.SetPixel(j, i, col)
-                    cnt += 1
-                Next
-            Next
+            'For i As Integer = 0 To If(Tensor2D.ShapeCount = 1, 0, Tensor2D.Height - 1) Step 1
+            '    For j As Integer = 0 To If(Tensor2D.ShapeCount = 1, Tensor2D.Height - 1, Tensor2D.Width - 1) Step 1
+            '        Dim val As Double = Math.Max(0, Math.Min(255, Tensor2D(cnt) * 255))
+            '        Dim col As Color = Color.FromArgb(val, val, val)
+            '        bmp.SetPixel(j, i, col)
+            '        cnt += 1
+            '    Next
+            'Next
 
-            Return bmp
+            'Return bmp
         End Function
 
         Public Function TensorSetPlot(TSet As TensorSet, YAxisRange As Range, PlotSize As Size, PenThickness As Single, HighlightTensors As List(Of Integer)) As Bitmap
