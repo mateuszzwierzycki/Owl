@@ -5,7 +5,7 @@ Namespace Visualization
     ''' <summary>
     ''' Source: https://www.programmingalgorithms.com/algorithm/hsl-to-rgb?lang=VB.Net
     ''' </summary>
-    Module ColorConversion
+    public Module ColorConversion
         Public Function HSLToRGB(hsl As ColorHSL) As Color
             Dim r As Byte = 0
             Dim g As Byte = 0

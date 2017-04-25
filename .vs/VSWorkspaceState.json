@@ -1,11 +1,9 @@
 {
   "ExpandedNodes": [
-    "",
     "\\Owl.Core",
-    "\\Owl.Core\\TensorSets",
-    "\\Owl.GH.Common",
-    "\\Owl.ParamSetup"
+    "\\Owl.Core\\Images",
+    "\\Owl.Core\\Images\\Image modifiers",
+    "\\Owl.Core\\Images\\Image operations"
   ],
-  "SelectedNode": "\\Owl.Core\\TensorSets\\TensorSet.vb",
   "PreviewInSolutionExplorer": false
 }

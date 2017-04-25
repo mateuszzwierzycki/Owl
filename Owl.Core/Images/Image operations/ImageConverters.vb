@@ -153,7 +153,7 @@ Namespace Images
         ''' Tensor will be trimmed to stay in R range, then remapped to 0 to 255.
         ''' </summary>
         ''' <param name="Tens">Tensor 2D</param>
-        ''' <param name="R"></param>
+        ''' <param name="R">Threshold range</param>
         ''' <returns></returns>
         Public Function ToGrayscale(Tens As Tensor, R As Range) As Bitmap
             Dim bmp As Bitmap = Nothing

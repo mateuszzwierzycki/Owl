@@ -40,12 +40,12 @@ Namespace Visualization
         ''' If normalized, the image is trimmed and remapped to 0-255. Otherwise its a direct double to byte conversion.
         ''' </summary>
         ''' <param name="Tensor2D"></param>
-        ''' <param name="Normalize"></param>
+        ''' <param name="R"></param>
         ''' <returns></returns>
-        Public Function Tensor2DImage(Tensor2D As Tensor, Optional Normalize As Boolean = True) As Bitmap
+        Public Function Tensor2DImage(Tensor2D As Tensor, R As Range) As Bitmap
 
-            If Normalize Then
-                Return Owl.Core.Images.ImageConverters.ToGrayscale(Tensor2D, Tensor2D.GetRange)
+            If R.Length > 0 Then
+                Return Owl.Core.Images.ImageConverters.ToGrayscale(Tensor2D, R)
             Else
                 Return Owl.Core.Images.ImageConverters.ToGrayscale(Tensor2D)
             End If
