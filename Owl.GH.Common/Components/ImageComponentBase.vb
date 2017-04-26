@@ -13,6 +13,10 @@ Public MustInherit Class ImageComponentBase
         MyBase.New(Name, Nickname, Description, SubCategory)
     End Sub
 
+    Sub New(Name As String, Nickname As String, Description As String, Category As String, SubCategory As String)
+        MyBase.New(Name, Nickname, Description, Category, SubCategory)
+    End Sub
+
     ''' <summary>
     ''' A place to setup the component attributes regarding the image and its properties.
     ''' </summary>

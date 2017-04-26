@@ -2,9 +2,6 @@
 
 Namespace Convolutions
 
-    ''' <summary>
-    ''' TODO max pooling check
-    ''' </summary>
     Public Class MaxPooling
         Inherits ImageModifier
 

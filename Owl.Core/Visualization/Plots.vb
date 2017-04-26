@@ -7,62 +7,32 @@ Namespace Visualization
 
     Public Module PlotFactory
 
-        '''' <summary>
-        '''' Shape = {Rows, Columns, Channel}
-        '''' </summary>
-        '''' <param name="Tensor3D"></param>
-        '''' <returns></returns>
-        'Public Function Tensor2DColorImage(Tensor3D As Tensor) As Bitmap
-        '    Dim bmp As New Bitmap(Tensor3D.Width, Tensor3D.Height)
-
-        '    Dim cnt As Integer = 0
-
-        '    For i As Integer = 0 To Tensor3D.Width - 1 Step 1
-        '        For j As Integer = 0 To Tensor3D.Height - 1 Step 1
-        '            Dim colVal As New List(Of Double)
-
-        '            For k As Integer = 0 To Tensor3D.ShapeAt(2) - 1 Step 1
-        '                Dim val As Double = Math.Max(0, Math.Min(255, Tensor3D.ValueAt({i, j, k}) * 255))
-        '                colVal.Add(val)
-        '                cnt += 1
-        '            Next
-
-        '            Dim col As Color = Color.FromArgb(colVal(0), colVal(1), colVal(2))
-        '            bmp.SetPixel(i, j, col)
-        '        Next
-        '    Next
-
-        '    Return bmp
-        'End Function
-
-
         ''' <summary>
-        ''' If normalized, the image is trimmed and remapped to 0-255. Otherwise its a direct double to byte conversion.
+        ''' Shape = {Rows, Columns, Channel}
         ''' </summary>
-        ''' <param name="Tensor2D"></param>
-        ''' <param name="R"></param>
+        ''' <param name="Tensor3D"></param>
         ''' <returns></returns>
+        Public Function Tensor3DImage(Tensor3D As Tensor, R As Range) As Bitmap
+            'there is not much code here, but leaving it as it is for --questionable-- clarity.
+
+            Tensor3D = Tensor3D.Duplicate
+                Tensor3D.TrimFloor(R.Minimum)
+                Tensor3D.TrimCeiling(R.Maximum)
+                Tensor3D.Remap(R, New Range(0, 255))
+
+                Return Owl.Core.Images.ToBitmap(Tensor3D)
+        End Function
+
+        Public Function Tensor3DImage(Tensor3D) As Bitmap
+            Return Owl.Core.Images.ToBitmap(Tensor3D)
+        End Function
+
+        Public Function Tensor2DImage(Tensor2D) As Bitmap
+            Return Owl.Core.Images.ImageConverters.ToGrayscale(Tensor2D)
+        End Function
+
         Public Function Tensor2DImage(Tensor2D As Tensor, R As Range) As Bitmap
-
-            If R.Length > 0 Then
-                Return Owl.Core.Images.ImageConverters.ToGrayscale(Tensor2D, R)
-            Else
-                Return Owl.Core.Images.ImageConverters.ToGrayscale(Tensor2D)
-            End If
-
-            'OLD CODE 
-            'Dim cnt As Integer = 0
-
-            'For i As Integer = 0 To If(Tensor2D.ShapeCount = 1, 0, Tensor2D.Height - 1) Step 1
-            '    For j As Integer = 0 To If(Tensor2D.ShapeCount = 1, Tensor2D.Height - 1, Tensor2D.Width - 1) Step 1
-            '        Dim val As Double = Math.Max(0, Math.Min(255, Tensor2D(cnt) * 255))
-            '        Dim col As Color = Color.FromArgb(val, val, val)
-            '        bmp.SetPixel(j, i, col)
-            '        cnt += 1
-            '    Next
-            'Next
-
-            'Return bmp
+            Return Owl.Core.Images.ImageConverters.ToGrayscale(Tensor2D, R)
         End Function
 
         Public Function TensorSetPlot(TSet As TensorSet, YAxisRange As Range, PlotSize As Size, PenThickness As Single, HighlightTensors As List(Of Integer)) As Bitmap

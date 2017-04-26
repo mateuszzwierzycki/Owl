@@ -8,6 +8,10 @@ Public MustInherit Class OwlComponentBase
         MyBase.New(Name, Nickname, Description, "Owl", SubCategory)
     End Sub
 
+    Sub New(Name As String, Nickname As String, Description As String, Category As String, SubCategory As String)
+        MyBase.New(Name, Nickname, Description, Category, SubCategory)
+    End Sub
+
     Protected Overrides ReadOnly Property Icon As Bitmap
         Get
             Return Utils.GetIcon(Me)

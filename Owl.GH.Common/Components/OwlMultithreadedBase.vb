@@ -10,6 +10,10 @@ Public MustInherit Class OwlMultiThreadedBase
         MyBase.New(Name, Nickname, Description, SubCategory)
     End Sub
 
+    Sub New(Name As String, Nickname As String, Description As String, Category As String, SubCategory As String)
+        MyBase.New(Name, Nickname, Description, Category, SubCategory)
+    End Sub
+
     Dim ttask As New List(Of TensorSetTask)
     Dim thr As System.Threading.Thread = Nothing
     Public AbortFlag As Boolean = False

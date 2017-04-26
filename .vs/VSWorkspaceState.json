@@ -1,9 +1,9 @@
 {
   "ExpandedNodes": [
+    "",
     "\\Owl.Core",
-    "\\Owl.Core\\Images",
-    "\\Owl.Core\\Images\\Image modifiers",
-    "\\Owl.Core\\Images\\Image operations"
+    "\\Owl.Core\\Visualization"
   ],
+  "SelectedNode": "\\Owl.Core\\Owl.Core.sln",
   "PreviewInSolutionExplorer": false
 }

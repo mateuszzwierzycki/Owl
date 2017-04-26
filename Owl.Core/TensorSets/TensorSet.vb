@@ -144,6 +144,9 @@ Namespace Tensors
         '    Return nl
         'End Function
 
+
+
+
         ''' <summary>
         ''' Dumb implementation, can cause overflows.
         ''' </summary>
@@ -263,6 +266,14 @@ Namespace Tensors
                 Me(i).Remap(From, [To])
             Next
         End Sub
+
+        'TODO this seems to work
+        'Public Sub XRemap([To] As Range)
+        '    Dim from As Range = GetRange()
+        '    Parallel.For(0, Me.Count, Sub(i As Integer)
+        '                                  Me(i).Remap(from, [To])
+        '                              End Sub)
+        'End Sub
 
         Public Sub Remap([To] As Range)
             Dim from As Range = GetRange()
