@@ -1,6 +1,6 @@
 ﻿Imports System.Drawing
 
-Namespace Visualization
+Namespace Structures
 
     ''' <summary>
     ''' Source: https://www.programmingalgorithms.com/algorithm/hsl-to-rgb?lang=VB.Net

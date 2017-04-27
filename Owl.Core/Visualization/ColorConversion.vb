@@ -1,4 +1,5 @@
 ﻿Imports System.Drawing
+Imports Owl.Core.Structures
 
 Namespace Visualization
 

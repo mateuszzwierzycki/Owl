@@ -1,9 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Owl.Core",
-    "\\Owl.Core\\Visualization"
+    "\\Owl.Core\\Images",
+    "\\Owl.Core\\Images\\Image operations",
+    "\\Owl.Core\\Visualization",
+    "\\Owl.GH.Common",
+    "\\Owl.GH.Common\\Components"
   ],
-  "SelectedNode": "\\Owl.Core\\Owl.Core.sln",
+  "SelectedNode": "\\Owl.GH.Common\\Owl.GH.Common.sln",
   "PreviewInSolutionExplorer": false
 }

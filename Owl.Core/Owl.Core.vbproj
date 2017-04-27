@@ -90,7 +90,7 @@
     <Compile Include="Tensors\Tensor.vb" />
     <Compile Include="Tensors\TensorFactory.vb" />
     <Compile Include="Tensors\TensorBase.vb" />
-    <Compile Include="Math\Range.vb" />
+    <Compile Include="Structures\Range.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -108,7 +108,7 @@
     </Compile>
     <Compile Include="TensorSets\TensorSet.vb" />
     <Compile Include="Visualization\ColorConversion.vb" />
-    <Compile Include="Visualization\ColorHSL.vb" />
+    <Compile Include="Structures\ColorHSL.vb" />
     <Compile Include="Visualization\Plots.vb" />
   </ItemGroup>
   <ItemGroup>
