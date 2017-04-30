@@ -12,4 +12,7 @@
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <StartProgram>C:\Program Files\Rhinoceros 5 %2864-bit%29\System\Rhino.exe</StartProgram>
+  </PropertyGroup>
 </Project>

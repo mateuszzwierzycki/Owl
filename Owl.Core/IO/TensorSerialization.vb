@@ -19,6 +19,12 @@ Namespace IO
                 Dim cnt As Integer = 4 + Tens.ShapeCount * 4 + Tens.Length * 8
 
                 'writing the total bytelength of this tensor
+                'this value doesn't add up to this count... 
+                'so if the tensor occupies 1024 bytes, cnt is 1024
+                'but the total "file size" is 1028
+
+                'so if you read 1024 here, to read the whole tensor 
+                'you need to read 1024 bytes rather than 1020 (1024-4)
                 s.Write(BitConverter.GetBytes(cnt), 0, 4)
 
                 'writing the shape length
@@ -34,7 +40,6 @@ Namespace IO
                 Buffer.BlockCopy(Tens.TensorData, 0, buff, 0, buff.Length)
 
                 'write the byte data
-
                 s.Write(buff, 0, buff.Length)
                 bytes = s.ToArray()
             End Using
