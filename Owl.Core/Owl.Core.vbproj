@@ -74,7 +74,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>bin\Debug32\</OutputPath>
+    <OutputPath>D:\OneDrive\Builds\Owl\</OutputPath>
     <DocumentationFile>Owl.Core.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <DebugType>full</DebugType>
@@ -114,20 +114,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clustering\KMeansEngine.vb" />
-    <Compile Include="Images\Image modifiers\Convolution.vb" />
-    <Compile Include="Images\Image modifiers\ImageModifier.vb" />
-    <Compile Include="Images\Image modifiers\ImageModifierLayer.vb" />
-    <Compile Include="Images\Image modifiers\ImageNetwork.vb" />
-    <Compile Include="Images\Image modifiers\Normalizer.vb" />
-    <Compile Include="Images\Image modifiers\Pooling.vb" />
-    <Compile Include="Images\Image modifiers\Rectification.vb" />
-    <Compile Include="Images\Image modifiers\Subsampling.vb" />
     <Compile Include="Images\Image operations\ImageConverters.vb" />
     <Compile Include="Images\Image operations\ImageFunctions.vb" />
     <Compile Include="Images\Image operations\ImageOperators.vb" />
     <Compile Include="IO\TensorSerialization.vb" />
-    <Compile Include="Markov\MarkovChain.vb" />
     <Compile Include="Settings\LibrarySettings.vb" />
     <Compile Include="Snippets\Snippets.vb" />
     <Compile Include="Tensors\Tensor.vb" />

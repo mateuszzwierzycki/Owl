@@ -199,7 +199,7 @@ Namespace Tensors
         ''' <returns></returns>
         Public ReadOnly Property Width As Integer 'DIMENSIONS=================================================================
             Get
-                If Me.ShapeCount < 2 Then Return -1
+                If Me.ShapeCount < 2 Then Return 1
                 Return ShapeAt(1)
             End Get
         End Property
@@ -260,8 +260,6 @@ Namespace Tensors
                 Me.TensorData(CoordinateToIndex(Coordinates)) = value
             End Set
         End Property
-
-
 
 #End Region
 
@@ -407,6 +405,30 @@ Namespace Tensors
 
 #Region "Operators"
 
+        ''' <summary>
+        ''' Supports only up to 2 dimensional matrices... sorry.
+        ''' </summary>
+        ''' <param name="A"></param>
+        ''' <param name="B"></param>
+        ''' <returns></returns>
+        Public Shared Function MatMul(A As Tensor, B As Tensor) As Tensor
+            Dim AB As New Tensor(B.Width, A.Height)
+
+            For i As Integer = 0 To AB.Height - 1 Step 1
+                For j As Integer = 0 To AB.Width - 1 Step 1
+                    Dim thisval As Double = 0
+
+                    For p As Integer = 0 To A.Width - 1 Step 1
+                        thisval += B.ValueAt(j, p) * A.ValueAt(p, i)
+                    Next
+
+                    AB.ValueAt(i, j) = thisval
+                Next
+            Next
+
+            Return AB
+        End Function
+
         Public Shared Operator =(A As Tensor, B As Tensor) As Boolean
             If A.Count <> B.Count Then Return False
             For i As Integer = 0 To A.Count - 1 Step 1
@@ -428,6 +450,12 @@ Namespace Tensors
 
             Return C
         End Operator
+
+        Public Sub Add(Value As Tensor)
+            For i As Integer = 0 To Me.Length - 1 Step 1
+                Me(i) += Value(i)
+            Next
+        End Sub
 
         Public Shared Operator +(A As Tensor, V As Double) As Tensor
             Dim C As New Tensor(A)
@@ -485,7 +513,6 @@ Namespace Tensors
         Public Overloads Function CompareTo(other As Tensor) As Integer Implements IComparable(Of Tensor).CompareTo
             Return MyBase.CompareTo(other)
         End Function
-
 
 #End Region
 

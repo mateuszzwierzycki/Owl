@@ -2,9 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\Owl.Core",
-    "\\Owl.Core\\Images",
-    "\\Owl.Core\\Images\\Image operations",
-    "\\Owl.GH.Common"
+    "\\Owl.Core\\Images\\Image operations"
   ],
   "SelectedNode": "\\Owl.Core\\Owl.Core.sln",
   "PreviewInSolutionExplorer": false

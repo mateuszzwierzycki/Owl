@@ -23,11 +23,11 @@ Namespace Visualization
                 Return Owl.Core.Images.ToBitmap(Tensor3D)
         End Function
 
-        Public Function Tensor3DImage(Tensor3D) As Bitmap
+        Public Function Tensor3DImage(Tensor3D As Tensor) As Bitmap
             Return Owl.Core.Images.ToBitmap(Tensor3D)
         End Function
 
-        Public Function Tensor2DImage(Tensor2D) As Bitmap
+        Public Function Tensor2DImage(Tensor2D As Tensor) As Bitmap
             Return Owl.Core.Images.ImageConverters.ToGrayscale(Tensor2D)
         End Function
 
@@ -160,6 +160,40 @@ Namespace Visualization
             filler.Dispose()
             Return background
         End Function
+
+        Public Function ImageStitcher(Tensors2D As IEnumerable(Of Tensor), Width As Integer, Heigth As Integer) As Bitmap
+            If Tensors2D.Count < 1 Then Return Nothing
+
+            Dim ts As IEnumerable(Of Tensor) = Tensors2D
+            If ts.Count <> Width * Heigth Then Return Nothing
+
+            Dim tset As New TensorSet(Tensors2D)
+            If Not tset.IsHomogeneous Then Return Nothing
+
+            Dim sz As New Size(ts(0).Width, ts(0).Height)
+
+            Dim bmp As New Bitmap(sz.Width * Width, sz.Height * Heigth)
+
+            Using g As Graphics = Graphics.FromImage(bmp)
+                g.SmoothingMode = SmoothingMode.None
+                g.InterpolationMode = InterpolationMode.NearestNeighbor
+
+                Dim cnt As Integer = 0
+
+                For i As Integer = 0 To Heigth - 1 Step 1
+                    For j As Integer = 0 To Width - 1 Step 1
+                        Dim crop As Bitmap = Tensor2DImage(ts(cnt))
+                        g.DrawImage(crop, j * sz.Width, i * sz.Height)
+                        crop.Dispose()
+                        cnt += 1
+                    Next
+                Next
+
+            End Using
+
+            Return bmp
+        End Function
+
 
     End Module
 End Namespace
