@@ -101,7 +101,9 @@ Namespace Networks
         End Property
 
         ''' <summary>
-        ''' Direct access to the underlying arrays
+        ''' Direct access to the underlying arrays. Weights are stored in Tensors of form [Input, Neuron].
+        ''' This implies the input Tensor for Compute has to be of shape [1, Input].
+        ''' The ComputeLayer performs this reshaping before feeding the Tensor.
         ''' </summary>
         ''' <returns></returns>
         Public Property Weights As TensorSet
@@ -148,15 +150,16 @@ Namespace Networks
         End Function
 
         ''' <summary>
-        ''' TODO test this
+        ''' Input tensor gets always reshaped into a [1, length] matrix.
         ''' </summary>
         ''' <param name="InputTensor"></param>
         ''' <param name="LayerIndex"></param>
         ''' <returns></returns>
         Public Function ComputeLayer(InputTensor As Tensor, LayerIndex As Integer) As Tensor
-            Dim tsum As Tensor = Tensor.MatMul(Me.Weights(LayerIndex), InputTensor)
-            NeuronFunction.Evaluate(tsum)
+            InputTensor.TryReshape({1, InputTensor.Height})
+            Dim tsum As Tensor = Tensor.MatMul(InputTensor, Me.Weights(LayerIndex))
             tsum.Add(Biases(LayerIndex))
+            NeuronFunction.Evaluate(tsum)
             Return tsum
         End Function
 

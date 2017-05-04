@@ -244,7 +244,7 @@ Namespace Tensors
         ''' <returns></returns>
         Public Property ValueAt(Column As Integer, Row As Integer) As Double
             Get
-                If Column > Shape(0) - 1 Then Throw New IndexOutOfRangeException("Outside of the image bounds")
+                If Column > Me.Width - 1 Then Throw New IndexOutOfRangeException("Outside of the image bounds")
                 Return TensorData(Column + (Row * Multipliers(0)))
             End Get
             Set(value As Double)
@@ -422,7 +422,7 @@ Namespace Tensors
                         thisval += B.ValueAt(j, p) * A.ValueAt(p, i)
                     Next
 
-                    AB.ValueAt(i, j) = thisval
+                    AB.ValueAt(j, i) = thisval
                 Next
             Next
 
