@@ -62,6 +62,11 @@
       <HintPath>packages\Owl.Core.1.1.0\lib\net452\Owl.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Owl.Learning, Version=1.0.6334.28150, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\OneDrive\Builds\Owl\Owl.Learning.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="RhinoCommon, Version=5.1.30000.16, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
       <HintPath>packages\RhinoCommon.5.12.50810.13095\lib\net35\RhinoCommon.dll</HintPath>
       <Private>False</Private>
@@ -93,6 +98,7 @@
     <Compile Include="Components\OwlComponentBase.vb" />
     <Compile Include="Components\OwlMultithreadedBase.vb" />
     <Compile Include="Goos\GH_OwlFilePath.vb" />
+    <Compile Include="Goos\GH_OwlNetwork.vb" />
     <Compile Include="Goos\GH_OwlTensor.vb" />
     <Compile Include="Goos\GH_OwlTensorSet.vb" />
     <Compile Include="Goos\GH_Trigger.vb" />
@@ -111,6 +117,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Params\Param_OwlNetwork.vb" />
     <Compile Include="Params\Param_OwlTensor.vb" />
     <Compile Include="Params\Param_OwlTensorSet.vb" />
     <Compile Include="Params\Param_Trigger.vb" />

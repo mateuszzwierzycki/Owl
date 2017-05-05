@@ -4,10 +4,11 @@ Imports Owl.Learning.NeuronFunctions
 Namespace Networks
 
     Public Class Network
+        Inherits NetworkBase
 
         Private _weights As New TensorSet
         Private _biases As New TensorSet
-        Private _neur As NeuronFunctionBase
+        Private _neur As New List(Of NeuronFunctionBase)
 
         ''' <summary>
         ''' The hardcore way.
@@ -19,13 +20,10 @@ Namespace Networks
         ''' <summary>
         ''' The direct way.
         ''' </summary>
-        ''' <param name="Weights"></param>
-        ''' <param name="Biases"></param>
-        ''' <param name="NeuronFunction"></param>
-        Public Sub New(Weights As TensorSet, Biases As TensorSet, NeuronFunction As NeuronFunctionBase)
+        Public Sub New(Weights As TensorSet, Biases As TensorSet, NeuronFunctions As IEnumerable(Of NeuronFunctionBase))
             Me.Weights = Weights
             Me.Biases = Biases
-            Me.NeuronFunction = NeuronFunction
+            Me.NeuronFunctions.AddRange(NeuronFunctions)
         End Sub
 
         ''' <summary>
@@ -36,7 +34,33 @@ Namespace Networks
         ''' <param name="Neurons"></param>
         ''' <param name="NetworkInitializer"></param>
         Sub New(NFunction As NeuronFunctionBase, Inputs As Integer, Neurons As IEnumerable(Of Integer), Optional NetworkInitializer As InitializerBase = Nothing)
-            _neur = NFunction
+            For i As Integer = 0 To Neurons.Count - 1 Step 1
+                _neur.Add(NFunction.Duplicate)
+            Next
+
+            Dim nl As New List(Of Integer) From {Inputs}
+            nl.AddRange(Neurons)
+
+            For i As Integer = 1 To nl.Count - 1 Step 1
+                Dim prev As Integer = nl(i - 1)
+                Dim this As Integer = nl(i)
+
+                _weights.Add(New Tensor(New List(Of Integer) From {prev, this}))
+                _biases.Add(New Tensor(New List(Of Integer) From {this}))
+            Next
+
+            If NetworkInitializer IsNot Nothing Then NetworkInitializer.InitializeNetwork(Me)
+        End Sub
+
+        ''' <summary>
+        ''' The usual way.
+        ''' </summary>
+        ''' <param name="NFunctions"></param>
+        ''' <param name="Inputs"></param>
+        ''' <param name="Neurons"></param>
+        ''' <param name="NetworkInitializer"></param>
+        Sub New(NFunctions As IEnumerable(Of NeuronFunctionBase), Inputs As Integer, Neurons As IEnumerable(Of Integer), Optional NetworkInitializer As InitializerBase = Nothing)
+            _neur.AddRange(NFunctions)
 
             Dim nl As New List(Of Integer) From {Inputs}
             nl.AddRange(Neurons)
@@ -53,7 +77,11 @@ Namespace Networks
         End Sub
 
         Public Function Duplicate() As Network
-            Return New Network(Weights.Duplicate, Biases.Duplicate, NeuronFunction.Duplicate)
+            Dim nl As New List(Of NeuronFunctionBase)
+            For Each f As NeuronFunctionBase In Me.NeuronFunctions
+                nl.Add(f.Duplicate)
+            Next
+            Return New Network(Weights.Duplicate, Biases.Duplicate, nl)
         End Function
 
         Public Function NeuronCounts() As List(Of Integer)
@@ -129,19 +157,19 @@ Namespace Networks
         End Property
 
         ''' <summary>
-        ''' Direct access to the underlying function
+        ''' Direct access to the underlying function per layer.
         ''' </summary>
         ''' <returns></returns>
-        Public Property NeuronFunction As NeuronFunctionBase
+        Public Property NeuronFunctions As List(Of NeuronFunctionBase)
             Get
                 Return _neur
             End Get
-            Set(value As NeuronFunctionBase)
+            Set(value As List(Of NeuronFunctionBase))
                 _neur = value
             End Set
         End Property
 
-        Public Function Compute(InputTensor As Tensor) As Tensor
+        Public Overrides Function Compute(InputTensor As Tensor) As Tensor
             Dim thistens As Tensor = InputTensor
             For i As Integer = 0 To Me.LayerCount - 1 Step 1
                 thistens = ComputeLayer(thistens, i)
@@ -159,7 +187,7 @@ Namespace Networks
             InputTensor.TryReshape({1, InputTensor.Height})
             Dim tsum As Tensor = Tensor.MatMul(InputTensor, Me.Weights(LayerIndex))
             tsum.Add(Biases(LayerIndex))
-            NeuronFunction.Evaluate(tsum)
+            NeuronFunctions(LayerIndex).Evaluate(tsum)
             Return tsum
         End Function
 
