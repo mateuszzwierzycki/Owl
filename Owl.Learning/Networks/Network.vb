@@ -23,7 +23,16 @@ Namespace Networks
         Public Sub New(Weights As TensorSet, Biases As TensorSet, NeuronFunctions As IEnumerable(Of NeuronFunctionBase))
             Me.Weights = Weights
             Me.Biases = Biases
-            Me.NeuronFunctions.AddRange(NeuronFunctions)
+
+            Dim funcs As New List(Of NeuronFunctionBase)(NeuronFunctions)
+
+            If NeuronFunctions.Count = 1 Then
+                For i As Integer = 1 To Weights.Count - 1 Step 1
+                    funcs.Add(funcs(0).Duplicate)
+                Next
+            End If
+
+            Me.NeuronFunctions = funcs
         End Sub
 
         ''' <summary>
@@ -61,6 +70,12 @@ Namespace Networks
         ''' <param name="NetworkInitializer"></param>
         Sub New(NFunctions As IEnumerable(Of NeuronFunctionBase), Inputs As Integer, Neurons As IEnumerable(Of Integer), Optional NetworkInitializer As InitializerBase = Nothing)
             _neur.AddRange(NFunctions)
+
+            If _neur.Count = 1 Then
+                For i As Integer = 1 To Neurons.Count - 1 Step 1
+                    _neur.Add(_neur(0).Duplicate)
+                Next
+            End If
 
             Dim nl As New List(Of Integer) From {Inputs}
             nl.AddRange(Neurons)

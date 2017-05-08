@@ -71,17 +71,18 @@ Public Class GH_OwlNetwork
 
     Public Overrides Function Read(reader As GH_IReader) As Boolean
 
-
         Dim nn As New BinaryFormatter()
-        Dim bytes() As Byte = Nothing
 
-        Dim f As Owl.Learning.NeuronFunctions.NeuronFunctionBase = Nothing
+        Dim f As New List(Of Owl.Learning.NeuronFunctions.NeuronFunctionBase)
+        Dim fc As Integer = reader.GetInt32("FunctionCount")
         Dim w As TensorSet = Nothing
         Dim b As TensorSet = Nothing
 
-        Using mstr As New MemoryStream(reader.GetByteArray("Function"))
-            f = nn.Deserialize(mstr)
-        End Using
+        For i As Integer = 0 To fc - 1 Step 1
+            Using mstr As New MemoryStream(reader.GetByteArray("Function_" & i))
+                f.Add(nn.Deserialize(mstr))
+            End Using
+        Next
 
         Using mstr As New MemoryStream(reader.GetByteArray("Biases"))
             b = Owl.Core.IO.ReadTensors(mstr)
@@ -98,13 +99,15 @@ Public Class GH_OwlNetwork
     Public Overrides Function Write(writer As GH_IWriter) As Boolean
 
         Dim nn As New BinaryFormatter()
-        Dim bytes() As Byte = Nothing
-        Using mstr As New MemoryStream
-            nn.Serialize(mstr, Me.Value.NeuronFunction)
-            bytes = mstr.ToArray()
-        End Using
 
-        writer.SetByteArray("Function", bytes)
+        writer.SetInt32("FunctionCount", Me.Value.NeuronFunctions.Count)
+
+        For i As Integer = 0 To Me.Value.NeuronFunctions.Count - 1 Step 1
+            Using mstr As New MemoryStream
+                nn.Serialize(mstr, Me.Value.NeuronFunctions(i))
+                writer.SetByteArray("Function_" & i, mstr.ToArray())
+            End Using
+        Next
 
         Using mstr As New MemoryStream
             Owl.Core.IO.WriteTensors(mstr, Me.Value.Biases)
