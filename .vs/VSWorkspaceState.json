@@ -2,12 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Owl.Core",
-    "\\Owl.GH.Common",
-    "\\Owl.GH.Common\\Params",
-    "\\Owl.Learning",
-    "\\Owl.Learning\\Networks",
-    "\\Owl.Learning\\Networks\\Functions"
+    "\\Owl.Core\\Images",
+    "\\Owl.Core\\Images\\Image operations"
   ],
-  "SelectedNode": "\\Owl.GH.Common\\Params\\Param_OwlNetwork.vb",
+  "SelectedNode": "\\Owl.Core\\Owl.Core.sln",
   "PreviewInSolutionExplorer": false
 }

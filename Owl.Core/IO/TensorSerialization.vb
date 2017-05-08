@@ -376,6 +376,9 @@ Namespace IO
                         If i > 0 Then shape.Add(dims(i))
                         If i > 0 Then tensorlength *= CLng(dims(i))
                     Next
+
+                    If shape.Count = 0 Then shape.Add(1) 'TODO fucky, but let it stay here for now.
+
                     tensorcount = Count
 
                     Dim dataraw(tensorcount * tensorlength * CInt(databytecount) - 1) As Byte
@@ -470,6 +473,9 @@ Namespace IO
                         If i > 0 Then shape.Add(dims(i))
                         If i > 0 Then tensorlength *= CLng(dims(i))
                     Next
+
+                    If shape.Count = 0 Then shape.Add(1) 'TODO fucky, but let it stay here for now.
+
                     tensorcount = dims(0)
 
                     Dim dataraw(tensorcount * tensorlength * CInt(databytecount) - 1) As Byte
@@ -480,6 +486,8 @@ Namespace IO
                     Dim data As Array = Array.CreateInstance(datatype, tensorlength * tensorcount)
                     System.Buffer.BlockCopy(dataraw, 0, data, 0, dataraw.Length)
                     Array.Reverse(data)
+
+                    If shape.Count = 0 Then shape.Add(1) 'TODO fucky, but let it stay here for now.
 
                     Dim pos As Integer = 0
                     For i As Integer = 0 To tensorcount - 1 Step 1
