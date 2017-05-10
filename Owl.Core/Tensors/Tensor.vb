@@ -63,6 +63,12 @@ Namespace Tensors
             Next
         End Sub
 
+        ''' <summary>
+        ''' Values are deep copied.
+        ''' </summary>
+        ''' <param name="Width"></param>
+        ''' <param name="Height"></param>
+        ''' <param name="Values"></param>
         Sub New(Width As Integer, Height As Integer, Values As IEnumerable(Of Byte))
             MyBase.New(Width * Height)
             OnShapeChange({Height, Width})
@@ -72,6 +78,12 @@ Namespace Tensors
             Next
         End Sub
 
+        ''' <summary>
+        ''' Values are deep copied.
+        ''' </summary>
+        ''' <param name="Width"></param>
+        ''' <param name="Height"></param>
+        ''' <param name="Values"></param>
         Sub New(Width As Integer, Height As Integer, Values As IEnumerable(Of Double))
             MyBase.New(Width * Height)
             OnShapeChange({Height, Width})
@@ -81,6 +93,12 @@ Namespace Tensors
             Next
         End Sub
 
+        ''' <summary>
+        ''' Values are deep copied.
+        ''' </summary>
+        ''' <param name="Width"></param>
+        ''' <param name="Height"></param>
+        ''' <param name="Values"></param>
         Sub New(Width As Integer, Height As Integer, Values() As Double)
             MyBase.New(Width * Height)
             OnShapeChange({Height, Width})
