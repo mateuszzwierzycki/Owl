@@ -2,6 +2,8 @@
 
 Namespace Clustering
 
+    Public Delegate Function KMeansMetric(A As Tensor, B As Tensor) As Double
+
     ''' <summary>
     ''' This is a very simplified and a very limited version of the KMeansEngine.
     ''' </summary>
@@ -220,7 +222,7 @@ Namespace Clustering
                     Dim ThisDist As Double = 0
 
                     For j As Integer = 0 To DimensionWeights.Length - 1 Step 1
-                        ThisDist += ((_seeds(i)(j) - InternalSet(Index)(j)) ^ 2) * DimensionWeights(j)
+                        ThisDist += ((_seeds(i)(j) - InternalSet(index)(j)) ^ 2) * DimensionWeights(j)
                     Next
 
                     ThisDist *= SeedW(i)
@@ -231,14 +233,14 @@ Namespace Clustering
                     End If
                 Next
 
-                Dim mydist As Double = InternalSet(Index).DistanceTo(_seeds(Idx))
+                Dim mydist As Double = InternalSet(index).DistanceTo(_seeds(Idx)) * SeedW(Idx)
 
                 If mydist > FurtherDistance Then
                     _furthestDistance = mydist
-                    _furthestIndex = Index
+                    _furthestIndex = index
                 End If
 
-                ClosestSeed(Index) = Idx
+                ClosestSeed(index) = Idx
                 SeedScore(Idx) += 1
             Next
 
@@ -258,6 +260,222 @@ Namespace Clustering
 
             For i As Integer = 0 To _seeds.Count - 1 Step 1
                 energy += _seeds(i).DistanceTo(NextSeeds(i))
+            Next
+
+            _seeds = NextSeeds
+            _map = ClosestSeed.ToList
+
+            Return energy
+        End Function
+
+    End Class
+
+    ''' <summary>
+    ''' KMeans implementation. Supports multiple weights for the cluster seeds (kernels), weights for dimensions etc.
+    ''' Might be 
+    ''' </summary>
+    Public Class KMeansEngineMetric
+
+        Private _vset As New TensorSet
+        Private _seeds As New TensorSet
+        Private _seedMultiply As New List(Of Double)
+        Private _map As New List(Of Integer)
+
+        Private _distancefunction As KMeansMetric = Nothing
+
+        Private _furthestIndex As Integer = -1
+        Private _furthestDistance As Double = 0
+
+
+        ''' <summary>
+        ''' Specifying a fixed number of tensors to work with is important. A dynamic collection would cause inconsistencies. 
+        ''' </summary>
+        ''' <param name="Tensors"></param>
+        Public Sub New(Tensors As IEnumerable(Of Tensor), DistanceFunction As KMeansMetric)
+            InternalSet.AddRange(Tensors)
+            _distancefunction = DistanceFunction
+
+            For i As Integer = 0 To Tensors.Count - 1 Step 1
+                Map.Add(-1)
+            Next
+
+        End Sub
+
+        ''' <summary>
+        ''' Map is a list of integers indicating which cluster Tensor got assigned to.
+        ''' </summary>
+        ''' <returns></returns>
+        Public Function GetMap() As Integer()
+            Return Map.ToArray
+        End Function
+
+        Private Property Map As List(Of Integer)
+            Get
+                Return _map
+            End Get
+            Set(value As List(Of Integer))
+                _map = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' This list has to have either no weights, or the same number of weights as there are seeds.
+        ''' </summary>
+        ''' <returns></returns>
+        Public Property SeedWeights As List(Of Double)
+            Get
+                Return _seedMultiply
+            End Get
+            Set(value As List(Of Double))
+                _seedMultiply = value
+            End Set
+        End Property
+
+        Public Sub RemoveSeed(Index As Integer)
+            _seeds.RemoveAt(Index)
+            SeedWeights.RemoveAt(Index)
+        End Sub
+
+        Public Function AddSeed(Seed As Tensor) As Boolean
+            If _seeds.Count > 0 Then
+                If _seeds(0).Length <> Seed.Length Then Return False
+            End If
+
+            SeedWeights.Add(1)
+            _seeds.Add(Seed)
+            Return True
+        End Function
+
+        ''' <summary>
+        ''' Returns a DUPLICATE of the Seeds as a TensorSet.
+        ''' </summary>
+        ''' <returns></returns>
+        Public Function GetSeeds() As TensorSet
+            Return _seeds.Duplicate
+        End Function
+
+        Public ReadOnly Property FurthestCluster As Integer
+            Get
+                Return Map(FurthestIndex)
+            End Get
+        End Property
+
+        Public ReadOnly Property FurthestIndex As Integer
+            Get
+                Return _furthestIndex
+            End Get
+        End Property
+
+        Public ReadOnly Property FurtherDistance As Double
+            Get
+                Return _furthestDistance
+            End Get
+        End Property
+
+        Private Property InternalSet As TensorSet
+            Get
+                Return _vset
+            End Get
+            Set(value As TensorSet)
+                _vset = value
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Splits Tensors into TensorSet clusters.
+        ''' </summary>
+        ''' <returns></returns>
+        Public Function SplitIntoSets() As List(Of TensorSet)
+            Dim nl As New List(Of TensorSet)
+
+            For i As Integer = 0 To _seeds.Count - 1 Step 1
+                nl.Add(New TensorSet)
+            Next
+
+            For i As Integer = 0 To InternalSet.Count - 1 Step 1
+                If Map(i) <> -1 Then nl(Map(i)).Add(InternalSet(i))
+            Next
+
+            Return nl
+        End Function
+
+        ''' <summary>
+        ''' Returns an array of lists with Tensor indices assigned to each of the seeds.
+        ''' </summary>
+        ''' <returns></returns>
+        Public Function SplitAsIndices() As List(Of Integer)()
+            Dim those(_seeds.Count - 1) As List(Of Integer)
+
+            For i As Integer = 0 To _seeds.Count - 1 Step 1
+                those(i) = New List(Of Integer)
+            Next
+
+            For i As Integer = 0 To Map.Count - 1 Step 1
+                If Map(i) <> -1 Then those(Map(i)).Add(i)
+            Next
+
+            Return those
+        End Function
+
+        ''' <summary>
+        ''' Returns total distance by which the seeds were moved. 
+        ''' </summary>
+        ''' <returns></returns>
+        Public Function RunOnce() As Double
+            Dim ClosestSeed(InternalSet.Count - 1) As Integer
+            Dim SeedScore(_seeds.Count - 1) As Integer
+            Dim NextSeeds As New TensorSet(_seeds.Count, _seeds(0).Length)
+
+            _furthestDistance = -1
+            _furthestIndex = -1
+
+            Dim SeedW(SeedWeights.Count - 1) As Double
+
+            For i As Integer = 0 To SeedWeights.Count - 1 Step 1
+                SeedW(i) = 1 / SeedWeights(i)
+            Next
+
+            For index As Integer = 0 To InternalSet.Count - 1 Step 1
+                Dim Idx As Integer = -1
+                Dim Dist As Double = Double.MaxValue
+
+                For i As Integer = 0 To _seeds.Count - 1 Step 1
+                    Dim ThisDist As Double = _distancefunction(_seeds(i), InternalSet(index))
+                    ThisDist *= SeedW(i)
+
+                    If ThisDist < Dist Then
+                        Dist = ThisDist
+                        Idx = i
+                    End If
+                Next
+
+                Dim mydist As Double = _distancefunction(InternalSet(index), _seeds(Idx))
+
+                If mydist > FurtherDistance Then
+                    _furthestDistance = mydist
+                    _furthestIndex = index
+                End If
+
+                ClosestSeed(index) = Idx
+                SeedScore(Idx) += 1
+            Next
+
+            For i As Integer = 0 To ClosestSeed.Length - 1 Step 1
+                NextSeeds(ClosestSeed(i)) += InternalSet(i)
+            Next
+
+            For i As Integer = 0 To NextSeeds.Count - 1 Step 1
+                If SeedScore(i) > 0 Then
+                    NextSeeds(i) /= SeedScore(i)
+                Else
+                    NextSeeds(i) = _seeds(i)
+                End If
+            Next
+
+            Dim energy As Double = 0
+
+            For i As Integer = 0 To _seeds.Count - 1 Step 1
+                energy += _distancefunction(_seeds(i), NextSeeds(i))
             Next
 
             _seeds = NextSeeds

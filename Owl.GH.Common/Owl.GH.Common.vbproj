@@ -58,8 +58,9 @@
       <HintPath>packages\Grasshopper.0.9.76\lib\net35\Grasshopper.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Owl.Core, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Owl.Core.1.1.0\lib\net452\Owl.Core.dll</HintPath>
+    <Reference Include="Owl.Core, Version=1.1.6339.20940, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\OneDrive\Builds\Owl\Owl.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Owl.Learning, Version=1.0.6334.28150, Culture=neutral, processorArchitecture=MSIL">

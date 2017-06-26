@@ -184,6 +184,69 @@ Namespace Networks
             End Set
         End Property
 
+        Public Function ComputeOptimized(Inputs As TensorSet) As TensorSet
+            Dim outputs As New TensorSet
+
+            Dim wtrans As TensorSet = Me.Weights.Duplicate
+            For i As Integer = 0 To wtrans.Count - 1 Step 1
+                wtrans(i) = Owl.Core.Images.Transpose(wtrans(i))
+            Next
+
+            For i As Integer = 0 To Inputs.Count - 1 Step 1
+                Dim thisinput As Tensor = Inputs(i).Duplicate
+                thisinput.TryReshape({1, thisinput.Length})
+
+                For j As Integer = 0 To Me.LayerCount - 1 Step 1
+                    thisinput = OptimizedMatMul(thisinput, wtrans(j))
+                    thisinput.Add(Biases(j))
+                    NeuronFunctions(j).Evaluate(thisinput)
+                Next
+
+                outputs.Add(thisinput)
+            Next
+
+            Return outputs
+        End Function
+
+        ''' <summary>
+        ''' Memory-optimizied MatMul... 
+        ''' </summary>
+        ''' <param name="TransposedMatrix"></param>
+        ''' <returns></returns>
+        Public Function OptimizedMatMul(InputTensor As Tensor, TransposedMatrix As Tensor) As Tensor
+            Dim AB As New Tensor(TransposedMatrix.Height, InputTensor.Height)
+
+            Dim da() As Double = InputTensor.TensorData
+            Dim db() As Double = TransposedMatrix.TensorData
+
+            Dim posa As Integer = 0
+            Dim posb As Integer = 0
+            Dim posc As Integer = 0
+
+            For i As Integer = 0 To InputTensor.Height - 1 Step 1
+
+                posa = i * InputTensor.Width
+                posb = 0
+
+                For j As Integer = 0 To TransposedMatrix.Height - 1 Step 1
+
+                    Dim sum As Double = 0
+
+                    For k As Integer = 0 To InputTensor.Width - 1 Step 1
+                        sum += da(posa + k) * db(posb + k)
+                    Next
+
+                    AB.TensorData(posc) = sum
+
+                    posb += InputTensor.Width
+                    posc += 1
+
+                Next
+            Next
+
+            Return AB
+        End Function
+
         Public Overrides Function Compute(InputTensor As Tensor) As Tensor
             Dim thistens As Tensor = InputTensor
             For i As Integer = 0 To Me.LayerCount - 1 Step 1
@@ -199,7 +262,7 @@ Namespace Networks
         ''' <param name="LayerIndex"></param>
         ''' <returns></returns>
         Public Function ComputeLayer(InputTensor As Tensor, LayerIndex As Integer) As Tensor
-            InputTensor.TryReshape({1, InputTensor.Height})
+            InputTensor.TryReshape({1, InputTensor.Length})
             Dim tsum As Tensor = Tensor.MatMul(InputTensor, Me.Weights(LayerIndex))
             tsum.Add(Biases(LayerIndex))
             NeuronFunctions(LayerIndex).Evaluate(tsum)
