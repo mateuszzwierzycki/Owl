@@ -60,53 +60,55 @@ Public Class QLearning
         qAdjacency = q.GetAdjacencyMatrix
     End Sub
 
-    Public Sub Run(Episodes As Integer, MaxTrials As Integer)
+    Public Sub RunOnce(MaxTrials As Integer)
+        Dim currentState = Randomness.Next(r.VertexCount)
+        Dim goal = False
+        Dim safeswitch As Integer = MaxTrials
 
-        For i As Integer = 0 To Episodes - 1
-            Dim currentState = Randomness.Next(r.VertexCount)
-            Dim goal = False
-            Dim safeswitch As Integer = MaxTrials
+        Dim visited As New List(Of Integer)({currentState}) 'here the currentState is the starting point of the episode
 
-            Dim visited As New List(Of Integer)({currentState}) 'here the currentState is the starting point of the episode
+        While Not goal
 
-            While Not goal
+            safeswitch -= 1
+            If safeswitch < 0 Then Exit While
 
-                safeswitch -= 1
-                If safeswitch < 0 Then Exit While
+            Dim thisAction As Integer = -1
+            Dim thisNextState As Integer = -1
 
-                Dim thisAction As Integer = -1
-                Dim thisNextState As Integer = -1
-
-                If Randomness.NextDouble < Epsilon Then
-                    Dim possibleActions As List(Of Integer) = r.GetAdjacent(currentState, rAdjacency)
-                    Shuffle(possibleActions)
-                    thisAction = possibleActions(0)
+            If Randomness.NextDouble < Epsilon Then
+                Dim possibleActions As List(Of Integer) = r.GetAdjacent(currentState, rAdjacency)
+                thisAction = possibleActions(Randomness.Next(possibleActions.Count))
+            Else
+                If SumPossibleActions(currentState) > 0 Then
+                    Dim possibleQRewards As New List(Of Double)
+                    For Each possibleAction As Integer In q.GetAdjacent(currentState, qAdjacency)
+                        possibleQRewards.Add(q.Edges(New DirectedEdge(Of Double)(currentState, possibleAction, -1)).Value)
+                    Next
+                    thisAction = qAdjacency(currentState)(ArgMax(possibleQRewards))
                 Else
-                    If SumPossibleActions(currentState) > 0 Then
-                        Dim possibleQRewards As New List(Of Double)
-                        For Each possibleAction As Integer In q.GetAdjacent(currentState, qAdjacency)
-                            possibleQRewards.Add(q.Edges(New DirectedEdge(Of Double)(currentState, possibleAction, -1)).Value)
-                        Next
-                        thisAction = qAdjacency(currentState)(ArgMax(possibleQRewards))
-                    Else
-                        Dim possibleActions = r.GetAdjacent(currentState, rAdjacency)
-                        Shuffle(possibleActions)
-                        thisAction = possibleActions(0)
-                    End If
+                    Dim possibleActions = r.GetAdjacent(currentState, rAdjacency)
+                    thisAction = possibleActions(Randomness.Next(possibleActions.Count))
                 End If
+            End If
 
-                thisNextState = thisAction
-                Dim reward As Double = UpdateQ(currentState, thisAction, thisNextState)
-                If reward > 1 Then
-                    goal = True
-                End If
-                currentState = thisNextState
-                visited.Add(currentState)
+            thisNextState = thisAction
 
-            End While
+            Dim reward As Double = UpdateQ(currentState, thisAction, thisNextState)
+            If reward > 1 Then
+                goal = True
+            End If
 
-            Me.Episodes.Add(visited)
+            currentState = thisNextState
+            visited.Add(currentState)
 
+        End While
+
+        Episodes.Add(visited)
+    End Sub
+
+    Public Sub Run(Episodes As Integer, MaxTrials As Integer)
+        For i As Integer = 0 To Episodes - 1
+            Me.RunOnce(MaxTrials)
         Next
     End Sub
 
@@ -143,18 +145,6 @@ Public Class QLearning
             Dim actualedge = q.Edges(tk)
             q.Edges(tk) = New DirectedEdge(Of Double)(actualedge.From, actualedge.To, actualedge.Value / sum)
         Next
-    End Sub
-
-    Private Sub Shuffle(Of T)(Collection As IList(Of T))
-        Dim n = Collection.Count
-
-        While n > 1
-            n -= 1
-            Dim k = Randomness.Next(n + 1)
-            Dim value = Collection(k)
-            Collection(k) = Collection(n)
-            Collection(n) = value
-        End While
     End Sub
 
     Private Function ArgMax(Of T As IComparable)(Collection As IList(Of T)) As Integer
@@ -228,10 +218,9 @@ Public Module testing
         nr.Edges.Add(New DirectedEdge(Of Double)(1, 3, 0))
         nr.Edges.Add(New DirectedEdge(Of Double)(4, 1, 1))
 
-        Dim nq As New QLearning(nr, 0.8, 1, 10, 0.8, 1234)
-        nq.Run()
+        Dim nq As New QLearning(nr, 0.8, 1, 0.8, 1234)
+        nq.Run(100, 100)
 
         Return nq.PrintMatrix(nq.q)
-
     End Function
 End Module
