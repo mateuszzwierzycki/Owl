@@ -56,6 +56,11 @@ Public Class GH_OwlTensorSet
 
     Public Overrides Function CastFrom(source As Object) As Boolean
         Select Case source.GetType
+            Case GetType(Tensor)
+                Dim tens As Tensor = DirectCast(source, Tensor)
+                tens = tens.Duplicate
+                Me.Value = New TensorSet({tens})
+                Return True
             Case GetType(TensorSet)
                 Me.Value = DirectCast(source, TensorSet)
                 Return True

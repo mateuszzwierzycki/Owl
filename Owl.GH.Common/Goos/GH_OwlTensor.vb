@@ -59,6 +59,11 @@ Public Class GH_OwlTensor
             Case GetType(Tensor)
                 Me.Value = DirectCast(source, Tensor)
                 Return True
+            Case GetType(TensorSet)
+                Dim ts As TensorSet = DirectCast(source, TensorSet)
+                If ts.Count <> 1 Then Return False
+                Me.Value = ts(0)
+                Return True
             Case GetType(Point3d)
                 Dim asp As Point3d = source
                 Me.Value = New Tensor({asp.X, asp.Y, asp.Z})

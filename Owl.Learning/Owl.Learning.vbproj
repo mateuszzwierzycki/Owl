@@ -48,6 +48,9 @@
       <HintPath>D:\OneDrive\Builds\Owl\Owl.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Related.Core">
+      <HintPath>D:\OneDrive\SharedBuilds\PolyMesh\Related.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -103,6 +106,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Networks\NetworkBase.vb" />
+    <Compile Include="QLearning\QLearning.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

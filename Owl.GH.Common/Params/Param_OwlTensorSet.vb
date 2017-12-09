@@ -30,20 +30,20 @@ Public Class Param_OwlTensorSet
         End Get
     End Property
 
-    Protected Overrides Function PreferredCast(data As Object) As GH_OwlTensorSet
+    'Protected Overrides Function PreferredCast(data As Object) As GH_OwlTensorSet
 
-        If TypeOf data Is GH_OwlTensor Then
-            Dim d As GH_OwlTensor = data
-            Dim v As Tensor = d.Value.Duplicate
+    '    If TypeOf data Is GH_OwlTensor Then
+    '        Dim d As GH_OwlTensor = data
+    '        Dim v As Tensor = d.Value.Duplicate
 
-            Dim ts As New TensorSet()
-            ts.Add(v)
+    '        Dim ts As New TensorSet()
+    '        ts.Add(v)
 
-            Return New GH_OwlTensorSet(ts)
-        End If
+    '        Return New GH_OwlTensorSet(ts)
+    '    End If
 
-        Return Nothing
+    '    Return Nothing
 
-    End Function
+    'End Function
 
 End Class

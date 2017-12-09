@@ -3,6 +3,7 @@
 Namespace Clustering
 
     Public Delegate Function KMeansMetric(A As Tensor, B As Tensor) As Double
+    Public Delegate Function KMeansAveraging(Collection As IEnumerable(Of Tensor)) As Tensor
 
     ''' <summary>
     ''' This is a very simplified and a very limited version of the KMeansEngine.
@@ -282,6 +283,7 @@ Namespace Clustering
         Private _map As New List(Of Integer)
 
         Private _distancefunction As KMeansMetric = Nothing
+        Private _averagingfunction As KMeansAveraging = Nothing
 
         Private _furthestIndex As Integer = -1
         Private _furthestDistance As Double = 0
@@ -291,9 +293,10 @@ Namespace Clustering
         ''' Specifying a fixed number of tensors to work with is important. A dynamic collection would cause inconsistencies. 
         ''' </summary>
         ''' <param name="Tensors"></param>
-        Public Sub New(Tensors As IEnumerable(Of Tensor), DistanceFunction As KMeansMetric)
+        Public Sub New(Tensors As IEnumerable(Of Tensor), DistanceFunction As KMeansMetric, AverageFunction As KMeansAveraging)
             InternalSet.AddRange(Tensors)
             _distancefunction = DistanceFunction
+            _averagingfunction = AverageFunction
 
             For i As Integer = 0 To Tensors.Count - 1 Step 1
                 Map.Add(-1)
@@ -460,16 +463,17 @@ Namespace Clustering
                 SeedScore(Idx) += 1
             Next
 
-            For i As Integer = 0 To ClosestSeed.Length - 1 Step 1
-                NextSeeds(ClosestSeed(i)) += InternalSet(i)
+            Dim foraverage As New List(Of List(Of Tensor))
+            For i As Integer = 0 To NextSeeds.Count - 1 Step 1
+                foraverage.Add(New List(Of Tensor))
             Next
 
-            For i As Integer = 0 To NextSeeds.Count - 1 Step 1
-                If SeedScore(i) > 0 Then
-                    NextSeeds(i) /= SeedScore(i)
-                Else
-                    NextSeeds(i) = _seeds(i)
-                End If
+            For i As Integer = 0 To ClosestSeed.Length - 1 Step 1
+                foraverage(ClosestSeed(i)).Add(InternalSet(i))
+            Next
+
+            For i As Integer = 0 To foraverage.Count - 1 Step 1
+                NextSeeds(i) = _averagingfunction(foraverage(i))
             Next
 
             Dim energy As Double = 0
