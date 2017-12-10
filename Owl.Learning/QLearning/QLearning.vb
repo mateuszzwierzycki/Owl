@@ -39,14 +39,18 @@ Namespace Probability
         ''' Initialize with default values. 
         ''' </summary>
         ''' <param name="RewardGraph"></param>
-        Public Sub New(ByRef RewardGraph As DirectedGraphEdgeT(Of Double))
+        Public Sub New(RewardGraph As DirectedGraphEdgeT(Of Double))
             RGraph = RewardGraph
             QGraph = ConstructQ(RGraph)
             RAdjacency = RGraph.GetAdjacencyMatrix
             QAdjacency = QGraph.GetAdjacencyMatrix
         End Sub
 
-        Public Sub New(ByRef RewardMatrix As DirectedGraphEdgeT(Of Double), gamma As Double, alpha As Double, epsilon As Double, seed As Integer)
+        Public Sub New(RewardMatrix As DirectedGraphEdgeT(Of Double),
+                       gamma As Double,
+                       alpha As Double,
+                       epsilon As Double,
+                       seed As Integer)
             Me.Gamma = gamma
             Me.Alpha = alpha
             Me.Epsilon = epsilon
@@ -205,7 +209,7 @@ Namespace Probability
 
             Dim new_q = qsa + Alpha * (rsa + Gamma * nextVals(ArgMax(nextVals)) - qsa)
             QGraph.Edges(tk) = New DirectedEdge(Of Double)(CurrentState, Action, new_q)
-            RenormalizeRow(CurrentState)
+            'RenormalizeRow(CurrentState)
 
             Return RGraph.Edges(New DirectedEdge(Of Double)(CurrentState, Action, -1)).Value
         End Function
@@ -317,6 +321,8 @@ Namespace Probability
             nr.Edges.Add(New DirectedEdge(Of Double)(4, 1, 1))
 
             Dim nq As New QLearning(nr, 0.8, 1, 0.8, 1234)
+            nq.GoalStates.Add(0)
+
             nq.Run(100, 100)
 
             Return nq.PrintMatrix(nq.QGraph)
