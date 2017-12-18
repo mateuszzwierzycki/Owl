@@ -152,7 +152,7 @@ Namespace Probability
                     Dim possibleActions As List(Of Integer) = RGraph.GetAdjacent(currentState, RAdjacency)
                     thisAction = possibleActions(Randomness.Next(possibleActions.Count))
                 Else                                                    'going with the gradient flow
-                    If SumPossibleActions(currentState) > 0 Then        'if any possible reward in sight then follow it
+                    If SumPossibleActions(currentState) <> 0 Then       'if possible reward or penalty in sight then follow or avoid it
                         Dim possibleQRewards As New List(Of Double)
                         For Each possibleAction As Integer In QGraph.GetAdjacent(currentState, QAdjacency)
                             possibleQRewards.Add(QGraph.Edges(New DirectedEdge(Of Double)(currentState, possibleAction, -1)).Value)
