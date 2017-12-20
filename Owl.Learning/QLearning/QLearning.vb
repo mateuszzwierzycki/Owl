@@ -26,8 +26,8 @@ Namespace Probability
 
         Private Property Randomness As Random = New Random(1999)
 
-        Public RGraph As DirectedGraphEdgeT(Of Double) = Nothing
-        Public QGraph As DirectedGraphEdgeT(Of Double) = Nothing
+        Public RGraph As DGraphEdge(Of Double) = Nothing
+        Public QGraph As DGraphEdge(Of Double) = Nothing
 
         Public GoalStates As HashSet(Of Integer) = New HashSet(Of Integer)
 
@@ -39,14 +39,14 @@ Namespace Probability
         ''' Initialize with default values. 
         ''' </summary>
         ''' <param name="RewardGraph"></param>
-        Public Sub New(RewardGraph As DirectedGraphEdgeT(Of Double))
+        Public Sub New(RewardGraph As DGraphEdge(Of Double))
             RGraph = RewardGraph
             QGraph = ConstructQ(RGraph)
             RAdjacency = RGraph.GetAdjacencyMatrix
             QAdjacency = QGraph.GetAdjacencyMatrix
         End Sub
 
-        Public Sub New(RewardMatrix As DirectedGraphEdgeT(Of Double),
+        Public Sub New(RewardMatrix As DGraphEdge(Of Double),
                        gamma As Double,
                        alpha As Double,
                        epsilon As Double,
@@ -66,9 +66,9 @@ Namespace Probability
         ''' Call this method whenever changing the RGraph topology or values.
         ''' </summary>
         Public Sub UpdateCache()
-            Dim nQ As DirectedGraphEdgeT(Of Double) = ConstructQ(RGraph)
+            Dim nQ As DGraphEdge(Of Double) = ConstructQ(RGraph)
 
-            For Each te As DirectedEdge(Of Double) In QGraph.Edges
+            For Each te As DEdge(Of Double) In QGraph.Edges
                 If nQ.Edges.Contains(te) Then 'containment checks only From and To props, Value is skipped.
                     nQ.Edges(te) = te 'eventually replaces the value stored in the edge.
                 End If
@@ -84,13 +84,13 @@ Namespace Probability
         ''' </summary>
         ''' <param name="RewardMatrix"></param>
         ''' <returns></returns>
-        Public Shared Function ConstructQ(RewardMatrix As DirectedGraphEdgeT(Of Double)) As DirectedGraphEdgeT(Of Double)
-            Dim QMatrix As New DirectedGraphEdgeT(Of Double)
+        Public Shared Function ConstructQ(RewardMatrix As DGraphEdge(Of Double)) As DGraphEdge(Of Double)
+            Dim QMatrix As New DGraphEdge(Of Double)
             For Each v In RewardMatrix.Vertices
                 QMatrix.Vertices.Add(0)
             Next
-            For Each e As DirectedEdge(Of Double) In RewardMatrix.Edges
-                Dim te As New DirectedEdge(Of Double)(e.From, e.To, 0)
+            For Each e As DEdge(Of Double) In RewardMatrix.Edges
+                Dim te As New DEdge(Of Double)(e.From, e.To, 0)
                 QMatrix.Edges.Add(te)
             Next
             Return QMatrix
@@ -116,7 +116,7 @@ Namespace Probability
                 If SumPossibleActions(currentState) > 0 Then        'if any possible reward in sight then follow it
                     Dim possibleQRewards As New List(Of Double)
                     For Each possibleAction As Integer In QGraph.GetAdjacent(currentState, QAdjacency)
-                        possibleQRewards.Add(QGraph.Edges(New DirectedEdge(Of Double)(currentState, possibleAction, -1)).Value)
+                        possibleQRewards.Add(QGraph.Edges(New DEdge(Of Double)(currentState, possibleAction, -1)).Value)
                     Next
                     thisAction = QAdjacency(currentState)(ArgMax(possibleQRewards))
                 Else                                                'if no reward in sight, go random
@@ -155,7 +155,7 @@ Namespace Probability
                     If SumPossibleActions(currentState) <> 0 Then       'if possible reward or penalty in sight then follow or avoid it
                         Dim possibleQRewards As New List(Of Double)
                         For Each possibleAction As Integer In QGraph.GetAdjacent(currentState, QAdjacency)
-                            possibleQRewards.Add(QGraph.Edges(New DirectedEdge(Of Double)(currentState, possibleAction, -1)).Value)
+                            possibleQRewards.Add(QGraph.Edges(New DEdge(Of Double)(currentState, possibleAction, -1)).Value)
                         Next
                         thisAction = QAdjacency(currentState)(ArgMax(possibleQRewards))
                     Else                                                'if no reward in sight, go random
@@ -197,37 +197,37 @@ Namespace Probability
         End Function
 
         Private Function UpdateQ(CurrentState As Integer, Action As Integer, NextState As Integer) As Double
-            Dim tk As New DirectedEdge(Of Double)(CurrentState, Action, -1)
+            Dim tk As New DEdge(Of Double)(CurrentState, Action, -1)
             Dim rsa = RGraph.Edges(tk).Value
             Dim qsa = QGraph.Edges(tk).Value
 
             Dim nextConn As List(Of Integer) = QGraph.GetAdjacent(NextState, QAdjacency)
             Dim nextVals As New List(Of Double)
             For Each conn As Integer In nextConn
-                nextVals.Add(QGraph.Edges(New DirectedEdge(Of Double)(NextState, conn, -1)).Value)
+                nextVals.Add(QGraph.Edges(New DEdge(Of Double)(NextState, conn, -1)).Value)
             Next
 
             Dim new_q = qsa + Alpha * (rsa + Gamma * nextVals(ArgMax(nextVals)) - qsa)
-            QGraph.Edges(tk) = New DirectedEdge(Of Double)(CurrentState, Action, new_q)
+            QGraph.Edges(tk) = New DEdge(Of Double)(CurrentState, Action, new_q)
             'RenormalizeRow(CurrentState)
 
-            Return RGraph.Edges(New DirectedEdge(Of Double)(CurrentState, Action, -1)).Value
+            Return RGraph.Edges(New DEdge(Of Double)(CurrentState, Action, -1)).Value
         End Function
 
         Private Sub RenormalizeRow(CurrentState As Integer)
             Dim sum As Double = 0
 
             For Each con As Integer In QGraph.GetAdjacent(CurrentState, QAdjacency)
-                Dim tk As New DirectedEdge(Of Double)(CurrentState, con, -1)
+                Dim tk As New DEdge(Of Double)(CurrentState, con, -1)
                 sum += QGraph.Edges(tk).Value
             Next
 
             If sum = 0 Then Exit Sub
 
             For Each con As Integer In QGraph.GetAdjacent(CurrentState, QAdjacency)
-                Dim tk As New DirectedEdge(Of Double)(CurrentState, con, -1)
+                Dim tk As New DEdge(Of Double)(CurrentState, con, -1)
                 Dim actualedge = QGraph.Edges(tk)
-                QGraph.Edges(tk) = New DirectedEdge(Of Double)(actualedge.From, actualedge.To, actualedge.Value / sum)
+                QGraph.Edges(tk) = New DEdge(Of Double)(actualedge.From, actualedge.To, actualedge.Value / sum)
             Next
         End Sub
 
@@ -259,7 +259,7 @@ Namespace Probability
         Private Function SumPossibleActions(CurrentState As Integer) As Double
             Dim sum As Double = 0
             For Each PossibleAction As Integer In QAdjacency(CurrentState)
-                sum += QGraph.Edges(New DirectedEdge(Of Double)(CurrentState, PossibleAction, -1)).Value
+                sum += QGraph.Edges(New DEdge(Of Double)(CurrentState, PossibleAction, -1)).Value
             Next
             Return sum
         End Function
@@ -269,12 +269,12 @@ Namespace Probability
         ''' </summary>
         ''' <param name="MatrixToPrint"></param>
         ''' <returns></returns>
-        Public Function PrintMatrix(MatrixToPrint As DirectedGraphEdgeT(Of Double), Optional StringFormat As String = "0.00") As String
+        Public Function PrintMatrix(MatrixToPrint As DGraphEdge(Of Double), Optional StringFormat As String = "0.00") As String
             Dim mat(MatrixToPrint.VertexCount - 1, MatrixToPrint.VertexCount - 1) As Double
 
             For i As Integer = 0 To MatrixToPrint.VertexCount - 1
                 For Each con As Integer In MatrixToPrint.GetAdjacent(i, QAdjacency)
-                    Dim tk As New DirectedEdge(Of Double)(i, con, -1)
+                    Dim tk As New DEdge(Of Double)(i, con, -1)
                     mat(i, con) = MatrixToPrint.Edges(tk).Value
                 Next
             Next
@@ -300,7 +300,7 @@ Namespace Probability
     ''' </summary>
     Module Testing
         Private Function Test() As String
-            Dim nr As New DirectedGraphEdgeT(Of Double)
+            Dim nr As New DGraphEdge(Of Double)
 
             nr.Vertices.Add(True)
             nr.Vertices.Add(True)
@@ -308,17 +308,17 @@ Namespace Probability
             nr.Vertices.Add(True)
             nr.Vertices.Add(True)
 
-            nr.Edges.Add(New DirectedEdge(Of Double)(0, 1, 1))
-            nr.Edges.Add(New DirectedEdge(Of Double)(1, 2, 1))
-            nr.Edges.Add(New DirectedEdge(Of Double)(2, 3, 1))
-            nr.Edges.Add(New DirectedEdge(Of Double)(3, 4, 1))
-            nr.Edges.Add(New DirectedEdge(Of Double)(4, 0, 1))
+            nr.Edges.Add(New DEdge(Of Double)(0, 1, 1))
+            nr.Edges.Add(New DEdge(Of Double)(1, 2, 1))
+            nr.Edges.Add(New DEdge(Of Double)(2, 3, 1))
+            nr.Edges.Add(New DEdge(Of Double)(3, 4, 1))
+            nr.Edges.Add(New DEdge(Of Double)(4, 0, 1))
 
-            nr.Edges.Add(New DirectedEdge(Of Double)(0, 2, 0))
-            nr.Edges.Add(New DirectedEdge(Of Double)(1, 4, 1))
-            nr.Edges.Add(New DirectedEdge(Of Double)(2, 0, 10))
-            nr.Edges.Add(New DirectedEdge(Of Double)(1, 3, 0))
-            nr.Edges.Add(New DirectedEdge(Of Double)(4, 1, 1))
+            nr.Edges.Add(New DEdge(Of Double)(0, 2, 0))
+            nr.Edges.Add(New DEdge(Of Double)(1, 4, 1))
+            nr.Edges.Add(New DEdge(Of Double)(2, 0, 10))
+            nr.Edges.Add(New DEdge(Of Double)(1, 3, 0))
+            nr.Edges.Add(New DEdge(Of Double)(4, 1, 1))
 
             Dim nq As New QLearning(nr, 0.8, 1, 0.8, 1234)
             nq.GoalStates.Add(0)
