@@ -109,6 +109,7 @@
     <Compile Include="Networks\NetworkBase.vb" />
     <Compile Include="QLearning\InteractiveQL.vb" />
     <Compile Include="QLearning\QLearning.vb" />
+    <Compile Include="QLearning\test.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

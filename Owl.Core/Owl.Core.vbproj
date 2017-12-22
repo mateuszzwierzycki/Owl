@@ -118,7 +118,7 @@
     <Compile Include="Images\Image operations\ImageFunctions.vb" />
     <Compile Include="Images\Image operations\ImageOperators.vb" />
     <Compile Include="IO\TensorSerialization.vb" />
-    <Compile Include="Settings\LibrarySettings.vb" />
+    <Compile Include="Structures\Settings\LibrarySettings.vb" />
     <Compile Include="Snippets\Snippets.vb" />
     <Compile Include="Tensors\Tensor.vb" />
     <Compile Include="Tensors\TensorFactory.vb" />
