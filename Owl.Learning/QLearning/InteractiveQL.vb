@@ -4,7 +4,7 @@ Imports Related.Graphs
 
 Namespace Probability
 
-    Public Class QLearning
+    Public Class InteractiveQL
 
         ''' <summary>
         ''' Discount factor.
