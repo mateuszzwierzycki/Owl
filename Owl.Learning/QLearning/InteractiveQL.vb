@@ -4,7 +4,7 @@ Imports Related.Graphs
 
 Namespace Probability
 
-    Public Class InteractiveQL
+    Public Class QLearning
 
         ''' <summary>
         ''' Discount factor.
@@ -72,9 +72,8 @@ Namespace Probability
             Return QMatrix
         End Function
 
-        Public Sub ChooseAction(ByRef Action As Integer, ByRef NextState As Integer)
+        Public Function ChooseAction() As Integer
             Dim thisAction As Integer = -1
-            Dim thisNextState As Integer = -1
 
             If Randomness.NextDouble < Epsilon Then                 'random exploration 
                 Dim possibleActions As List(Of Integer) = QGraph.GetAdjacent(CurrentState, QAdjacency)
@@ -92,11 +91,8 @@ Namespace Probability
                 End If
             End If
 
-            thisNextState = thisAction
-
-            Action = thisAction
-            NextState = thisNextState
-        End Sub
+            Return thisAction
+        End Function
 
         Public Sub UpdateQ(CurrentState As Integer, Action As Integer, NextState As Integer, EnvironmentReward As Double)
             Dim tk As New DEdge(Of Double)(CurrentState, Action, -1)
