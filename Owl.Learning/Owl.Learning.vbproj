@@ -107,7 +107,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Networks\NetworkBase.vb" />
-    <Compile Include="QLearning\InteractiveQL.vb" />
     <Compile Include="QLearning\QLearning.vb" />
   </ItemGroup>
   <ItemGroup>

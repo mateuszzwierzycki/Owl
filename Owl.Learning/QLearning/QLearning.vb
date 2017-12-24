@@ -22,7 +22,19 @@
         ''' </summary>
         ''' <returns></returns>
         Public Property Epsilon As Double = 0.05
-        Private Property Randomness As Random = New Random(1999)
+
+        Private RndSeed As Integer = 123
+        Private Property Randomness As Random = New Random(RndSeed)
+
+        Public Property RandomSeed As Integer
+            Get
+                Return RndSeed
+            End Get
+            Set(value As Integer)
+                RndSeed = value
+                Randomness = New Random(RndSeed)
+            End Set
+        End Property
 
         Public GoalStates As HashSet(Of Integer) = New HashSet(Of Integer)
         Public CurrentState As Integer = -1
@@ -47,6 +59,12 @@
             Me.QValues = InitializeQValues(QMatrix, 0)
         End Sub
 
+        Public Sub New(QMatrix As List(Of List(Of Integer)), InitialState As Integer)
+            Me.QMatrix = QMatrix
+            Me.QValues = InitializeQValues(QMatrix, 0)
+            Me.CurrentState = InitialState
+        End Sub
+
         Public Sub New(QMatrix As List(Of List(Of Integer)), QValues As SortedList(Of Tuple(Of Integer, Integer), Double))
             Me.QMatrix = QMatrix
             Me.QValues = QValues
@@ -69,6 +87,7 @@
 
         Public Sub New(QMatrix As List(Of List(Of Integer)),
                        QValues As SortedList(Of Tuple(Of Integer, Integer), Double),
+                       Goals As HashSet(Of Integer),
                        InitialState As Integer,
                        gamma As Double,
                        alpha As Double,
@@ -76,6 +95,7 @@
                        seed As Integer)
             Me.QMatrix = QMatrix
             Me.QValues = QValues
+            Me.GoalStates = Goals
             Me.Gamma = gamma
             Me.Alpha = alpha
             Me.Epsilon = epsilon
@@ -84,7 +104,9 @@
         End Sub
 
         Public Function Duplicate() As QLearning
-            Return New QLearning(DuplicateQMatrix(QMatrix), DuplicateQValues(QValues), CurrentState, Gamma, Alpha, Epsilon, Seed)
+            If QMatrix Is Nothing Then Return Nothing
+            If QValues Is Nothing Then Return Nothing
+            Return New QLearning(DuplicateQMatrix(QMatrix), DuplicateQValues(QValues), New HashSet(Of Integer)(Me.GoalStates), CurrentState, Gamma, Alpha, Epsilon, Seed)
         End Function
 
         Public Function DuplicateQMatrix(MatrixToDuplicate As List(Of List(Of Integer))) As List(Of List(Of Integer))
@@ -111,7 +133,7 @@
         ''' <param name="QMatrix"></param>
         ''' <param name="InitialValue"></param>
         ''' <returns></returns>
-        Public Function InitializeQValues(QMatrix As List(Of List(Of Integer)), InitialValue As Double) As SortedList(Of Tuple(Of Integer, Integer), Double)
+        Public Shared Function InitializeQValues(QMatrix As List(Of List(Of Integer)), InitialValue As Double) As SortedList(Of Tuple(Of Integer, Integer), Double)
             Dim nl As New SortedList(Of Tuple(Of Integer, Integer), Double)
             For i As Integer = 0 To QMatrix.Count - 1
                 For j As Integer = 0 To QMatrix(i).Count - 1
@@ -121,6 +143,10 @@
             Return nl
         End Function
 
+        ''' <summary>
+        ''' Chooses the next Action based on the CurrentState.
+        ''' </summary>
+        ''' <returns></returns>
         Public Function ChooseAction() As Integer
             Dim thisAction As Integer = -1
 
@@ -143,6 +169,13 @@
             Return thisAction
         End Function
 
+        ''' <summary>
+        ''' Updates the QValue(CurrentState, Action) using Reward, then assigns the NextState value to CurrentState. 
+        ''' </summary>
+        ''' <param name="CurrentState"></param>
+        ''' <param name="Action"></param>
+        ''' <param name="NextState"></param>
+        ''' <param name="Reward"></param>
         Public Sub UpdateQ(CurrentState As Integer, Action As Integer, NextState As Integer, Reward As Double)
             Dim tk As New Tuple(Of Integer, Integer)(CurrentState, Action)
             Dim qsa = QValues(tk)

@@ -1,7 +1,7 @@
 ﻿Imports Grasshopper.Kernel
 
 Public Class Param_OwlTensor
-    Inherits Grasshopper.Kernel.GH_PersistentParam(Of GH_OwlTensor)
+    Inherits GH_PersistentParam(Of GH_OwlTensor)
 
     Sub New()
         MyBase.New(New GH_InstanceDescription("Tensor", "T", "Owl Tensor", "Owl", "Params"))
