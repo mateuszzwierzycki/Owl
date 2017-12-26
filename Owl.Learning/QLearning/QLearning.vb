@@ -1,4 +1,6 @@
-﻿Namespace Probability
+﻿Imports System
+
+Namespace Probability
 
     ''' <summary>
     ''' QLearning implementation with sparse matrices.
@@ -23,18 +25,11 @@
         ''' <returns></returns>
         Public Property Epsilon As Double = 0.05
 
-        Private RndSeed As Integer = 123
-        Private Property Randomness As Random = New Random(RndSeed)
-
-        Public Property RandomSeed As Integer
-            Get
-                Return RndSeed
-            End Get
-            Set(value As Integer)
-                RndSeed = value
-                Randomness = New Random(RndSeed)
-            End Set
-        End Property
+        ''' <summary>
+        ''' Shared random number generator.
+        ''' </summary>
+        ''' <returns></returns>
+        Public Shared Property Rnd As Random = New Random()
 
         Public GoalStates As HashSet(Of Integer) = New HashSet(Of Integer)
         Public CurrentState As Integer = -1
@@ -74,15 +69,13 @@
                        InitialState As Integer,
                        gamma As Double,
                        alpha As Double,
-                       epsilon As Double,
-                       seed As Integer)
+                       epsilon As Double)
             Me.QMatrix = QMatrix
             Me.QValues = InitializeQValues(QMatrix, 0)
             Me.Gamma = gamma
             Me.Alpha = alpha
             Me.Epsilon = epsilon
             Me.CurrentState = InitialState
-            Randomness = New Random(seed)
         End Sub
 
         Public Sub New(QMatrix As List(Of List(Of Integer)),
@@ -91,8 +84,7 @@
                        InitialState As Integer,
                        gamma As Double,
                        alpha As Double,
-                       epsilon As Double,
-                       seed As Integer)
+                       epsilon As Double)
             Me.QMatrix = QMatrix
             Me.QValues = QValues
             Me.GoalStates = Goals
@@ -100,20 +92,20 @@
             Me.Alpha = alpha
             Me.Epsilon = epsilon
             Me.CurrentState = InitialState
-            Randomness = New Random(seed)
         End Sub
 
         Public Function Duplicate() As QLearning
             If QMatrix Is Nothing Then Return Nothing
             If QValues Is Nothing Then Return Nothing
-            Return New QLearning(DuplicateQMatrix(QMatrix), DuplicateQValues(QValues), New HashSet(Of Integer)(Me.GoalStates), CurrentState, Gamma, Alpha, Epsilon, Seed)
+
+            Return New QLearning(DuplicateQMatrix(QMatrix), DuplicateQValues(QValues), New HashSet(Of Integer)(Me.GoalStates), CurrentState, Gamma, Alpha, Epsilon)
         End Function
 
         Public Function DuplicateQMatrix(MatrixToDuplicate As List(Of List(Of Integer))) As List(Of List(Of Integer))
             Dim nl As New List(Of List(Of Integer))
 
             For i As Integer = 0 To MatrixToDuplicate.Count - 1
-                nl.AddRange(MatrixToDuplicate(i))
+                nl.Add(MatrixToDuplicate(i))
             Next
 
             Return nl
@@ -144,15 +136,24 @@
         End Function
 
         ''' <summary>
+        ''' If the CurrentState is a goal state, choose the next state randomly.
+        ''' </summary>
+        Public Sub AssureState()
+            If Me.GoalStates.Contains(Me.CurrentState) Then
+                Me.CurrentState = Rnd.Next(Me.QMatrix.Count)
+            End If
+        End Sub
+
+        ''' <summary>
         ''' Chooses the next Action based on the CurrentState.
         ''' </summary>
         ''' <returns></returns>
         Public Function ChooseAction() As Integer
             Dim thisAction As Integer = -1
 
-            If Randomness.NextDouble < Epsilon Then                 'random exploration 
+            If Rnd.NextDouble < Epsilon Then                 'random exploration 
                 Dim possibleActions As List(Of Integer) = QMatrix(CurrentState)
-                thisAction = possibleActions(Randomness.Next(possibleActions.Count))
+                thisAction = possibleActions(Rnd.Next(possibleActions.Count))
             Else                                                    'going with the gradient flow
                 If SumPossibleActions(CurrentState) <> 0 Then       'if possible reward or penalty in sight then follow or avoid it
                     Dim possibleQRewards As New List(Of Double)
@@ -162,7 +163,7 @@
                     thisAction = QMatrix(CurrentState)(ArgMax(possibleQRewards))
                 Else                                                'if no reward in sight, go random
                     Dim possibleActions = QMatrix(CurrentState)
-                    thisAction = possibleActions(Randomness.Next(possibleActions.Count))
+                    thisAction = possibleActions(Rnd.Next(possibleActions.Count))
                 End If
             End If
 
