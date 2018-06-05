@@ -100,9 +100,9 @@
     <Compile Include="Components\OwlMultithreadedBase.vb" />
     <Compile Include="Goos\GH_OwlFilePath.vb" />
     <Compile Include="Goos\GH_OwlNetwork.vb" />
-    <Compile Include="Goos\GH_OwlQLearn.vb" />
     <Compile Include="Goos\GH_OwlTensor.vb" />
     <Compile Include="Goos\GH_OwlTensorSet.vb" />
+    <Compile Include="Goos\GH_OwlQAgent.vb" />
     <Compile Include="Goos\GH_Trigger.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -120,7 +120,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Params\Param_OwlNetwork.vb" />
-    <Compile Include="Params\Param_OwlQLearn.vb" />
+    <Compile Include="Params\Param_OwlQAgent.vb" />
     <Compile Include="Params\Param_OwlTensor.vb" />
     <Compile Include="Params\Param_OwlTensorSet.vb" />
     <Compile Include="Params\Param_Trigger.vb" />

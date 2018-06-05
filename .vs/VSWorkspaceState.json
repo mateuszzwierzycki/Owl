@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Owl.GH.Common",
-    "\\Owl.GH.Common\\Goos"
+    "\\Owl.Learning",
+    "\\Owl.Learning\\QLearning"
   ],
-  "SelectedNode": "\\Owl.GH.Common\\Owl.GH.Common.sln",
+  "SelectedNode": "\\Owl.Learning\\QLearning\\QAgent.vb",
   "PreviewInSolutionExplorer": false
 }

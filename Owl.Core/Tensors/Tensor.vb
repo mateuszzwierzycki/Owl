@@ -270,6 +270,24 @@ Namespace Tensors
             End Set
         End Property
 
+        Public Property ValueAt(Coordinates As List(Of Integer)) As Double
+            Get
+                Return Me.TensorData(CoordinateToIndex(Coordinates))
+            End Get
+            Set(value As Double)
+                Me.TensorData(CoordinateToIndex(Coordinates)) = value
+            End Set
+        End Property
+
+        Public Property ValueAt(Coordinates() As Integer) As Double
+            Get
+                Return Me.TensorData(CoordinateToIndex(Coordinates))
+            End Get
+            Set(value As Double)
+                Me.TensorData(CoordinateToIndex(Coordinates)) = value
+            End Set
+        End Property
+
         Public Property ValueAt(Coordinates As IEnumerable(Of Integer)) As Double
             Get
                 Return Me.TensorData(CoordinateToIndex(Coordinates))
@@ -333,6 +351,28 @@ Namespace Tensors
             Dim ind As Long = 0
 
             For i As Integer = 0 To Coordinates.Count - 1 Step 1
+                If Coordinates(i) > Shape(i) - 1 Then Throw New IndexOutOfRangeException("Coordinate outside of the Tensor bounds") : Exit Function
+                ind += Coordinates(i) * Multipliers(i)
+            Next
+
+            Return ind
+        End Function
+
+        Public Function CoordinateToIndex(Coordinates As List(Of Integer)) As Long
+            Dim ind As Long = 0
+
+            For i As Integer = 0 To Coordinates.Count - 1 Step 1
+                If Coordinates(i) > Shape(i) - 1 Then Throw New IndexOutOfRangeException("Coordinate outside of the Tensor bounds") : Exit Function
+                ind += Coordinates(i) * Multipliers(i)
+            Next
+
+            Return ind
+        End Function
+
+        Public Function CoordinateToIndex(Coordinates() As Integer) As Long
+            Dim ind As Long = 0
+
+            For i As Integer = 0 To Coordinates.Length - 1 Step 1
                 If Coordinates(i) > Shape(i) - 1 Then Throw New IndexOutOfRangeException("Coordinate outside of the Tensor bounds") : Exit Function
                 ind += Coordinates(i) * Multipliers(i)
             Next
