@@ -108,7 +108,6 @@
     </Compile>
     <Compile Include="Networks\NetworkBase.vb" />
     <Compile Include="QLearning\QAgent_Arrays.vb" />
-    <Compile Include="QLearning\QAgent.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
