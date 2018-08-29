@@ -3,7 +3,7 @@
 Namespace Probability
 
     ''' <summary>
-    ''' QLearning implementation with sparse matrices.
+    ''' QLearning implementation.
     ''' </summary>
     Public Class QAgent
 
@@ -21,78 +21,48 @@ Namespace Probability
         ''' <returns></returns>
         Public Property Alpha As Double = 1.0
 
-        ''' <summary>
-        ''' Probability of going random. 
-        ''' </summary>
-        ''' <returns></returns>
-        Public Property Epsilon As Double = 0.05
-
-        ''' <summary>
-        ''' Shared random number generator.
-        ''' </summary>
-        ''' <returns></returns>
         Public Property Rnd As Random = Nothing
 
         Private _rndcount As Integer = 0
         Private _rndseed As Integer = 123
 
+        Public Sub New(States As Integer, Actions As Integer, gamma As Double, alpha As Double, Optional seed As Integer = 123, Optional InitValue As Double = Double.NaN)
+            Me.QMatrix = QAgent.CreateQMatrix(States, Actions, InitValue)
+            Me.Gamma = gamma
+            Me.Alpha = alpha
+            Me.RndSeed = seed
+            Me.Rnd = New Random(seed)
+        End Sub
+
         Public Sub New(QMatrix As Tensor,
                        gamma As Double,
                        alpha As Double,
-                       epsilon As Double,
-                       Seed As Integer)
-
-            Dim statecount As Integer = QMatrix.Count
-            Dim actioncount As Integer = -1
-
-            For i As Integer = 0 To QMatrix.Height - 1
-                For j As Integer = 0 To QMatrix.Width - 1
-                    actioncount = Math.Max(actioncount, QMatrix.ValueAt(j, i))
-                Next
-            Next
+                       Optional Seed As Integer = 123)
 
             Me.QMatrix = QMatrix.Duplicate
-            InitializeQValues(Me.QMatrix, 0)
-
             Me.Gamma = gamma
             Me.Alpha = alpha
-            Me.Epsilon = epsilon
             Me.RndSeed = Seed
             Me.Rnd = New Random(Seed)
         End Sub
 
-        Public Sub New(QMatrix As List(Of List(Of Integer)),
-                       QValues As SortedList(Of Tuple(Of Integer, Integer), Double),
+        Public Sub New(QMatrix As Tensor,
                        gamma As Double,
                        alpha As Double,
-                       epsilon As Double,
-                       Seed As Integer)
+                       Seed As Integer,
+                       RndCount As Integer)
 
-            Dim statecount As Integer = QMatrix.Count
-            Dim actioncount As Integer = -1
-            For i As Integer = 0 To QMatrix.Count - 1
-                For j As Integer = 0 To QMatrix(i).Count - 1
-                    actioncount = Math.Max(actioncount, QMatrix(i)(j))
-                Next
-            Next
-
-            For i As Integer = 0 To QValues.Keys.Count - 1
-                Dim tk As Tuple(Of Integer, Integer) = QValues.Keys(i)
-                Me.QMatrix.ValueAt(tk.Item1, tk.Item2) = QValues(tk)
-            Next
-
+            Me.QMatrix = QMatrix.Duplicate
             Me.Gamma = gamma
             Me.Alpha = alpha
-            Me.Epsilon = epsilon
+            Me.Rnd = QAgent.RebuildRandom(Seed, RndCount)
             Me.RndSeed = Seed
-            Me.Rnd = New Random(Seed)
         End Sub
 
         Private Sub New(Other As QAgent)
             Me.QMatrix = Other.QMatrix.Duplicate
             Me.RndSeed = Other.RndSeed
             Me.RndCount = Other.RndCount
-            Me.Epsilon = Other.Epsilon
             Me.Gamma = Other.Gamma
             Me.Alpha = Other.Alpha
             Me.Rnd = Other.DuplicateRandom
@@ -129,33 +99,30 @@ Namespace Probability
         End Function
 
         Private Function DuplicateRandom() As System.Random
-            Return QAgent.RebuildRandom(RndSeed, RndCount)
+            Return RebuildRandom(RndSeed, RndCount)
         End Function
 
         Public Function Duplicate() As QAgent
             Return New QAgent(Me)
         End Function
 
-        ''' <summary>
-        ''' Creates a dictionary of values based on the provided (State, Action) Tensor. 
-        ''' </summary>
-        ''' <param name="QMatrix"></param>
-        ''' <param name="InitialValue"></param>
-        Public Shared Sub InitializeQValues(ByRef QMatrix As Tensor, InitialValue As Double)
+        Public Shared Function CreateQMatrix(States As Integer, Actions As Integer, InitValue As Double) As Tensor
+            Dim qm As New Tensor(States, Actions)
 
-            For i As Integer = 0 To QMatrix.Height - 1
-                For j As Integer = 0 To QMatrix.Width - 1
-                    QMatrix.ValueAt(i, j) = InitialValue
+            For i As Integer = 0 To qm.Height - 1
+                For j As Integer = 0 To qm.Width - 1
+                    qm.ValueAt(i, j) = InitValue
                 Next
             Next
 
-        End Sub
+            Return qm
+        End Function
 
         ''' <summary>
         ''' Chooses the next Action based on the CurrentState.
         ''' </summary>
         ''' <returns></returns>
-        Public Function ChooseAction(CurrentState As Integer) As Integer
+        Public Function ChooseAction(CurrentState As Integer, Epsilon As Double) As Integer
             Dim thisAction As Integer = -1
 
             If NextRandomDouble() < Epsilon Then                 'random exploration 
@@ -198,53 +165,41 @@ Namespace Probability
         ''' <param name="Reward"></param>
         Public Sub UpdateQ(CurrentState As Integer, Action As Integer, NextState As Integer, Reward As Double)
             Dim qsa As Double = QMatrix.ValueAt(CurrentState, Action)
-            Dim actionValues As New List(Of Double)
-            Dim actionIds As New List(Of Integer)
-            GetActions(NextState, actionIds, actionValues)
+            Dim actionValues As List(Of Double) = GetActions(NextState)
             Dim new_q = qsa + Alpha * (Reward + Gamma * actionValues(ArgMax(actionValues)) - qsa)
             QMatrix.ValueAt(CurrentState, Action) = new_q
         End Sub
 
         Public Function GetActionIds(State As Integer) As List(Of Integer)
             Dim ids As New List(Of Integer)
-
             For i As Integer = 0 To QMatrix.Width - 1
-                If QMatrix.ValueAt(State, i) <> -1 Then
-                    ids.Add(i)
-                End If
+                If QMatrix.ValueAt(State, i) < 0 Then Continue For
+                ids.Add(i)
             Next
-
             Return ids
         End Function
 
-        Public Sub GetActions(State As Integer, ByRef ActionID As List(Of Integer),
-                                   ByRef ActionValue As List(Of Double))
-            Dim ids As New List(Of Integer)
+        Public Function GetActions(State As Integer) As List(Of Double)
             Dim val As New List(Of Double)
-
             For i As Integer = 0 To QMatrix.Width - 1
-                If QMatrix.ValueAt(State, i) <> -1 Then
-                    ids.Add(i)
-                    val.Add(QMatrix.ValueAt(State, i))
-                End If
+                If QMatrix.ValueAt(State, i) < 0 Then Continue For
+                val.Add(QMatrix.ValueAt(State, i))
             Next
-
-            ActionID = ids
-            ActionValue = val
-        End Sub
+            Return val
+        End Function
 
         ''' <summary>
-        ''' Sums the rewards of all the possible Actions at CurrentState
+        ''' Sums the rewards of all the possible Actions at State
         ''' </summary>
-        ''' <param name="CurrentState"></param>
+        ''' <param name="State"></param>
         ''' <returns></returns>
-        Private Function SumPossibleActions(CurrentState As Integer) As Double
+        Private Function SumPossibleActions(State As Integer) As Double
             Dim sum As Double = 0
 
-            For i As Integer = 0 To QMatrix.Width - 1
-                If QMatrix.ValueAt(CurrentState, i) <> -1 Then
-                    sum += QMatrix.ValueAt(CurrentState, i)
-                End If
+            Dim acts As List(Of Double) = GetActions(State)
+            For i As Integer = 0 To acts.Count - 1
+                If QMatrix.ValueAt(State, i) < 0 Then Continue For
+                sum += (acts(i))
             Next
 
             Return sum

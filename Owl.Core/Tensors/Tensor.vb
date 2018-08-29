@@ -1,15 +1,11 @@
-﻿Imports System.Globalization
-Imports System.IO
-Imports Owl.Core.Tensors
-
-Namespace Tensors
+﻿Namespace Tensors
 
     ''' <summary>
     ''' Shapeable Tensor.
     ''' </summary>
     <Serializable>
     Public Class Tensor
-        Inherits Tensors.TensorBase
+        Inherits TensorBase
         Implements IComparable(Of Tensor)
 
         Private _dims As New List(Of Integer)
@@ -112,7 +108,6 @@ Namespace Tensors
             Shape.AddRange(Other.Shape)
             Multipliers.AddRange(Other.Multipliers)
         End Sub
-
 
         ''' <summary>
         ''' 3 10 12 32 0.0123 0.234 0.5532 ...

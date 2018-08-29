@@ -20,15 +20,15 @@ Namespace Visualization
                 Tensor3D.TrimCeiling(R.Maximum)
                 Tensor3D.Remap(R, New Range(0, 255))
 
-                Return Owl.Core.Images.ToBitmap(Tensor3D)
+            Return Images.ToBitmap(Tensor3D)
         End Function
 
         Public Function Tensor3DImage(Tensor3D As Tensor) As Bitmap
-            Return Owl.Core.Images.ToBitmap(Tensor3D)
+            Return Images.ToBitmap(Tensor3D)
         End Function
 
         Public Function Tensor2DImage(Tensor2D As Tensor) As Bitmap
-            Return Owl.Core.Images.ImageConverters.ToGrayscale(Tensor2D)
+            Return Owl.Core.Images.ImageConverters.ToGrayscale(Tensor2D, Tensor2D.GetRange)
         End Function
 
         Public Function Tensor2DImage(Tensor2D As Tensor, R As Range) As Bitmap
