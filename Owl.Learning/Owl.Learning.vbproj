@@ -48,10 +48,6 @@
       <HintPath>D:\OneDrive\Builds\Owl\Owl.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Related.Core">
-      <HintPath>D:\OneDrive\SharedBuilds\Related\Related.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
