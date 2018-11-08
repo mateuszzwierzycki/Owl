@@ -7,12 +7,13 @@ Namespace Visualization
 
     Public Module PlotFactory
 
-        ''' <summary>
-        ''' Shape = {Rows, Columns, Channel}
-        ''' </summary>
-        ''' <param name="Tensor3D"></param>
-        ''' <returns></returns>
-        Public Function Tensor3DImage(Tensor3D As Tensor, R As Range) As Bitmap
+
+		''' <summary>
+		''' Shape = {Rows, Columns, Channel}
+		''' </summary>
+		''' <param name="Tensor3D"></param>
+		''' <returns></returns>
+		Public Function Tensor3DImage(Tensor3D As Tensor, R As Range) As Bitmap
             'there is not much code here, but leaving it as it is for --questionable-- clarity.
 
             Tensor3D = Tensor3D.Duplicate

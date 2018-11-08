@@ -125,7 +125,8 @@
     <Compile Include="Params\Param_OwlTensorSet.vb" />
     <Compile Include="Params\Param_Trigger.vb" />
     <Compile Include="Classes\Trigger.vb" />
-    <Compile Include="Utils.vb" />
+    <Compile Include="Utils\Utils.vb" />
+    <Compile Include="Utils\Display.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -157,6 +158,7 @@
   <ItemGroup>
     <None Include="Resources\icon-52.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Import Project="packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

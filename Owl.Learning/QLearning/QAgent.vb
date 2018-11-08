@@ -1,6 +1,4 @@
-﻿Imports System
-
-Namespace Probability
+﻿Namespace Probability
 
     ''' <summary>
     ''' QLearning implementation.
