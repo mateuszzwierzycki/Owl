@@ -24,7 +24,7 @@
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
-    <OutputPath>D:\OneDrive\Builds\Owl\</OutputPath>
+    <OutputPath>..\AllBuild\</OutputPath>
     <DocumentationFile>Owl.GH.Common.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
@@ -33,7 +33,7 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
-    <OutputPath>D:\OneDrive\Builds\Owl\</OutputPath>
+    <OutputPath>..\AllBuild\</OutputPath>
     <DocumentationFile>Owl.GH.Common.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
@@ -50,27 +50,20 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GH_IO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
-      <HintPath>packages\Grasshopper.0.9.76\lib\net35\GH_IO.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Eto, Version=2.5.0.0, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.6.10.18308.14011\lib\net45\Eto.dll</HintPath>
     </Reference>
-    <Reference Include="Grasshopper, Version=1.0.0.20, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
-      <HintPath>packages\Grasshopper.0.9.76\lib\net35\Grasshopper.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="GH_IO, Version=6.10.18308.14010, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.6.10.18308.14011\lib\net45\GH_IO.dll</HintPath>
     </Reference>
-    <Reference Include="Owl.Core, Version=1.1.6339.20940, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\OneDrive\Builds\Owl\Owl.Core.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Grasshopper, Version=6.10.18308.14010, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.6.10.18308.14011\lib\net45\Grasshopper.dll</HintPath>
     </Reference>
-    <Reference Include="Owl.Learning, Version=1.0.6334.28150, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\OneDrive\Builds\Owl\Owl.Learning.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Rhino.UI, Version=6.10.18308.14010, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.6.10.18308.14011\lib\net45\Rhino.UI.dll</HintPath>
     </Reference>
-    <Reference Include="RhinoCommon, Version=5.1.30000.16, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
-      <HintPath>packages\RhinoCommon.5.12.50810.13095\lib\net35\RhinoCommon.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="RhinoCommon, Version=6.10.18308.14010, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.6.10.18308.14011\lib\net45\RhinoCommon.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -158,7 +151,18 @@
   <ItemGroup>
     <None Include="Resources\icon-52.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Owl.Core\Owl.Core.vbproj">
+      <Project>{af64eb7e-69ba-445b-9b97-2871c7d6d62b}</Project>
+      <Name>Owl.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Owl.Learning\Owl.Learning.vbproj">
+      <Project>{ba178b4c-249e-43c7-98e3-473baebda91b}</Project>
+      <Name>Owl.Learning</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Import Project="packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -167,8 +171,12 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets'))" />
     <Error Condition="!Exists('packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets'))" />
+    <Error Condition="!Exists('..\packages\RhinoCommon.6.10.18308.14011\build\net45\RhinoCommon.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RhinoCommon.6.10.18308.14011\build\net45\RhinoCommon.targets'))" />
+    <Error Condition="!Exists('..\packages\Grasshopper.6.10.18308.14011\build\net45\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grasshopper.6.10.18308.14011\build\net45\Grasshopper.targets'))" />
   </Target>
   <Import Project="packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets" Condition="Exists('packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets')" />
+  <Import Project="..\packages\RhinoCommon.6.10.18308.14011\build\net45\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.6.10.18308.14011\build\net45\RhinoCommon.targets')" />
+  <Import Project="..\packages\Grasshopper.6.10.18308.14011\build\net45\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.6.10.18308.14011\build\net45\Grasshopper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

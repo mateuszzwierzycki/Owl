@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2524AE26-DE99-4165-81BE-0F52E5C584F2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Owl.GH</RootNamespace>
+    <AssemblyName>Owl.GH</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>..\AllBuild\</OutputPath>
+    <DocumentationFile>Owl.GH.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>..\AllBuild\</OutputPath>
+    <DocumentationFile>Owl.GH.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Eto, Version=2.5.0.0, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.6.10.18308.14011\lib\net45\Eto.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="GH_IO, Version=6.10.18308.14010, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.6.10.18308.14011\lib\net45\GH_IO.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Grasshopper, Version=6.10.18308.14010, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.6.10.18308.14011\lib\net45\Grasshopper.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Rhino.UI, Version=6.10.18308.14010, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.6.10.18308.14011\lib\net45\Rhino.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="RhinoCommon, Version=6.10.18308.14010, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.6.10.18308.14011\lib\net45\RhinoCommon.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Grasshopper" />
+    <Import Include="Grasshopper.Kernel" />
+    <Import Include="Grasshopper.Kernel.Data" />
+    <Import Include="Grasshopper.Kernel.Types" />
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="Owl.Core" />
+    <Import Include="Owl.Core.Images" />
+    <Import Include="Owl.Core.IO" />
+    <Import Include="Owl.Core.Structures" />
+    <Import Include="Owl.Core.Tensors" />
+    <Import Include="Owl.Core.Visualization" />
+    <Import Include="Owl.GH" />
+    <Import Include="Owl.GH.Common" />
+    <Import Include="Owl.GH.My" />
+    <Import Include="Owl.GH.My.Resources" />
+    <Import Include="Owl.Learning.Clustering" />
+    <Import Include="Owl.Learning.Convolutions" />
+    <Import Include="Owl.Learning.Initializers" />
+    <Import Include="Owl.Learning.Networks" />
+    <Import Include="Owl.Learning.NeuronFunctions" />
+    <Import Include="Owl.Learning.Probability" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Threading.Tasks" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <Compile Include="Components\Owl.Learning\Reinforced\ConstructQLearn.vb" />
+    <Compile Include="Components\Owl.Learning\Reinforced\ChooseAction.vb" />
+    <Compile Include="Components\Owl.Learning\Reinforced\ConstructQMatrix.vb" />
+    <Compile Include="Components\Owl.Learning\Reinforced\DeconstructQLearn.vb" />
+    <Compile Include="Components\Owl.Learning\Reinforced\NanSource.vb" />
+    <Compile Include="Components\Owl.Learning\Reinforced\UpdateQ.vb" />
+    <Compile Include="Components\Owl.Learning\Supervised\Compute.vb" />
+    <Compile Include="Components\Owl.Learning\Supervised\ConstructNetwork.vb" />
+    <Compile Include="Components\Owl.Learning\Supervised\ConstructNetwork_Direct.vb" />
+    <Compile Include="Components\Owl.Learning\Supervised\DeconstructNetwork.vb" />
+    <Compile Include="Components\Owl.Learning\Unsupervised\ClusterDirections.vb" />
+    <Compile Include="Components\Owl\Convert\ConstructFromDataTree.vb" />
+    <Compile Include="Components\Owl\Convert\ConstructFromFeatures.vb" />
+    <Compile Include="Components\Owl\Construct\ConstructTensor.vb" />
+    <Compile Include="Components\Owl\Construct\ConstructTensorSet.vb" />
+    <Compile Include="Components\Owl\Convert\DeconstructIntoDataTree.vb" />
+    <Compile Include="Components\Owl\Convert\ConstructOneHot.vb" />
+    <Compile Include="Components\Owl\Construct\DeconstructTensor.vb" />
+    <Compile Include="Components\Owl\Construct\DeconstructTensorSet.vb" />
+    <Compile Include="Components\Owl\Display\PreviewClass.vb" />
+    <Compile Include="Components\Owl\Display\Tensor2DMesh.vb" />
+    <Compile Include="Components\Owl\Display\Tensor2DPreview.vb" />
+    <Compile Include="Components\Owl\Display\TensorSetDisplay.vb" />
+    <Compile Include="Components\Owl\Display\TensorSetPointCloud.vb" />
+    <Compile Include="Components\Owl\Display\TensorSetPolylines.vb" />
+    <Compile Include="Components\Owl\Scripting\FileWatcher.vb" />
+    <Compile Include="Components\Owl\IO\LoadBitmap.vb" />
+    <Compile Include="Components\Owl\IO\LoadTensorSet.vb" />
+    <Compile Include="Components\Owl\IO\SaveIDX.vb" />
+    <Compile Include="Components\Owl\IO\SaveTBIN.vb" />
+    <Compile Include="Components\Owl\IO\SaveTTXT.vb" />
+    <Compile Include="Components\Owl\Obsolete\TensorSetPreview_OBSOLETE.vb" />
+    <Compile Include="Components\Owl\Obsolete\TensorSetPreview_Attributes.vb" />
+    <Compile Include="Components\Owl\Scripting\ProcessScheduler.vb" />
+    <Compile Include="Components\Owl\Scripting\ScriptOutput.Designer.vb">
+      <DependentUpon>ScriptOutput.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Owl\Scripting\ScriptOutput.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Components\Owl\Scripting\RunProcess.vb" />
+    <Compile Include="Components\Owl\Scripting\RunProcess_Attributes.vb" />
+    <Compile Include="Components\Owl\Tensor\Evaluate2DTensor.vb" />
+    <Compile Include="Components\Owl\Tensor\Resize2D.vb" />
+    <Compile Include="Components\Owl\Tensor\Samples.vb" />
+    <Compile Include="Components\Owl\Tensor\TensorCrop.vb" />
+    <Compile Include="Components\Owl.Learning\Unsupervised\MarkovChain.vb" />
+    <Compile Include="Components\Owl\Tensor\Reshape.vb" />
+    <Compile Include="Components\Owl\TensorSet\PickTensor.vb" />
+    <Compile Include="Components\Owl\Tensor\TensorSplit.vb" />
+    <Compile Include="Components\Owl.Learning\Unsupervised\KMeansClustering.vb" />
+    <Compile Include="Components\Owl.Learning\Unsupervised\KMeansClusteringEx.vb" />
+    <Compile Include="Components\Owl\TensorSet\ClassesSet.vb" />
+    <Compile Include="Components\Owl\TensorSet\Average.vb" />
+    <Compile Include="Components\Owl\TensorSet\Interpolate.vb" />
+    <Compile Include="Components\Owl\TensorSet\Merge.vb" />
+    <Compile Include="Components\Owl\TensorSet\RandomSubsample.vb" />
+    <Compile Include="Components\Owl\TensorSet\Remap.vb" />
+    <Compile Include="Components\Owl\TensorSet\Shuffle.vb" />
+    <Compile Include="Components\Owl\Tensor\SortByActivations.vb" />
+    <Compile Include="Components\Owl\TensorSet\Split.vb" />
+    <Compile Include="Components\Owl\Construct\DeconstructTrigger.vb" />
+    <Compile Include="Components\Owl\TensorSet\AddNoise.vb" />
+    <Compile Include="Components\Owl\TensorSet\Trim.vb" />
+    <Compile Include="Components\Owl\Tensor\Threshold.vb" />
+    <Compile Include="OwlDescription.vb" />
+    <Compile Include="Params\Param_OwlFiles.vb" />
+    <Compile Include="Params\Param_OwlQAgent.vb" />
+    <Compile Include="Params\Param_OwlTensorFile.vb" />
+    <Compile Include="Params\Param_Trigger.vb" />
+    <Compile Include="Components\Owl\Obsolete\TensorizeCurve_OBSOLETE.vb" />
+    <Compile Include="Components\Owl\TensorSet\GetBounds.vb" />
+    <Compile Include="Components\Owl\TensorSet\TensorSetStats.vb" />
+    <Compile Include="Components\Owl\Tensor\TensorStats.vb" />
+    <Compile Include="Components\Owl\Tensor\TensorAdd.vb" />
+    <Compile Include="Components\Owl\Tensor\TensorSubtract.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Params\Param_OwlTensorSet.vb" />
+    <Compile Include="Params\Param_OwlTensor.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Components\Owl\Scripting\ScriptOutput.resx">
+      <DependentUpon>ScriptOutput.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\icon-04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-08.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-09.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-19.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-22.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-23.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-25.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-26.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-27.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-28.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-30.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-31.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-33.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-34.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-35.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-36.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-37.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-38.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-39.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-41.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-42.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-43.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-44.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-45.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-46.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-47.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-53.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-49.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-54.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Components\Owl.Learning\Supervised\Networks\" />
+    <Folder Include="Components\Owl.Learning\Supervised\Primitive\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-55.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-56.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon-80.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Owl.Core\Owl.Core.vbproj">
+      <Project>{af64eb7e-69ba-445b-9b97-2871c7d6d62b}</Project>
+      <Name>Owl.Core</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Owl.GH.Common\Owl.GH.Common.vbproj">
+      <Project>{7624672a-965d-4686-901c-c284af793c6a}</Project>
+      <Name>Owl.GH.Common</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Owl.Learning\Owl.Learning.vbproj">
+      <Project>{ba178b4c-249e-43c7-98e3-473baebda91b}</Project>
+      <Name>Owl.Learning</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)\$(ProjectName).gha"
+                  Erase "$(TargetPath)"
+  </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\RhinoCommon.6.10.18308.14011\build\net45\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.6.10.18308.14011\build\net45\RhinoCommon.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\RhinoCommon.6.10.18308.14011\build\net45\RhinoCommon.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\RhinoCommon.6.10.18308.14011\build\net45\RhinoCommon.targets'))" />
+    <Error Condition="!Exists('..\packages\Grasshopper.6.10.18308.14011\build\net45\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grasshopper.6.10.18308.14011\build\net45\Grasshopper.targets'))" />
+  </Target>
+  <Import Project="..\packages\Grasshopper.6.10.18308.14011\build\net45\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.6.10.18308.14011\build\net45\Grasshopper.targets')" />
+</Project>
