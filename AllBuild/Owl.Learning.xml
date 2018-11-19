@@ -1,0 +1,391 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Owl.Learning
+</name>
+</assembly>
+<members>
+<member name="T:Owl.Learning.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:Owl.Learning.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:Owl.Learning.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.GaussianBlur">
+ <summary>
+ Convolution({{1, 2, 1}, {2, 4, 2}, {1, 2, 1}}, 16, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.BoxBlur">
+ <summary>
+ Convolution({{1, 1, 1}, {1, 1, 1}, {1, 1, 1}}, 9, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.EdgeDetection1">
+ <summary>
+ Convolution({{-1, -1, -1}, {-1, 8, -1}, {-1, -1, -1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.EdgeDetection2">
+ <summary>
+ Convolution({{1, 0, -1}, {0, 0, 0}, {-1, 0, 1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.EdgeDetection3">
+ <summary>
+ Convolution({{0, 1, 0}, {1, -4, 1}, {0, 1, 0}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.Sharpen">
+ <summary>
+ Convolution({{0, -1, 0}, {-1, 5, -1}, {0, -1, 0}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.Emboss">
+ <summary>
+ Convolution({{-2, -1, 0}, {-1, 1, 1}, {0, 1, 2}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.EdgeEnhance1">
+ <summary>
+ Convolution({{0, 0, 0}, {-1, 1, 0}, {0, 0, 0}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.EdgeEnhance2">
+ <summary>
+ Convolution({{0, -1, 0}, {0, 1, 0}, {0, 0, 0}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.EdgeEnhance3">
+ <summary>
+ Convolution({{-1, 0, 0}, {0, 1, 0}, {0, 0, 0}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.Diagonal1">
+ <summary>
+ Convolution({{1, -1,-1}, {-1, 1, -1}, {-1,-1,1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.Diagonal2">
+ <summary>
+ Convolution({{-1, -1, 1}, {-1, 1, -1}, {1,-1,-1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.Horizontal">
+ <summary>
+ Convolution({{-1, -1, -1}, {1, 1, 1}, {-1, -1, -1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.Vertical">
+ <summary>
+ Convolution({{-1, 1, -1}, {-1, 1, -1}, {-1, 1, -1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.Ring">
+ <summary>
+ Convolution({{1, 1, 1}, {1, -1, 1}, {1, 1, 1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.Dot">
+ <summary>
+ Convolution({{-1, -1, -1}, {-1, 1, -1}, {-1, -1, -1}}, 1, 0)
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.Convolution.XFilter">
+ <summary>
+ Convolution({{1, -1, 1}, {-1, 1, -1}, {1,-1,1}}, 1, 0)
+ </summary>S
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.ImageModifier.Apply(Owl.Core.Tensors.TensorSet@,System.Boolean)">
+ <summary>
+ You can try the multithreaded method, but it was not debugged yet.
+ </summary>
+ <param name="ImageSet"></param>
+ <param name="Multithread"></param>
+</member>
+<member name="M:Owl.Learning.Convolutions.ImageModifierLayer.Apply(Owl.Core.Tensors.Tensor,System.Boolean)">
+ <summary>
+ Applies all modifiers on copies of the Image
+ </summary>
+ <param name="Image">Image to modify</param>
+ <returns>TensorImageSet storing mutiple different modification of the initial Image</returns>
+</member>
+<member name="M:Owl.Learning.Convolutions.ImageModifierLayer.Apply(Owl.Core.Tensors.TensorSet@,System.Boolean)">
+ <summary>
+ Applies each modificator to each Image in the ImageSet.
+ Number of Images = number of modificators
+ OR 
+ Number of Images = 1 AND Number of modificators = ANY
+ OR
+ Number of Images = ANY and Number of modificators = 1
+ </summary>
+ <param name="ImageSet"></param>
+</member>
+<member name="T:Owl.Learning.Convolutions.ImageNetwork">
+ <summary>
+ TODO this part is under construction.
+ </summary>
+</member>
+<member name="T:Owl.Learning.Convolutions.Normalizer">
+ <summary>
+ Scales values to conform to 0-1 range.
+ </summary>
+</member>
+<member name="T:Owl.Learning.Convolutions.Rectification">
+ <summary>
+ Any byte smaller than threshold becomes 0.
+ </summary>
+</member>
+<member name="M:Owl.Learning.Networks.Network.#ctor">
+ <summary>
+ The hardcore way.
+ </summary>
+</member>
+<member name="M:Owl.Learning.Networks.Network.#ctor(Owl.Core.Tensors.TensorSet,Owl.Core.Tensors.TensorSet,System.Collections.Generic.IEnumerable{Owl.Learning.NeuronFunctions.NeuronFunctionBase})">
+ <summary>
+ The direct way.
+ </summary>
+</member>
+<member name="M:Owl.Learning.Networks.Network.#ctor(Owl.Learning.NeuronFunctions.NeuronFunctionBase,System.Int32,System.Collections.Generic.IEnumerable{System.Int32},Owl.Learning.Initializers.InitializerBase)">
+ <summary>
+ The usual way.
+ </summary>
+ <param name="NFunction"></param>
+ <param name="Inputs"></param>
+ <param name="Neurons"></param>
+ <param name="NetworkInitializer"></param>
+</member>
+<member name="M:Owl.Learning.Networks.Network.#ctor(System.Collections.Generic.IEnumerable{Owl.Learning.NeuronFunctions.NeuronFunctionBase},System.Int32,System.Collections.Generic.IEnumerable{System.Int32},Owl.Learning.Initializers.InitializerBase)">
+ <summary>
+ The usual way.
+ </summary>
+ <param name="NFunctions"></param>
+ <param name="Inputs"></param>
+ <param name="Neurons"></param>
+ <param name="NetworkInitializer"></param>
+</member>
+<member name="P:Owl.Learning.Networks.Network.Weights">
+ <summary>
+ Direct access to the underlying arrays. Weights are stored in Tensors of form [Input, Neuron].
+ This implies the input Tensor for Compute has to be of shape [1, Input].
+ The ComputeLayer performs this reshaping before feeding the Tensor.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.Learning.Networks.Network.Biases">
+ <summary>
+ Direct access to the underlying arrays
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.Learning.Networks.Network.NeuronFunctions">
+ <summary>
+ Direct access to the underlying function per layer.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Networks.Network.OptimizedMatMul(Owl.Core.Tensors.Tensor,Owl.Core.Tensors.Tensor)">
+ <summary>
+ Memory-optimizied MatMul... 
+ </summary>
+ <param name="TransposedMatrix"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Networks.Network.ComputeLayer(Owl.Core.Tensors.Tensor,System.Int32)">
+ <summary>
+ Input tensor gets always reshaped into a [1, length] matrix.
+ </summary>
+ <param name="InputTensor"></param>
+ <param name="LayerIndex"></param>
+ <returns></returns>
+</member>
+<member name="T:Owl.Learning.Clustering.SimplifiedKMeans">
+ <summary>
+ This is a very simplified and a very limited version of the KMeansEngine.
+ </summary>
+</member>
+<member name="T:Owl.Learning.Clustering.KMeansEngine">
+ <summary>
+ KMeans implementation. Supports multiple weights for the cluster seeds (kernels), weights for dimensions etc.
+ Might be 
+ </summary>
+</member>
+<member name="M:Owl.Learning.Clustering.KMeansEngine.#ctor(System.Collections.Generic.IEnumerable{Owl.Core.Tensors.Tensor})">
+ <summary>
+ Specifying a fixed number of tensors to work with is important. A dynamic collection would cause inconsistencies. 
+ </summary>
+ <param name="Tensors"></param>
+</member>
+<member name="M:Owl.Learning.Clustering.KMeansEngine.GetMap">
+ <summary>
+ Map is a list of integers indicating which cluster Tensor got assigned to.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.Learning.Clustering.KMeansEngine.DimensionWeights">
+ <summary>
+ There has to be the same amount of weights as there are dimensions in the Tensors.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.Learning.Clustering.KMeansEngine.SeedWeights">
+ <summary>
+ This list has to have either no weights, or the same number of weights as there are seeds.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Clustering.KMeansEngine.GetSeeds">
+ <summary>
+ Returns a DUPLICATE of the Seeds as a TensorSet.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Clustering.KMeansEngine.SplitIntoSets">
+ <summary>
+ Splits Tensors into TensorSet clusters.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Clustering.KMeansEngine.SplitAsIndices">
+ <summary>
+ Returns an array of lists with Tensor indices assigned to each of the seeds.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Clustering.KMeansEngine.RunOnce">
+ <summary>
+ Returns total distance by which the seeds were moved. 
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:Owl.Learning.Clustering.KMeansEngineMetric">
+ <summary>
+ KMeans implementation. Supports multiple weights for the cluster seeds (kernels), weights for dimensions etc.
+ Might be 
+ </summary>
+</member>
+<member name="M:Owl.Learning.Clustering.KMeansEngineMetric.#ctor(System.Collections.Generic.IEnumerable{Owl.Core.Tensors.Tensor},Owl.Learning.Clustering.KMeansMetric,Owl.Learning.Clustering.KMeansAveraging)">
+ <summary>
+ Specifying a fixed number of tensors to work with is important. A dynamic collection would cause inconsistencies. 
+ </summary>
+ <param name="Tensors"></param>
+</member>
+<member name="M:Owl.Learning.Clustering.KMeansEngineMetric.GetMap">
+ <summary>
+ Map is a list of integers indicating which cluster Tensor got assigned to.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.Learning.Clustering.KMeansEngineMetric.SeedWeights">
+ <summary>
+ This list has to have either no weights, or the same number of weights as there are seeds.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Clustering.KMeansEngineMetric.GetSeeds">
+ <summary>
+ Returns a DUPLICATE of the Seeds as a TensorSet.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Clustering.KMeansEngineMetric.SplitIntoSets">
+ <summary>
+ Splits Tensors into TensorSet clusters.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Clustering.KMeansEngineMetric.SplitAsIndices">
+ <summary>
+ Returns an array of lists with Tensor indices assigned to each of the seeds.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Clustering.KMeansEngineMetric.RunOnce">
+ <summary>
+ Returns total distance by which the seeds were moved. 
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:Owl.Learning.Probability.QAgent">
+ <summary>
+ QLearning implementation.
+ </summary>
+</member>
+<member name="P:Owl.Learning.Probability.QAgent.Gamma">
+ <summary>
+ Discount factor.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.Learning.Probability.QAgent.Alpha">
+ <summary>
+ Learning rate.
+ </summary>
+ <returns></returns>
+</member>
+<member name="P:Owl.Learning.Probability.QAgent.RndCount">
+ <summary>
+ Counts how many times was the Rnd evaluated. 
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Probability.QAgent.ChooseAction(System.Int32,System.Double)">
+ <summary>
+ Chooses the next Action based on the CurrentState.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Probability.QAgent.UpdateQ(System.Int32,System.Int32,System.Int32,System.Double)">
+ <summary>
+ Updates the QValue(CurrentState, Action) using Reward, then assigns the NextState value to CurrentState. 
+ </summary>
+ <param name="CurrentState"></param>
+ <param name="Action"></param>
+ <param name="NextState"></param>
+ <param name="Reward"></param>
+</member>
+<member name="M:Owl.Learning.Probability.QAgent.SumPossibleActions(System.Int32)">
+ <summary>
+ Sums the rewards of all the possible Actions at State
+ </summary>
+ <param name="State"></param>
+ <returns></returns>
+</member>
+<member name="M:Owl.Learning.Probability.QAgent.ArgMax``1(System.Collections.Generic.IList{``0})">
+ <summary>
+ Returns the index of the largest value in the list. 
+ </summary>
+ <typeparam name="T"></typeparam>
+ <param name="Collection"></param>
+ <returns></returns>
+</member>
+</members>
+</doc>

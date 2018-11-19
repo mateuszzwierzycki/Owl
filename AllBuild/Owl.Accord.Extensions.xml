@@ -1,0 +1,62 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Owl.Accord.Extensions
+</name>
+</assembly>
+<members>
+<member name="T:Owl.Accord.Extensions.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:Owl.Accord.Extensions.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:Owl.Accord.Extensions.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="M:Owl.Accord.Extensions.Learning.NetworkExtensions.TrimNetwork(Accord.Neuro.Network,System.Int32)">
+ <summary>
+ Removes layers counting from the start or from the end ogf the network.
+ </summary>
+ <param name="NetworkToTrim"></param>
+ <param name="LayersToTrim">Positive trims the input layers, negative the output layers.</param>
+ <returns></returns>
+</member>
+<member name="T:Owl.Accord.Extensions.Video.RunningCapture">
+ <summary>
+ TODO this class
+ </summary>
+</member>
+<member name="M:Owl.Accord.Extensions.Video.RunningCapture.ListDevices">
+ <summary>
+ Run after you connect a new device.
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Owl.Accord.Extensions.Video.RunningCapture.CameraTurnOn(Accord.Video.DirectShow.FilterInfo,System.Int32)">
+ <summary>
+ You can get the list of all available devices from the Devices property.
+ </summary>
+ <param name="SelectedDevice"></param>
+</member>
+<member name="T:Owl.Accord.Extensions.Video.FrameCapture">
+ <summary>
+ A simple class which can list cameras and capture single frames from them.
+ </summary>
+</member>
+<member name="M:Owl.Accord.Extensions.Video.FrameCapture.ListDevices">
+ <summary>
+ Run after you connect a new device.
+ </summary>
+ <returns></returns>
+</member>
+</members>
+</doc>
