@@ -6,6 +6,7 @@
 /Owl.Core/bin/
 /Owl.GH.Common/bin/
 /Owl.ParamSetup/Owl.ParamSetup/bin/
+/AllBuild
 
 # User-specific files
 *.suo
