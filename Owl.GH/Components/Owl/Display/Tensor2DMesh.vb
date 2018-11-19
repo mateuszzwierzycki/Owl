@@ -5,8 +5,8 @@ Public Class Tensor2DMesh
     Inherits GH_Component
 
     Public Sub New()
-        MyBase.New("Preview T2", "PT2", "Preview 2D Tensor as a mesh", "Owl.GH.Woodpecker", "Image")
-    End Sub
+		MyBase.New("Preview T2", "PT2", "Preview 2D Tensor as a mesh", "Owl", "Image")
+	End Sub
 
     Public Overrides ReadOnly Property ComponentGuid As Guid
         Get

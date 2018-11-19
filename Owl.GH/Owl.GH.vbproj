@@ -350,10 +350,7 @@
   <ItemGroup>
     <None Include="Resources\icon-54.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\Owl.Learning\Supervised\Networks\" />
-    <Folder Include="Components\Owl.Learning\Supervised\Primitive\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\icon-55.png" />
   </ItemGroup>

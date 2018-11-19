@@ -4,8 +4,11 @@ Public Class SortByActivations
     Inherits OwlComponentBase
 
     Sub New()
-        MyBase.New("Highest Activation", "High", "Indicates which dimension of the Tensor has the greatest value.", SubCategoryTensor)
-    End Sub
+		MyBase.New("Highest Activation",
+				   "High",
+				   "Indicates which dimension of the Tensor has the greatest value.",
+				   SubCategoryTensor)
+	End Sub
 
     Public Overrides ReadOnly Property ComponentGuid As Guid
         Get
