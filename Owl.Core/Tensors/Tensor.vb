@@ -1,15 +1,11 @@
-﻿Imports System.Globalization
-Imports System.IO
-Imports Owl.Core.Tensors
-
-Namespace Tensors
+﻿Namespace Tensors
 
     ''' <summary>
     ''' Shapeable Tensor.
     ''' </summary>
     <Serializable>
     Public Class Tensor
-        Inherits Tensors.TensorBase
+        Inherits TensorBase
         Implements IComparable(Of Tensor)
 
         Private _dims As New List(Of Integer)
@@ -112,7 +108,6 @@ Namespace Tensors
             Shape.AddRange(Other.Shape)
             Multipliers.AddRange(Other.Multipliers)
         End Sub
-
 
         ''' <summary>
         ''' 3 10 12 32 0.0123 0.234 0.5532 ...
@@ -257,16 +252,34 @@ Namespace Tensors
         ''' <summary>
         ''' This is only valid when the Tensor has 2D Shape
         ''' </summary>
-        ''' <param name="Column"></param>
         ''' <param name="Row"></param>
+        ''' <param name="Column"></param>
         ''' <returns></returns>
-        Public Property ValueAt(Column As Integer, Row As Integer) As Double
+        Public Property ValueAt(Row As Integer, Column As Integer) As Double
             Get
                 If Column > Me.Width - 1 Then Throw New IndexOutOfRangeException("Outside of the image bounds")
                 Return TensorData(Column + (Row * Multipliers(0)))
             End Get
             Set(value As Double)
                 TensorData(Column + (Row * Multipliers(0))) = value
+            End Set
+        End Property
+
+        Public Property ValueAt(Coordinates As List(Of Integer)) As Double
+            Get
+                Return Me.TensorData(CoordinateToIndex(Coordinates))
+            End Get
+            Set(value As Double)
+                Me.TensorData(CoordinateToIndex(Coordinates)) = value
+            End Set
+        End Property
+
+        Public Property ValueAt(Coordinates() As Integer) As Double
+            Get
+                Return Me.TensorData(CoordinateToIndex(Coordinates))
+            End Get
+            Set(value As Double)
+                Me.TensorData(CoordinateToIndex(Coordinates)) = value
             End Set
         End Property
 
@@ -340,6 +353,28 @@ Namespace Tensors
             Return ind
         End Function
 
+        Public Function CoordinateToIndex(Coordinates As List(Of Integer)) As Long
+            Dim ind As Long = 0
+
+            For i As Integer = 0 To Coordinates.Count - 1 Step 1
+                If Coordinates(i) > Shape(i) - 1 Then Throw New IndexOutOfRangeException("Coordinate outside of the Tensor bounds") : Exit Function
+                ind += Coordinates(i) * Multipliers(i)
+            Next
+
+            Return ind
+        End Function
+
+        Public Function CoordinateToIndex(Coordinates() As Integer) As Long
+            Dim ind As Long = 0
+
+            For i As Integer = 0 To Coordinates.Length - 1 Step 1
+                If Coordinates(i) > Shape(i) - 1 Then Throw New IndexOutOfRangeException("Coordinate outside of the Tensor bounds") : Exit Function
+                ind += Coordinates(i) * Multipliers(i)
+            Next
+
+            Return ind
+        End Function
+
         Public Overrides Function Duplicate() As TensorBase
             Return New Tensor(Me)
         End Function
@@ -388,7 +423,7 @@ Namespace Tensors
 
 #Region "Methods"
 
-        Public Delegate Function EvaluateExpression2D(X As Integer, Y As Integer, CurrentValue As Double) As Double
+        Public Delegate Function EvaluateExpression2D(Y As Integer, X As Integer, CurrentValue As Double) As Double
         Public Delegate Function EvaluateExpression1D(Index As Integer, CurrentValue As Double) As Double
 
         ''' <summary>
@@ -412,9 +447,9 @@ Namespace Tensors
         Public Shared Sub Evaluate(ByRef A As Tensor, Expression As EvaluateExpression2D)
             For i As Integer = 0 To A.Height - 1 Step 1
                 For j As Integer = 0 To A.Width - 1 Step 1
-                    Dim val As Double = A.ValueAt(j, i)
-                    val = Expression(j, i, val)
-                    A.ValueAt(j, i) = val
+                    Dim val As Double = A.ValueAt(i, j)
+                    val = Expression(i, j, val)
+                    A.ValueAt(i, j) = val
                 Next
             Next
         End Sub
@@ -437,10 +472,10 @@ Namespace Tensors
                     Dim thisval As Double = 0
 
                     For p As Integer = 0 To A.Width - 1 Step 1
-                        thisval += B.ValueAt(j, p) * A.ValueAt(p, i)
+                        thisval += B.ValueAt(p, j) * A.ValueAt(i, p)
                     Next
 
-                    AB.ValueAt(j, i) = thisval
+                    AB.ValueAt(i, j) = thisval
                 Next
             Next
 

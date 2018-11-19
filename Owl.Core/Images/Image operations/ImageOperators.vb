@@ -1,9 +1,4 @@
-﻿Imports System.Drawing
-Imports System.Drawing.Imaging
-Imports System.Runtime.InteropServices
-Imports Owl.Core.Tensors
-Imports Owl.Core.Structures
-Imports System.IO
+﻿Imports Owl.Core.Tensors
 
 Namespace Images
     Public Module ImageOperators
