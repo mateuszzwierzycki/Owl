@@ -13,6 +13,12 @@ Public Class Evaluate2DTensor
 		End Get
 	End Property
 
+	Protected Overrides ReadOnly Property Icon As Bitmap
+		Get
+			Return My.Resources.Icons_new_01
+		End Get
+	End Property
+
 	Protected Overrides Sub RegisterInputParams(pManager As GH_InputParamManager)
 		pManager.AddParameter(New Param_OwlTensor)
 		pManager.AddPointParameter("Points", "Q", "Evaluate coordinates", GH_ParamAccess.list)

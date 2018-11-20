@@ -16,9 +16,21 @@ Public Class ListWebcams
 				   OwlComponentBase.SubCategoryDisplay)
 	End Sub
 
+	Protected Overrides ReadOnly Property Icon As Bitmap
+		Get
+			Return My.Resources.Icons_new_09
+		End Get
+	End Property
+
 	Public Overrides ReadOnly Property ComponentGuid As Guid
 		Get
 			Return New Guid("7fcb8a88-9697-48d1-a774-4414db26fd04")
+		End Get
+	End Property
+
+	Public Overrides ReadOnly Property Exposure As GH_Exposure
+		Get
+			Return GH_Exposure.tertiary
 		End Get
 	End Property
 

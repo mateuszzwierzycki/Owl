@@ -19,7 +19,13 @@ Public Class LoadBitmap
         End Get
     End Property
 
-    Protected Overrides Sub RegisterInputParams(pManager As GH_InputParamManager)
+	Protected Overrides ReadOnly Property Icon As Bitmap
+		Get
+			Return My.Resources.Icons_new_24
+		End Get
+	End Property
+
+	Protected Overrides Sub RegisterInputParams(pManager As GH_InputParamManager)
         pManager.AddParameter(New Grasshopper.Kernel.Parameters.Param_FilePath, "File Path", "F", "Bitmap to load", GH_ParamAccess.item)
         pManager.AddIntegerParameter("Format", "I", "PixelFormat", GH_ParamAccess.item, 0)
 

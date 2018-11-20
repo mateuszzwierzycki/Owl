@@ -117,17 +117,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <Compile Include="Components\Owl.Learning\Reinforced\ConstructQLearn.vb" />
-    <Compile Include="Components\Owl.Learning\Reinforced\ChooseAction.vb" />
-    <Compile Include="Components\Owl.Learning\Reinforced\ConstructQMatrix.vb" />
-    <Compile Include="Components\Owl.Learning\Reinforced\DeconstructQLearn.vb" />
-    <Compile Include="Components\Owl.Learning\Reinforced\Matrix2QMatrix.vb" />
-    <Compile Include="Components\Owl.Learning\Reinforced\NanSource.vb" />
-    <Compile Include="Components\Owl.Learning\Reinforced\UpdateQ.vb" />
-    <Compile Include="Components\Owl.Learning\Supervised\Compute.vb" />
-    <Compile Include="Components\Owl.Learning\Supervised\ConstructNetwork.vb" />
-    <Compile Include="Components\Owl.Learning\Supervised\ConstructNetwork_Direct.vb" />
-    <Compile Include="Components\Owl.Learning\Supervised\DeconstructNetwork.vb" />
+    <Compile Include="Components\Owl.Learning\Reinforcement\1\ConstructQLearn.vb" />
+    <Compile Include="Components\Owl.Learning\Reinforcement\2\ChooseAction.vb" />
+    <Compile Include="Components\Owl.Learning\Reinforcement\1\ConstructQMatrix.vb" />
+    <Compile Include="Components\Owl.Learning\Reinforcement\1\DeconstructQLearn.vb" />
+    <Compile Include="Components\Owl.Learning\Reinforcement\2\Matrix2QMatrix.vb" />
+    <Compile Include="Components\Owl.Learning\Reinforcement\2\NanSource.vb" />
+    <Compile Include="Components\Owl.Learning\Reinforcement\2\UpdateQ.vb" />
+    <Compile Include="Components\Owl.Learning\Supervised\2\Compute.vb" />
+    <Compile Include="Components\Owl.Learning\Supervised\1\ConstructNetwork.vb" />
+    <Compile Include="Components\Owl.Learning\Supervised\1\ConstructNetwork_Direct.vb" />
+    <Compile Include="Components\Owl.Learning\Supervised\1\DeconstructNetwork.vb" />
     <Compile Include="Components\Owl.Learning\Unsupervised\ClusterDirections.vb" />
     <Compile Include="Components\Owl\Convert\ConstructFromDataTree.vb" />
     <Compile Include="Components\Owl\Convert\ConstructFromFeatures.vb" />
@@ -185,6 +185,7 @@
     <Compile Include="Components\Owl\Tensor\Threshold.vb" />
     <Compile Include="OwlDescription.vb" />
     <Compile Include="Params\Param_OwlFiles.vb" />
+    <Compile Include="Params\Param_OwlNetwork.vb" />
     <Compile Include="Params\Param_OwlQAgent.vb" />
     <Compile Include="Params\Param_OwlTensorFile.vb" />
     <Compile Include="Params\Param_Trigger.vb" />
@@ -351,7 +352,6 @@
   <ItemGroup>
     <None Include="Resources\icon-54.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\icon-55.png" />
   </ItemGroup>
@@ -378,6 +378,79 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-08.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-09.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-14.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-15.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-17.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-18.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-19.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-21.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-22.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-23.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -2,16 +2,28 @@
     Inherits GH_Component
 
     Sub New()
-		MyBase.New("ChooseAction", "Action", "Choose agent next action", "Owl.Learning", "Reinforced")
+		MyBase.New("Choose Action", "Action", "Choose agent next action", "Owl.Learning", "Reinforcement")
 	End Sub
 
-    Public Overrides ReadOnly Property ComponentGuid As Guid
-        Get
-            Return New Guid("{7B38BC76-BD51-48F2-B122-84FB91079021}")
-        End Get
-    End Property
+	Public Overrides ReadOnly Property ComponentGuid As Guid
+		Get
+			Return New Guid("{7B38BC76-BD51-48F2-B122-84FB91079021}")
+		End Get
+	End Property
 
-    Protected Overrides Sub RegisterInputParams(pManager As GH_InputParamManager)
+	Protected Overrides ReadOnly Property Icon As Bitmap
+		Get
+			Return My.Resources.Icons_new_14
+		End Get
+	End Property
+
+	Public Overrides ReadOnly Property Exposure As GH_Exposure
+		Get
+			Return GH_Exposure.secondary
+		End Get
+	End Property
+
+	Protected Overrides Sub RegisterInputParams(pManager As GH_InputParamManager)
         pManager.AddParameter(New Param_OwlQAgent)
         pManager.AddIntegerParameter("State", "S", "Current state", GH_ParamAccess.item)
         pManager.AddNumberParameter("Epsilon", "E", "Epsilon", GH_ParamAccess.item, 0.1)

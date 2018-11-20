@@ -15,19 +15,24 @@
         End Get
     End Property
 
-    'TODO icon
-    'Protected Overrides ReadOnly Property Icon As Bitmap
-    '    Get
-    '        Return My.Resources.icon_15
-    '    End Get
-    'End Property
+	Protected Overrides ReadOnly Property Icon As Bitmap
+		Get
+			Return My.Resources.Icons_new_23
+		End Get
+	End Property
 
-    Protected Overrides Sub RegisterInputParams(pManager As GH_InputParamManager)
-        pManager.AddParameter(New Param_OwlNetwork)
-        pManager.AddParameter(New Param_OwlTensorSet, "Input", "I", "Input TensorSet", GH_ParamAccess.item)
-    End Sub
+	Public Overrides ReadOnly Property Exposure As GH_Exposure
+		Get
+			Return GH_Exposure.secondary
+		End Get
+	End Property
 
-    Protected Overrides Sub RegisterOutputParams(pManager As GH_OutputParamManager)
+	Protected Overrides Sub RegisterInputParams(pManager As GH_InputParamManager)
+		pManager.AddParameter(New Param_OwlNetwork)
+		pManager.AddParameter(New Param_OwlTensorSet, "Input", "I", "Input TensorSet", GH_ParamAccess.item)
+	End Sub
+
+	Protected Overrides Sub RegisterOutputParams(pManager As GH_OutputParamManager)
         pManager.AddParameter(New Param_OwlTensorSet, "Output", "O", "Output TensorSet", GH_ParamAccess.item)
     End Sub
 

@@ -11,6 +11,12 @@ Public Class ClusterDirections
 				   "Unsupervised")
 	End Sub
 
+	Protected Overrides ReadOnly Property Icon As Bitmap
+		Get
+			Return My.Resources.Icons_new_20
+		End Get
+	End Property
+
 	Public Overrides ReadOnly Property ComponentGuid As Guid
 		Get
 			Return New Guid("{5D9D9D60-F38A-4663-A6B4-4EEDD9769499}")

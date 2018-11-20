@@ -125,6 +125,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\Backpropagation\BackOwl.vb" />
     <Compile Include="Components\Display\CameraView.vb" />
     <Compile Include="Components\Display\DisplayCompute.vb" />
     <Compile Include="Components\Display\ListWebcams.vb" />
@@ -246,6 +247,18 @@
       <Name>Owl.GH.Common</Name>
       <Private>False</Private>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-08.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-09.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons new-11.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

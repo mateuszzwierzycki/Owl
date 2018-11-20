@@ -12,17 +12,17 @@ Public Class RunProcess
         cons = New ScriptOutput
     End Sub
 
-    'Protected Overrides ReadOnly Property Icon As Bitmap
-    '    Get
-    '        Return My.Resources.icon_04
-    '    End Get
-    'End Property
+	Protected Overrides ReadOnly Property icon As Bitmap
+		Get
+			Return My.Resources.Icons_new_07
+		End Get
+	End Property
 
-    Public Overrides Sub RemovedFromDocument(document As GH_Document)
-        If Console IsNot Nothing Then Console.Hide()
-    End Sub
+	Public Overrides Sub RemovedFromDocument(document As GH_Document)
+		If Console IsNot Nothing Then Console.Hide()
+	End Sub
 
-    Public Overrides ReadOnly Property ComponentGuid As Guid
+	Public Overrides ReadOnly Property ComponentGuid As Guid
         Get
             Return New Guid("{96E27D02-24E6-42FA-8300-3CD67B5D57EF}")
         End Get

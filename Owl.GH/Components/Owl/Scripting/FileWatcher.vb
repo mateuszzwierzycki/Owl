@@ -9,20 +9,19 @@ Public Class FileWatcher
         Me.Message = DateTime.Now.ToLongTimeString
     End Sub
 
-    'TODO icon
-    'Protected Overrides ReadOnly Property Icon As Bitmap
-    '    Get
-    '        Return My.Resources.icon_04
-    '    End Get
-    'End Property
+	Protected Overrides ReadOnly Property Icon As Bitmap
+		Get
+			Return My.Resources.Icons_new_06
+		End Get
+	End Property
 
-    Public Overrides ReadOnly Property ComponentGuid As Guid
-        Get
-            Return New Guid("{E5BE32D4-6868-4A1C-A190-D46A5F046979}")
-        End Get
-    End Property
+	Public Overrides ReadOnly Property ComponentGuid As Guid
+		Get
+			Return New Guid("{E5BE32D4-6868-4A1C-A190-D46A5F046979}")
+		End Get
+	End Property
 
-    Public Overrides ReadOnly Property Exposure As GH_Exposure
+	Public Overrides ReadOnly Property Exposure As GH_Exposure
         Get
             Return GH_Exposure.primary
         End Get

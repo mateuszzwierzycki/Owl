@@ -2,7 +2,7 @@
     Inherits GH_Component
 
     Sub New()
-		MyBase.New("Construct QMatrix", "QMatrix", "Construct QMatrix", "Owl.Learning", "Reinforced")
+		MyBase.New("Construct QMatrix", "QMatrix", "Construct QMatrix", "Owl.Learning", "Reinforcement")
 	End Sub
 
     Public Overrides ReadOnly Property ComponentGuid As Guid
@@ -11,7 +11,19 @@
         End Get
     End Property
 
-    Protected Overrides Sub RegisterInputParams(pManager As GH_InputParamManager)
+	Protected Overrides ReadOnly Property Icon As Bitmap
+		Get
+			Return My.Resources.Icons_new_18
+		End Get
+	End Property
+
+	Public Overrides ReadOnly Property Exposure As GH_Exposure
+		Get
+			Return GH_Exposure.primary
+		End Get
+	End Property
+
+	Protected Overrides Sub RegisterInputParams(pManager As GH_InputParamManager)
         pManager.AddNumberParameter("Actions", "A", "Each list has to have the same amount of actions.", GH_ParamAccess.tree)
         pManager.AddIntegerParameter("Pattern", "P", "Pattern", GH_ParamAccess.list)
     End Sub

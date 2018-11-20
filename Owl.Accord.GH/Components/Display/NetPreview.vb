@@ -26,8 +26,8 @@ Public Class NetPreview
 
     Public Overrides ReadOnly Property Exposure As GH_Exposure
         Get
-            Return GH_Exposure.tertiary
-        End Get
+			Return GH_Exposure.secondary
+		End Get
     End Property
 
     Protected Overrides ReadOnly Property Icon As Bitmap

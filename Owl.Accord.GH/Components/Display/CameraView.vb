@@ -1,4 +1,5 @@
-﻿Imports Grasshopper.Kernel
+﻿Imports System.Drawing
+Imports Grasshopper.Kernel
 Imports Owl.Core.Tensors
 Imports Owl.GH.Common
 
@@ -16,6 +17,18 @@ Public Class WebcamFrameComponent
 	Public Overrides ReadOnly Property ComponentGuid As Guid
 		Get
 			Return New Guid("bf279f15-f375-4936-bcd5-c7780c5d94c6")
+		End Get
+	End Property
+
+	Protected Overrides ReadOnly Property Icon As Bitmap
+		Get
+			Return My.Resources.Icons_new_08
+		End Get
+	End Property
+
+	Public Overrides ReadOnly Property Exposure As GH_Exposure
+		Get
+			Return GH_Exposure.tertiary
 		End Get
 	End Property
 

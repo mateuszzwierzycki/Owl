@@ -21,11 +21,10 @@ Public Class Param_OwlNetwork
         Return GH_GetterResult.cancel
     End Function
 
-    'TODO icon
-    'Protected Overrides ReadOnly Property Icon As System.Drawing.Bitmap
-    '    Get
-    '        Return My.Resources.icon_01
-    '    End Get
-    'End Property
+	Protected Overrides ReadOnly Property Icon As System.Drawing.Bitmap
+		Get
+			Return My.Resources.Icons_new_12
+		End Get
+	End Property
 
 End Class

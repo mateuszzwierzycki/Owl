@@ -2,12 +2,24 @@
 	Inherits GH_Component
 
 	Sub New()
-		MyBase.New("Matrix2QMatrix", "M2Q", "Convert a spare adjacency matrix to QMatrix.", "Owl.Learning", "Reinforced")
+		MyBase.New("Matrix2QMatrix", "M2Q", "Convert a spare adjacency matrix to QMatrix.", "Owl.Learning", "Reinforcement")
 	End Sub
 
 	Public Overrides ReadOnly Property ComponentGuid As Guid
 		Get
 			Return New Guid("{CCB6854D-A62A-4401-B1DD-721E8E73FDEC}")
+		End Get
+	End Property
+
+	Protected Overrides ReadOnly Property Icon As Bitmap
+		Get
+			Return My.Resources.Icons_new_19
+		End Get
+	End Property
+
+	Public Overrides ReadOnly Property Exposure As GH_Exposure
+		Get
+			Return GH_Exposure.secondary
 		End Get
 	End Property
 

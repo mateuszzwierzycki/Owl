@@ -6,12 +6,24 @@
 				   "T",
 				   "Apply threshold filter on the Tensor",
 				   "Owl",
-				   "Image")
+				   "Tensor")
 	End Sub
 
 	Public Overrides ReadOnly Property ComponentGuid As Guid
 		Get
 			Return New Guid("{7C0A7B47-4BBF-4E8B-A2FE-0A2C0707AAB4}")
+		End Get
+	End Property
+
+	Protected Overrides ReadOnly Property Icon As Bitmap
+		Get
+			Return My.Resources.Icons_new_05
+		End Get
+	End Property
+
+	Public Overrides ReadOnly Property Exposure As GH_Exposure
+		Get
+			Return GH_Exposure.tertiary
 		End Get
 	End Property
 

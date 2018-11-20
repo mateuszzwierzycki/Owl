@@ -13,6 +13,12 @@ Public Class Samples
 		End Get
 	End Property
 
+	Protected Overrides ReadOnly Property Icon As Bitmap
+		Get
+			Return My.Resources.Icons_new_04
+		End Get
+	End Property
+
 	Protected Overrides Sub RegisterInputParams(pManager As GH_InputParamManager)
 		pManager.AddParameter(New Param_OwlTensor)
 		pManager.AddIntegerParameter("Size", "S", "Size", GH_ParamAccess.item)

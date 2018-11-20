@@ -12,12 +12,18 @@ Public Class DisplayCompute
 				   "DComp",
 				   "Computes the network output",
 				   "Owl.Accord",
-				   OwlComponentBase.SubCategoryDisplay)
+				   "Display")
 	End Sub
 
 	Protected Overrides ReadOnly Property Icon As Bitmap
 		Get
 			Return My.Resources.icon_10
+		End Get
+	End Property
+
+	Public Overrides ReadOnly Property Exposure As GH_Exposure
+		Get
+			Return GH_Exposure.primary
 		End Get
 	End Property
 

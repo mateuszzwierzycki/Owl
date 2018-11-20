@@ -37,6 +37,7 @@
 
 	Protected Overrides Sub RegisterOutputParams(pManager As GH_OutputParamManager)
 		pManager.AddGenericParameter("Sequence", "S", "Generated sequence", GH_ParamAccess.list)
+		pManager.AddIntegerParameter("Matrix", "M", "Matrix", GH_ParamAccess.tree)
 	End Sub
 
 	Protected Overrides Sub SolveInstance(DA As IGH_DataAccess)
@@ -72,10 +73,26 @@
 			Dim mc As New MarkovChain(Of IComparable)(conv, see)
 			mc.AddChain(conv)
 			DA.SetDataList(0, mc.GetSeries(asicom, cnt, dea))
+
+			'For i As Integer = 1 To Chain.Count - 1 Step 1
+			'	Dim thisk As T = Chain(i - 1)
+			'	Dim thisv As T = Chain(i)
+			'	m_prob(m_dict(thisk), m_dict(thisv)) += 1
+
+			Dim dt As New GH_Structure(Of GH_Integer)
+			Dim pth As GH_Path = DA.ParameterTargetPath(1)
+			Dim values(,) As Integer = mc.Probabilities
+
+			For i As Integer = 0 To values.GetUpperBound(0)
+				For j As Integer = 0 To values.GetUpperBound(1)
+					dt.Append(New GH_Integer(values(i, j)), pth.AppendElement(i))
+				Next
+			Next
+
+			DA.SetDataTree(1, dt)
 		Else
 			Me.AddRuntimeMessage(GH_RuntimeMessageLevel.Error, "This type of data is not comparable.")
 		End If
-
 	End Sub
 
 
