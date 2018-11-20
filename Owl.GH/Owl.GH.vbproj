@@ -121,6 +121,7 @@
     <Compile Include="Components\Owl.Learning\Reinforced\ChooseAction.vb" />
     <Compile Include="Components\Owl.Learning\Reinforced\ConstructQMatrix.vb" />
     <Compile Include="Components\Owl.Learning\Reinforced\DeconstructQLearn.vb" />
+    <Compile Include="Components\Owl.Learning\Reinforced\Matrix2QMatrix.vb" />
     <Compile Include="Components\Owl.Learning\Reinforced\NanSource.vb" />
     <Compile Include="Components\Owl.Learning\Reinforced\UpdateQ.vb" />
     <Compile Include="Components\Owl.Learning\Supervised\Compute.vb" />
