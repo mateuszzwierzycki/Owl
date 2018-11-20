@@ -1,7 +1,7 @@
 ![Logo](https://github.com/mateuszzwierzycki/Owl/blob/master/OwlLogo.png)
 
 # Owl
-The core libraries of the Owl framework.
+The libraries of the Owl framework.
 
 ## Intro
 These libraries are a basic interface for machine-learning-oriented data pre- and post-processing.
@@ -9,16 +9,13 @@ Including normalization, processing and serialization methods, some visualizatio
 Created as an open-source basis for other developers and myself.
 
 ## Solutions
-There are 3 solutions in this repository:
+There are 8 solutions in this repository:
 1. Owl.Core (the core Owl library declaring all the data types)
-2. Owl.GH.Common (the library to use when developing GH plugins which use the GH_OwlTensor etc.)
-3. Owl.ParamSetup (project showing how to setup your GH plugin to use the Owl.Core and Owl.GH.Common)
-
-## How do I use that ? 
-Take a look at the Owl.Core/Snippets folder. 
-While it's all VB, once compiled you can use it in any .NET language (IronPython, C#, F# etc.) 
-For C#-minded people who want to read the code better, there are free online VB<>C# converters.
-
-## Usage
-1. Owl.Core: Clone and build. No dependencies other than the native .NET
-2. Owl.GH.Common and Owl.ParamSetup: Clone, add refs to GH_IO and Grasshopper, build.
+2. Owl.Learning (machine learning methods)
+3. Owl.GH.Common (the library to use when developing GH plugins which use the GH_OwlTensor etc.)
+4. Owl.GH (grasshopper plugin with basic Owl components + Owl.Learning components)
+5. Owl.Accord.Extensions (methods extending Accord library to handle Owl types)
+6. Owl.Accord.GH.Common (the library to use when developing GH plugins which use the Accord-related Owl types)
+7. Owl.Accord.GH (grasshopper plugin with Accord-based components) 
+8. Owl.ParamSetup (project showing how to setup your GH plugin to use the Owl.Core and Owl.GH.Common)
+ 
