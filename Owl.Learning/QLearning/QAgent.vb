@@ -163,7 +163,7 @@
 		''' <param name="Reward"></param>
 		Public Sub UpdateQ(CurrentState As Integer, Action As Integer, NextState As Integer, Reward As Double)
 			Dim qsa As Double = QMatrix.ValueAt(CurrentState, Action)
-			Dim actionValues As List(Of Double) = GetActions(NextState)
+			Dim actionValues As List(Of Double) = GetActionValues(NextState)
 			Dim new_q = qsa + Alpha * (Reward + Gamma * actionValues(ArgMax(actionValues)) - qsa)
 			QMatrix.ValueAt(CurrentState, Action) = new_q
 		End Sub
@@ -177,7 +177,7 @@
 			Return ids
 		End Function
 
-		Public Function GetActions(State As Integer) As List(Of Double)
+		Public Function GetActionValues(State As Integer) As List(Of Double)
 			Dim val As New List(Of Double)
 			For i As Integer = 0 To QMatrix.Width - 1
 				If QMatrix.ValueAt(State, i) < 0 Then Continue For
@@ -194,10 +194,11 @@
 		Private Function SumPossibleActions(State As Integer) As Double
 			Dim sum As Double = 0
 
-			Dim acts As List(Of Double) = GetActions(State)
+			Dim acts As List(Of Integer) = GetActionIds(State)
 			For i As Integer = 0 To acts.Count - 1
-				If QMatrix.ValueAt(State, i) < 0 Then Continue For
-				sum += (acts(i))
+				Dim thisvalue As Double = QMatrix.ValueAt(State, acts(i))
+				If thisvalue < 0 Then Continue For
+				sum += thisvalue
 			Next
 
 			Return sum

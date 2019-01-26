@@ -64,9 +64,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.Owl.Accord.GH.My.MySettings
+        Friend ReadOnly Property Settings() As Global.Owl.GH.Networking.My.MySettings
             Get
-                Return Global.Owl.Accord.GH.My.MySettings.Default
+                Return Global.Owl.GH.Networking.My.MySettings.Default
             End Get
         End Property
     End Module

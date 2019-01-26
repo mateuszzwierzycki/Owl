@@ -140,9 +140,7 @@ Public MustInherit Class OwlMultiThreadedBase
         Me.ExpireSolution(True)
     End Sub
 
-
-
-    Public Sub InvokePercent(done As Integer)
+	Public Sub InvokePercent(done As Integer)
         If done = -1 Then SecretMessage = "Running"
         If done > 0 Then SecretMessage = "Processed " & done
 

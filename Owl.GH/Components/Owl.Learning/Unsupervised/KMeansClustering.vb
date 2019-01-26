@@ -58,9 +58,9 @@ Public Class KMeansClustering
         If Not DA.GetData(1, clustercount) Then Return
         If Not DA.GetData(2, iter) Then Return
 
-        Dim nkm As KMeansEngine = Owl.Learning.Clustering.Run(data, clustercount, iter, Double.Epsilon)
+		Dim nkm As KMeansEngine = Owl.Learning.Clustering.Run(data, clustercount, iter, Double.Epsilon, seed)
 
-        DA.SetDataList(0, nkm.SplitIntoSets)
+		DA.SetDataList(0, nkm.SplitIntoSets)
 
         Dim dto As New DataTree(Of Integer)
         Dim lll() As List(Of Integer) = nkm.SplitAsIndices

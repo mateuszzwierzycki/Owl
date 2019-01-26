@@ -1,7 +1,6 @@
 ﻿Imports System.Drawing
 Imports System.Drawing.Drawing2D
 Imports Accord.Neuro
-Imports Owl.Accord.Neuro
 Imports Owl.Core.Structures
 
 Namespace Visualization
