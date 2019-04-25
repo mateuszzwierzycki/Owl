@@ -86,9 +86,9 @@ Namespace Visualization
 
                         thisgp.AddLines(pts)
 
-                        Dim rndhsl As New ColorHSL(120, ((i) / (ts.Count - 1)) * 360, 1, 0.5)
+						Dim rndhsl As New ColorHSL(120, ((i) / (ts.Count)) * 360, 1, 0.5)
 
-                        Using p As Pen = New Pen(Color.FromArgb(100, ColorConversion.HSLToRGB(rndhsl)), PenThickness)
+						Using p As Pen = New Pen(Color.FromArgb(100, ColorConversion.HSLToRGB(rndhsl)), PenThickness)
                             p.LineJoin = LineJoin.Round
                             p.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round)
                             g.DrawPath(p, thisgp)
