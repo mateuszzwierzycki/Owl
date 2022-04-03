@@ -61,9 +61,10 @@ Public Class BackpropLearning
         If Not DA.GetData(5, ep) Then Return
         If Not DA.GetData(6, iter) Then Return
 
-        Dim bp As New ac.Neuro.Learning.BackPropagationLearning(nn)
-        bp.LearningRate = rate
-        bp.Momentum = mome
+        Dim bp As New BackPropagationLearning(nn) With {
+            .LearningRate = rate,
+            .Momentum = mome
+        }
 
         DA.SetData(0, nn)
         DA.SetData(1, Learn(ins.Value, outs.Value, ep, bp, iter))

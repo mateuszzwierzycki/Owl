@@ -1,10 +1,10 @@
 ﻿Imports System.Runtime.CompilerServices
 Imports Accord.Neuro
+Imports AN = Accord.Neuro
 Imports Accord.Neuro.Learning
-Imports Owl.Core.tensors
+Imports Owl.Core.Tensors
 
 Namespace Learning
-
 
     Public Module ActivationFunctions
 
@@ -29,7 +29,7 @@ Namespace Learning
                 ncounts.Add(tens.Length)
             Next
 
-            Dim nn As New ActivationNetwork(New SigmoidFunction(1), Weights(0).ShapeAt(0), ncounts.ToArray)
+            Dim nn As New ActivationNetwork(ActFunction, Weights(0).ShapeAt(0), ncounts.ToArray)
             nn.SetWeights(Weights, True)
             nn.SetThresholds(Biases)
 
