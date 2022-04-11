@@ -71,16 +71,16 @@ Public Class BackpropLearning
     End Sub
 
     Function Learn(Ins As TensorSet, Outs As TensorSet, PerEpoch As Integer, BP As BackPropagationLearning, Times As Integer) As Double
-        Dim cnt As Double = Ins.Count
+        Dim cnt As Integer = Ins.Count * Times
         Dim sum As Double = 0
 
         For j As Integer = 0 To Times - 1 Step 1
             For i As Integer = 0 To Ins.Count - 1 Step PerEpoch
-                sum = BP.RunEpoch(Ins, Outs, i, Math.Min(i + PerEpoch - 1, Ins.Count - 1))
+                sum += BP.RunEpoch(Ins, Outs, i, Math.Min(i + PerEpoch - 1, Ins.Count - 1))
             Next
         Next
 
-        Return sum
+        Return sum / cnt
     End Function
 
 End Class

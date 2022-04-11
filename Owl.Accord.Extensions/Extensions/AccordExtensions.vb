@@ -96,16 +96,23 @@ Namespace Learning
             Return net
         End Function
 
+        ''' <summary>
+        ''' Returns sum of errors
+        ''' </summary>
+        ''' <param name="Teacher"></param>
+        ''' <param name="InputSamples"></param>
+        ''' <param name="OutputSamples"></param>
+        ''' <param name="FromSample"></param>
+        ''' <param name="ToSample"></param>
+        ''' <returns></returns>
         <Extension()>
         Public Function RunEpoch(Teacher As ISupervisedLearning, InputSamples As TensorSet, OutputSamples As TensorSet, FromSample As Integer, ToSample As Integer) As Double
             Dim [error] As Double = 0.0
 
-            ' run learning procedure for all samples
             For i As Integer = FromSample To ToSample
                 [error] += Teacher.Run(InputSamples(i).TensorData, OutputSamples(i).TensorData)
             Next
 
-            ' return summary error
             Return [error]
         End Function
 
@@ -226,31 +233,5 @@ Namespace Learning
 
     End Module
 
-
-    'Public Module Testing
-
-    '    Public Sub Test()
-
-    '        Dim wpath As String = "C:\Users\Mateusz\PycharmProjects\OwlPy\Examples\Random100\Model\extraction_weights.tbin"
-    '        Dim bpath As String = "C:\Users\Mateusz\PycharmProjects\OwlPy\Examples\Random100\Model\extraction_biases.tbin"
-    '        Dim rpath As String = "C:\Users\Mateusz\PycharmProjects\OwlPy\Examples\Random100\Data\Random100_Query.idx"
-
-    '        Dim tw As TensorSet = Owl.Core.IO.LoadTensorsBinary(wpath)
-    '        Dim tb As TensorSet = Owl.Core.IO.LoadTensorsBinary(bpath)
-    '        Dim tr As TensorSet = Owl.Core.IO.LoadTensorsIDX(rpath)
-
-    '        Dim thisnet As ActivationNetwork = ReconstructNetwork(tw, tb, New TFSigmoid())
-
-    '        Dim res As New TensorSet
-
-    '        For Each tens As Tensor In tr
-    '            res.Add(New Tensor(thisnet.Compute(tens.TensorData)))
-    '        Next
-
-    '        Owl.Core.IO.SaveTensorsBinary(res, "C:/tmp/owl", "recog")
-
-    '    End Sub
-
-    'End Module
 
 End Namespace

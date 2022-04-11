@@ -87,7 +87,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackPropWithEpochs.vb" />
+    <Compile Include="Extensions\ActivationNetworkEvaluation.vb" />
     <Compile Include="Extensions\AccordExtensions.vb" />
     <Compile Include="Video\FrameCapture.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

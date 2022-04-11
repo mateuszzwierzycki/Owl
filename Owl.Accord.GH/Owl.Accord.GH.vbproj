@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\Backpropagation\BackOwl.vb" />
+    <Compile Include="Components\Network\EvaluateNetwork.vb" />
     <Compile Include="Components\Display\CameraView.vb" />
     <Compile Include="Components\Display\DisplayCompute.vb" />
     <Compile Include="Components\Display\ListWebcams.vb" />

@@ -44,6 +44,7 @@ Public Class Compute
 			outs.Add(New Tensor(nn.Compute(ins.Value(i).TensorData)))
 		Next
 
+
 		DA.SetData(0, outs)
 	End Sub
 

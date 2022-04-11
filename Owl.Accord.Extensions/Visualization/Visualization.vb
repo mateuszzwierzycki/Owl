@@ -86,7 +86,7 @@ Namespace Visualization
 								thissum += thisn.Weights(k)
 								Dim thisparam As Double = wit.ParameterAtValue(thisn.Weights(k))
 
-								Dim hsl As New Owl.Core.Structures.ColorHSL(1.0, tar.ValueAtParameter(thisparam), thisparam, lit.ValueAtParameter(thisparam))
+								Dim hsl As New ColorHSL(1.0, tar.ValueAtParameter(thisparam), thisparam, lit.ValueAtParameter(thisparam))
 
 								Using thispen As Pen = New Pen(Color.FromArgb(thisparam * 200, Core.Visualization.HSLToRGB(hsl)), LineThickness.ValueAtParameter(thisparam))
 									thispen.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round)
@@ -224,7 +224,7 @@ Namespace Visualization
 								thissum += thisn.Weights(k)
 								Dim thisparam As Double = wit.ParameterAtValue(thisn.Weights(k))
 
-								Dim hsl As New Owl.Core.Structures.ColorHSL(1.0, tar.ValueAtParameter(thisparam), thisparam, lit.ValueAtParameter(thisparam))
+								Dim hsl As New ColorHSL(1.0, tar.ValueAtParameter(thisparam), thisparam, lit.ValueAtParameter(thisparam))
 
 								Using thispen As Pen = New Pen(Color.FromArgb(thisparam * 200, Core.Visualization.HSLToRGB(hsl)), LineThickness.ValueAtParameter(thisparam))
 									thispen.SetLineCap(LineCap.Round, LineCap.Round, DashCap.Round)
