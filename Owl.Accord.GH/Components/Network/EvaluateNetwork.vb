@@ -15,12 +15,18 @@ Public Class EvaluateNetwork
                    "EvalNet",
                    "Evaluate the network for error",
                    "Owl.Accord",
-                   "Backprop")
+                   "Network")
     End Sub
 
     Public Overrides ReadOnly Property ComponentGuid As Guid
         Get
             Return New Guid("{DD60666F-CFEC-4166-8317-2B2772E67EBB}")
+        End Get
+    End Property
+
+    Protected Overrides ReadOnly Property Icon As Bitmap
+        Get
+            Return My.Resources.eval_net
         End Get
     End Property
 
